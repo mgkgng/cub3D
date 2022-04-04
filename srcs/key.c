@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/21 15:20:51 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/03 17:18:36 by min-kang         ###   ########.fr       */
+/*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
+/*   Updated: 2022/04/05 01:48:05 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3D.h"
 
-int	ft_lstsize(t_list *lst)
+void	key_hook(int key, t_gui *gui)
 {
-	int	size;
-
-	size = 0;
-	while (lst)
+	if (key == ESC)
 	{
-		size++;
-		lst = lst->next;
+		terminate(gui);
+		exit(0);
 	}
-	return (size);
+	if (key == UP) {}
+	else if (key == DOWN) {}
+	else if (key == LEFT) {}
+	else if (key == RIGHT) {}
+	gui->hook.re = true;
 }
