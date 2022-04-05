@@ -6,20 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 16:06:03 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:06:31 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-/*
-typedef struct s_gui {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-} 	t_gui;
-*/
 
 t_gui	initialize_window(int width, int height, const char *game_name)
 {
