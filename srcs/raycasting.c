@@ -18,18 +18,24 @@ t_raycast	get_raycast(t_point p1, t_point p2, t_point p3, t_point p4)
 	raycast.y4 = p4.y;
 }
 
-bool	raycasting(t_map map)
+bool	raycasting_2d(t_map map)
 {
 	t_raycast	cast;
 	double		div;
 	double		t;
 	double		u;
+	//t_point	res;
 
 	cast = get_raycast(p1, p2, map.pos, map.dir);
 	div = (cast.x1 - cast.x2) * (cast.y3 - cast.y4) - (cast.y1 - cast.y2) * (cast.x3 - cast.x4);
+	if (!div)
+		return (false);
 	t = ((cast.x1 - cast.x3) * (cast.y3 - cast.y4) - (cast.y1 - cast.y3) * (cast.x3 - cast.x4)) / div;
 	u = -((cast.x1 - cast.x2) * (cast.y1 - cast.y3) - (cast.y1 - cast.y2) * (cast.x1 - cast.x3)) / div;
 	if (t > 0 && t < 1 && u > 0)
 		return (true);
+		// res.x = cast.x1 + t * (cast.x2 - cast.x1);
+		// res.y = cast.y1 + t * (cast.y2 - cast.y1);
+		//return (res);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 15:20:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:06:03 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_gui	initialize_window(int width, int height, const char *game_name)
 	return (gui);
 }
 
-void	create_img(t_gui *gui)
+int	create_img(t_gui *gui)
 {
 	if (gui->hook.re)
 	{
@@ -50,16 +50,17 @@ void	create_img(t_gui *gui)
 	}
 }
 
-void	hook_control(t_gui *gui, t_hook *hook)
+void	hook_control(t_gui gui, t_hook *hook)
 {
 	hook->re = true;
 	mlx_key_hook(gui.win, key_hook, &hook);
-	mlx_mouse_hook(gui.win, mous_hook, &hook);
-	mlx_loop_hook(main.vars.mlx, create_game, &gui);
+	mlx_mouse_hook(gui.win, mouse_hook, &hook);
+	mlx_loop_hook(gui.mlx, &create_img, &gui);
 }
 
 int	terminate(t_game *game)
 {
+	(void) game;
 	// free, close everything
 	return (0);
 }
