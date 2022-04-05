@@ -6,11 +6,20 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/04 21:19:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/05 23:51:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	terminate_parse(char *mapstr, char **map, char *set)
+{
+	free(mapstr);
+	free(map);
+	if (set)
+		free(set);
+	return (0);
+}
 
 int	check_filename(char *file)
 {
@@ -25,31 +34,33 @@ int	check_filename(char *file)
 
 int	check_fileformat(char *mapstr, char **map)
 {
-	int	e;
 	int	i;
+	int	j;
 	int	map_width;
+	char	*set;
 
-	e = 0;
 	map_width = ft_strlen(map[0]);
 	i = -1;
-	while (!map[i])
+	while (map[++i])
 		if (ft_strlen(map[i]) != map_width)
-			e = 1;
-	// should check what kind of errors there can be.
-	if (e)
+			return (terminate_parse(mapstr, map, NULL));
+	set = ft_strdup(" 10NSWE");
+	i = -1;
+	while (map[++i])
 	{
-		free(mapstr);
-		free(map);
-		return (0);
+		j = -1;
+		while (map[i][++j])
+			if (!ft_strchr(set, map[i][j]))
+				return (terminate_parse(mapstr, map, set));
 	}
 	return (1);
 }
 
-char	**get_map(int fd)
+t_map	get_map(int fd)
 {
+	t_map	map;
 	char	*line;
 	char	*mapstr;
-	char	**map;
 
 	line = get_next_line(fd);
 	mapstr = NULL;
@@ -59,17 +70,28 @@ char	**get_map(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	map = ft_split(mapstr, '\n');
-	if (!check_fileformat(mapstr, map))
+	map.map = ft_split(mapstr, '\n');
+	if (!check_fileformat(mapstr, map.map))
 		error(4);
+	map.width = ft_strlen(map[0]);
+	map.height = 0;
+	while (map[map.height])
+		map.hegiht++;
 	return (map);
+}
+
+t_point	*get_lines(char **maps);
+{
+	int	i;
+	int	j;
+	
 	
 }
 
 t_game	parse(char *file)
 {
 	int		fd;
-	char	**map;
+	t_map	map;
 
 	if (!check_filename)
 		error(2);
@@ -77,6 +99,7 @@ t_game	parse(char *file)
 	if (fd < 0)
 		error(3);
 	map = get_map(fd);
+	map.lines = get_lines(map.map);
 	
 	// ... now how to parse? how kind of categories of information?
 	close(fd);

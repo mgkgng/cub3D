@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:27:42 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/04 21:11:02 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/05 23:34:28 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	*ft_realloc(void *ptr, size_t new_size);
 char	**ft_split(char *s, char c);
 char	*ft_strcat(char *dest, const char *src);
+char	*ft_strchr(const char *s, int c);
 int		ft_strlen(char *s);
 int		ft_strcmp(char *s1, char *s2);
 char	*get_next_line(int fd);

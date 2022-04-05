@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 16:17:59 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/05 23:44:44 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef strcut s_point {
 typedef struct s_map {
 	int		width;
 	int		height;
+	char	**map;
+	t_point	*lines;
 	t_point	pos;
 	t_point	dir;
 }	t_map;
