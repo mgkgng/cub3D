@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 01:49:29 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:20:17 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	hook_control(t_gui *gui, t_hook *hook)
 	mlx_loop_hook(main.vars.mlx, create_game, &gui);
 }
 
-int	terminate(t_gui *gui)
+int	terminate(t_game *game)
 {
 	// free, close everything
 	return (0);
@@ -66,14 +66,12 @@ int	terminate(t_gui *gui)
 
 int	cub3D(t_game game)
 {
-	t_gui	gui;
-	
-	gui = initialize_window(1920, 1080, "cub3d_launching_test");
+	game.gui = initialize_window(1920, 1080, "cub3d_launching_test");
 	// 1. minilibX initialize
 	// 2. create images
 	// 3. raycasting
 	// 4. Hooks
-	hook_control(&gui, &gui.hook);
-	mlx_loop(gui.mlx);
-	return (terminate(&gui));
+	hook_control(&game.gui, &game.hook);
+	mlx_loop(game.gui.mlx);
+	return (terminate(&game));
 }

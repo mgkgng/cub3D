@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 01:41:10 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:26:07 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,20 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <math.h>
 #include <mlx.h>
 #include "libft.h"
 #include "hook.h"
 
-typedef struct s_game {
-	
-}	t_game;
+typedef strcut s_point {
+	double	x;
+	double	y;
+} t_point;
+
+typedef struct s_map {
+	t_point	pos;
+	t_point	dir;
+}	t_map;
 
 typedef struct s_gui {
 	void	*mlx;
@@ -34,12 +41,28 @@ typedef struct s_gui {
 	int		bits_per_pixel;
 	int		line_len;
 	int		endian;
-	t_hook	hook;
 } 	t_gui;
 
 typedef struct s_hook {
 	bool	re;
 }	t_hook;
+
+typedef struct s_game {
+	t_map	map;
+	t_gui	gui;
+	t_hook	hook;
+}	t_game;
+
+typedef struct s_raycast {
+	double	x1;
+	double	x2;
+	double	x3;
+	double	x4;
+	double	y1;
+	double	y2;
+	double	y3;
+	double	y4;
+}	t_raycast;
 
 /* parse */
 t_game	parse(char *file);

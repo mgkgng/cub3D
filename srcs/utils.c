@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:22:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/04 21:14:27 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/05 01:53:03 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error(int c)
 {
+	ft_putendl_fd("Error:". 2);
 	if (c == 1)
 		ft_putendl_fd("Invalid argument input.", 2);
 	if (c == 2)
