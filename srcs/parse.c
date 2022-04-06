@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 23:51:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/06 00:30:36 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ t_point	*get_lines(char **maps);
 {
 	int	i;
 	int	j;
+	int	line_index;
 	
+	while (map[i])	
 	
 }
 

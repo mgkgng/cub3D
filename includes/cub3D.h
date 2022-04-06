@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 23:44:44 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/06 00:07:17 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,21 @@
 #include "libft.h"
 #include "hook.h"
 
-typedef strcut s_point {
+typedef struct s_point {
 	double	x;
 	double	y;
 }	t_point;
+
+typedef struct s_line {
+	t_point	a;
+	t_point	b;
+}	t_line;
 
 typedef struct s_map {
 	int		width;
 	int		height;
 	char	**map;
-	t_point	*lines;
+	t_line	*lines;
 	t_point	pos;
 	t_point	dir;
 }	t_map;

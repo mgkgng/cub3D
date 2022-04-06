@@ -18,7 +18,7 @@ t_raycast	get_raycast(t_point p1, t_point p2, t_point p3, t_point p4)
 	raycast.y4 = p4.y;
 }
 
-bool	raycasting_2d(t_map map)
+bool	raycasting_2d(t_line line, t_point pos, t_point dir)
 {
 	t_raycast	cast;
 	double		div;
@@ -26,7 +26,7 @@ bool	raycasting_2d(t_map map)
 	double		u;
 	//t_point	res;
 
-	cast = get_raycast(p1, p2, map.pos, map.dir);
+	cast = get_raycast(line.a, line.b, pos, dir);
 	div = (cast.x1 - cast.x2) * (cast.y3 - cast.y4) - (cast.y1 - cast.y2) * (cast.x3 - cast.x4);
 	if (!div)
 		return (false);
