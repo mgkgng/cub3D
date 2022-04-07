@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/06 00:07:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/06 10:54:07 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 #include <fcntl.h>
 #include <math.h>
 #include <mlx.h>
+
 #include "libft.h"
 #include "hook.h"
+#include "parse.h"
 
 typedef struct s_point {
 	double	x;
@@ -30,6 +32,15 @@ typedef struct s_line {
 	t_point	a;
 	t_point	b;
 }	t_line;
+
+typedef struct s_draw {
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	int		col_floor;
+	int		col_ceil;
+}	t_draw;
 
 typedef struct s_map {
 	int		width;

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:41:17 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 01:42:39 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/06 10:53:23 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define DOWN 23
 # define LEFT 21
 # define RIGHT 5
+# define TURN_L 12
+# define TURN_R 14
 # define CLICK_L 1
 # define CLICK_R 2
 

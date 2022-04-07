@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/06 00:30:36 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/07 13:16:04 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,7 @@ int	check_fileformat(char *mapstr, char **map)
 	int	map_width;
 	char	*set;
 
-	map_width = ft_strlen(map[0]);
-	i = -1;
-	while (map[++i])
-		if (ft_strlen(map[i]) != map_width)
-			return (terminate_parse(mapstr, map, NULL));
+	// check n.1 : is there any other character than one of the ones needed to be
 	set = ft_strdup(" 10NSWE");
 	i = -1;
 	while (map[++i])
@@ -53,6 +49,7 @@ int	check_fileformat(char *mapstr, char **map)
 			if (!ft_strchr(set, map[i][j]))
 				return (terminate_parse(mapstr, map, set));
 	}
+	// check n.2 : is the map is well surrounded by wall?
 	return (1);
 }
 
@@ -73,21 +70,7 @@ t_map	get_map(int fd)
 	map.map = ft_split(mapstr, '\n');
 	if (!check_fileformat(mapstr, map.map))
 		error(4);
-	map.width = ft_strlen(map[0]);
-	map.height = 0;
-	while (map[map.height])
-		map.hegiht++;
 	return (map);
-}
-
-t_point	*get_lines(char **maps);
-{
-	int	i;
-	int	j;
-	int	line_index;
-	
-	while (map[i])	
-	
 }
 
 t_game	parse(char *file)
@@ -106,3 +89,7 @@ t_game	parse(char *file)
 	// ... now how to parse? how kind of categories of information?
 	close(fd);
 }
+
+// only thing to think about is whether it's more efficient to put the character's coordinates as
+// (0, 0) or something else. (then it must be the first element of the map should have (0,0) as its coordinates
+// and character's position should be changed as soon as it moves.)

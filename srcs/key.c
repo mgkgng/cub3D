@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 01:48:05 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/06 10:55:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ void	key_hook(int key, t_gui *gui)
 	else if (key == DOWN) {}
 	else if (key == LEFT) {}
 	else if (key == RIGHT) {}
+	else if (key == TURN_L) {}
+	else if (key == TURN_R) {}
 	gui->hook.re = true;
 }

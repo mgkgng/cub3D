@@ -18,6 +18,10 @@ t_raycast	get_raycast(t_point p1, t_point p2, t_point p3, t_point p4)
 	raycast.y4 = p4.y;
 }
 
+// 04.07 maybe i could implement this formular without necesarily use the structure.
+// the line indicated here must be actually not the really line composed by many pixels, but only
+// length of one pixel. (so actually it is rather like interseciton between point and point or between one pixel and the other one.)
+
 bool	raycasting_2d(t_line line, t_point pos, t_point dir)
 {
 	t_raycast	cast;

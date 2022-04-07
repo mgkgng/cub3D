@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 00:32:42 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/06 10:54:50 by min-kang         ###   ########.fr       */
+/*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
+/*   Updated: 2022/04/07 13:16:14 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-#define ANGLE 
+int	is_surrounded(char **map)
+{
+	int	i;
 
-/* should deal with perspective */
-/* should implement proprotional transforme func */
+	/* 가로 세로 다르게
+	/* should be the wall when if index 0 and last
+}
