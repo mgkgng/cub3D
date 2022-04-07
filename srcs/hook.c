@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:41:45 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/07 19:25:07 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/07 19:27:14 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	translate(t_map map, t_raycast *rc)
 {
 	rc->intercept += rc->slope * cos(map.theta) + sin(map.theta);
 }
-
 
 void	turn(t_map *map, int dir)
 {
