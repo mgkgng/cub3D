@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse.c                                            :+:      :+:    :+:   */
+/*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 10:40:01 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 14:14:40 by min-kang         ###   ########.fr       */
+/*   Created: 2022/04/07 17:28:41 by min-kang          #+#    #+#             */
+/*   Updated: 2022/04/07 17:34:07 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	mouse_hook(int mouse, t_hook *hook)
+t_point	digital_differential_analyzer()
 {
-	if (mouse == CLICK_L) {}
-	else if (mouse == CLICK_R) {}
+	
 }

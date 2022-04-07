@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/06 10:54:07 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:57:04 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 #include "libft.h"
 #include "hook.h"
-#include "parse.h"
+#include "raycast.h"
 
 typedef struct s_point {
 	double	x;
@@ -45,10 +45,11 @@ typedef struct s_draw {
 typedef struct s_map {
 	int		width;
 	int		height;
-	char	**map;
+	char	**map2d;
 	t_line	*lines;
 	t_point	pos;
 	t_point	dir;
+	int		theta;
 }	t_map;
 
 typedef struct s_gui {
@@ -74,14 +75,7 @@ typedef struct s_game {
 }	t_game;
 
 typedef struct s_raycast {
-	double	x1;
-	double	x2;
-	double	x3;
-	double	x4;
-	double	y1;
-	double	y2;
-	double	y3;
-	double	y4;
+	
 }	t_raycast;
 
 /* parse */

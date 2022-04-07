@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/07 13:16:04 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:54:04 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_filename(char *file)
 	int	len;
 
 	len = ft_strlen(file);
-	if (!ft_strcmp(file, ".cub"))
+	if (!ft_strcmp(file + len - 4, ".cub"))
 		return (1);
 	// there would be some more tricky cases
 	return (0);
@@ -50,6 +50,7 @@ int	check_fileformat(char *mapstr, char **map)
 				return (terminate_parse(mapstr, map, set));
 	}
 	// check n.2 : is the map is well surrounded by wall?
+	// check n.3 : is there only one character?
 	return (1);
 }
 
@@ -71,6 +72,59 @@ t_map	get_map(int fd)
 	if (!check_fileformat(mapstr, map.map))
 		error(4);
 	return (map);
+}
+
+static void	put_player_dir(t_map *map, char dir)
+{
+	if (dir == 'N')
+	{
+		map->dir.x = 0;
+		map->dir.y = -1;
+		map->theta = 270;
+	}
+	else if (dir == 'S')
+	{
+		map->dir.x = 0;
+		map->dir.y = 1;
+		map->theta = 90;
+	}
+	else if (dir == 'W')
+	{
+		map->dir.x = -1;
+		map->dir.y = 0;
+		map->theta = 180;
+	}
+	else
+	{
+		map->dir.x = 1;
+		map->dir.y = 0;
+		map->theta = 0;
+	}
+}
+
+void	put_player_info(t_map *map)
+{
+	int	i;
+	int	j;
+	char	**set;
+
+	set = ft_strdup("NSWE");
+	i = -1;
+	while (map->map2d[++i])
+	{
+		j = -1;
+		while (map->map2d[i][++j])
+		{
+			if (ft_strchr(set, map[i][j]))
+			{
+				map->pos.x = i;
+				map->pos.y = j;
+				put_player_dir(map, map[i][j]);
+				free(set);
+				return ;
+			}
+		}
+	}
 }
 
 t_game	parse(char *file)
