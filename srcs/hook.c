@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:41:45 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/07 19:27:14 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/07 20:33:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@
 
 #include "cub3D.h"
 
-void	translate(t_map map, t_raycast *rc)
+void	translate(t_map *map)
 {
-	rc->intercept += rc->slope * cos(map.theta) + sin(map.theta);
+	map->pos.x += cos(map->theta) * 0.1;
+	map->pos.y += sin(map->theta) * 0.1;
 }
 
 void	turn(t_map *map, int dir)
