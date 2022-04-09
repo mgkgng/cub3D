@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 13:56:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 15:18:14 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ int	terminate(t_game *game)
 	return (0);
 }
 
-//int	cub3D(t_game game)
-int	cub3D(void)
-{
-	t_game game;
-	
+int	cub3D(t_game game)
+{	
 	game.gui = initialize_window(100, 100, "cub3d_launching_test");
 	// 1. minilibX initialize
 	// 2. create images
