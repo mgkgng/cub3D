@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/07 19:28:08 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 13:39:12 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,21 @@ typedef struct s_game {
 }	t_game;
 
 typedef struct s_raycast {
-	
+	// f(x) = ax + b func which represents direction vector
+	float	slope;
+	float	intercept;
+	t_point	pos_vec;
 }	t_raycast;
+
+//int	cub3D(t_game game);
+int	cub3D(void);
 
 /* parse */
 t_game	parse(char *file);
 
 /* error */
 void	error(int c);
+
+void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 
 #endif

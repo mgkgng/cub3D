@@ -1,5 +1,5 @@
-SRCS =	srcs/cub3D.c srcs/key.c srcs/main.c srcs/mouse.c srcs/parse.c \
-		srcs/raycasting.c srcs/utils.c
+SRCS =	srcs/cub3D.c srcs/key.c srcs/main.c srcs/parse.c \
+		srcs/raycasting.c srcs/utils.c srcs/pixel_put.c
 
 NAME = cub3D
 
@@ -18,7 +18,9 @@ LIB_PATH = ./libft/
 all:		${NAME}
 
 ${NAME}:	${OBJS}
-			gcc ${CFLAGS} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} libft/libft.a
+			make all -C ${LIB_PATH}
+			make all -C ${MLX_PATH}
+			gcc ${CFLAGS} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} ./minilibx/libmlx.a ./libft/libft.a -fsanitize=address
 			
 .c.o:
 			gcc ${CFLAG} -I${INCLUDES} -c $< -o ${<:.c=.o}

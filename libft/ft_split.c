@@ -6,11 +6,34 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:33:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/01 12:30:51 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 13:36:19 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t		i;
+	char	*res;
+
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	if (ft_strlen(s) <= start)
+		return (ft_strdup(""));
+	res = ft_calloc(len + 1, sizeof(char));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (s[start + i] && i < len)
+	{
+		res[i] = (char) s[start + i];
+		i++;
+	}
+	return (res);
+}
 
 static int	count_size(char const *s, char c)
 {

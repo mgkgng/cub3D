@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 20:22:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 14:01:38 by min-kang         ###   ########.fr       */
+/*   Created: 2022/04/09 12:59:30 by min-kang          #+#    #+#             */
+/*   Updated: 2022/04/09 13:02:20 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	error(int c)
+//** this code should be studied and modified (or optimized.)
+//** for now, i'm using it in order to advance as soon as possible.
+
+void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color)
 {
-	ft_putstr_fd("Error:", 2);
-	if (c == 1)
-		ft_putendl_fd("Invalid argument input.", 2);
-	if (c == 2)
-		ft_putendl_fd("Wrong filename.", 2);
-	if (c == 3)
-		ft_putendl_fd("Cannot open the file.", 2);
-	if (c == 4)
-		ft_putendl_fd("Wrong file format.", 2);
-	exit(1);
+	char	*dst;
+
+	dst = gui->addr + (y * gui->line_len + x * (gui->bits_per_pixel / 8));
+	*(unsigned int *) dst = color;
 }

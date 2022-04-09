@@ -6,11 +6,16 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/07 18:54:04 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 13:27:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+// parsing should be done again.
+
+//** an idea for parsing -> after having figured out informations about the character,
+//** i'm going to make a map composed by BOOLIAN VALUES. (Wall == TRUE. Else == FALSE)
 
 int	terminate_parse(char *mapstr, char **map, char *set)
 {
@@ -36,7 +41,6 @@ int	check_fileformat(char *mapstr, char **map)
 {
 	int	i;
 	int	j;
-	int	map_width;
 	char	*set;
 
 	// check n.1 : is there any other character than one of the ones needed to be
@@ -68,13 +72,13 @@ t_map	get_map(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	map.map = ft_split(mapstr, '\n');
-	if (!check_fileformat(mapstr, map.map))
+	map.map2d = ft_split(mapstr, '\n');
+	if (!check_fileformat(mapstr, map.map2d))
 		error(4);
 	return (map);
 }
 
-static void	put_player_dir(t_map *map, char dir)
+/*static void	put_player_dir(t_map *map, char dir)
 {
 	if (dir == 'N')
 	{
@@ -100,13 +104,25 @@ static void	put_player_dir(t_map *map, char dir)
 		map->dir.y = 0;
 		map->theta = 0;
 	}
+}*/
+
+static void	put_player_dir(t_map *map, char dir)
+{
+	if (dir == 'N')
+		map->theta = 270;
+	else if (dir == 'S')
+		map->theta = 90;
+	else if (dir == 'W')
+		map->theta = 180;
+	else
+		map->theta = 0;
 }
 
 void	put_player_info(t_map *map)
 {
 	int	i;
 	int	j;
-	char	**set;
+	char	*set;
 
 	set = ft_strdup("NSWE");
 	i = -1;
@@ -115,11 +131,11 @@ void	put_player_info(t_map *map)
 		j = -1;
 		while (map->map2d[i][++j])
 		{
-			if (ft_strchr(set, map[i][j]))
+			if (ft_strchr(set, map->map2d[i][j]))
 			{
 				map->pos.x = i;
 				map->pos.y = j;
-				put_player_dir(map, map[i][j]);
+				put_player_dir(map, map->map2d[i][j]);
 				free(set);
 				return ;
 			}
@@ -130,18 +146,18 @@ void	put_player_info(t_map *map)
 t_game	parse(char *file)
 {
 	int		fd;
-	t_map	map;
+	t_game	game;
 
-	if (!check_filename)
+	if (!check_filename(file))
 		error(2);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error(3);
-	map = get_map(fd);
-	map.lines = get_lines(map.map);
+	game.map = get_map(fd);
 	
 	// ... now how to parse? how kind of categories of information?
 	close(fd);
+	return (game);
 }
 
 // only thing to think about is whether it's more efficient to put the character's coordinates as

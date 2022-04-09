@@ -6,15 +6,15 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 15:58:48 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/04 19:59:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 13:36:12 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+size_t	ft_strlen(char const *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:35:42 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/07 19:00:02 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 13:14:15 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,5 @@
 
 # define ANGLE 90
 
-typedef struct s_raycast {
-	// f(x) = ax + b func which represents direction vector
-	float	slope;
-	float	intercept;
-	t_point	pos_vec;
-}	t_raycast;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:46:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/04 20:30:24 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 13:40:04 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2)
-		error(1);
-	return (cub3D(parse(argv[1])));
+	//if (argc != 2)
+	//	error(1);
+	//return (cub3D(parse(argv[1])));
+	(void) argc;
+	(void) argv;
+	return (cub3D());
 }
