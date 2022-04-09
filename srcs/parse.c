@@ -6,16 +6,14 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 15:09:34 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 17:14:36 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// parsing should be done again.
+// Map-parsing is done. Now I need to parse for the other informations like path to every direction, color of ground and ceiling, etc...
 
-//** an idea for parsing -> after having figured out informations about the character,
-//** i'm going to make a map composed by BOOLIAN VALUES. (Wall == TRUE. Else == FALSE)
 
 int	terminate_parse(char *mapstr, char **map, char *set)
 {
@@ -58,8 +56,6 @@ int	check_fileformat(char *mapstr, char **map)
 	return (1);
 }
 
-
-
 static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
 {
 	map->pos.x = pos[0];
@@ -78,12 +74,6 @@ static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
 
 static void	put_info(t_map *map, char **map_data)
 {
-	//** what to do
-	//** 1. map_width (maximum)
-	//** 2. map_height
-	//** 3. position of the character
-	//** 4. and where it is heading to
-
 	int	max_width;
 	int	i;
 	int	j;
@@ -175,7 +165,56 @@ t_map	get_map(int fd)
 	}
 }*/
 
+int	get_color(char *colstr)
+{
+	int		col;
+	char	**rgb;
 
+	rgb = ft_split(colstr, ',');
+	col = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | (ft_atoi(rgb[2]));
+	free(rgb);
+	free(colstr);
+	return (col);
+}
+
+t_draw	put_draw(char **info)
+{
+	t_draw	draw;
+
+	draw.north = ft_strtrim(info[0] + 2, " \n");
+	draw.south = ft_strtrim(info[1] + 2, " \n");
+	draw.west = ft_strtrim(info[2] + 2, " \n");
+	draw.east = ft_strtrim(info[3] + 2, " \n");
+	draw.col_floor = p_color(ft_strtrim(info[4] + 1));
+	draw.col_ceil = put_color(ft_strtrim(info[5] + 1));
+	free(info);
+	return (draw);
+}
+
+t_draw	get_draw(int fd)
+{
+	t_draw	draw;
+	char	**info;
+	char	*line;
+	int		i;
+
+	info = ft_calloc(6, sizeof(char *));
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "WE", 2)
+			|| !ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
+			info[i++] = line;
+		else
+			free(line);
+		if (i == 6)
+			break;
+		line = get_next_line(fd);
+	}
+	if (i < 6)
+		error(5);
+	return (put_draw(info));
+}
 
 t_game	parse(char *file)
 {
@@ -187,9 +226,8 @@ t_game	parse(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error(3);
+	game.draw = get_draw(fd);
 	game.map = get_map(fd);
-	
-	// ... now how to parse? how kind of categories of information?
 	close(fd);
 	return (game);
 }

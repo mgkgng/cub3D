@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 14:30:41 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 16:41:25 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_game {
 	t_map	map;
 	t_gui	gui;
 	t_hook	hook;
+	t_draw	draw;
 }	t_game;
 
 typedef struct s_raycast {
@@ -80,8 +81,7 @@ typedef struct s_raycast {
 	t_point	pos_vec;
 }	t_raycast;
 
-//int	cub3D(t_game game);
-int	cub3D(void);
+int	cub3D(t_game game);
 
 /* parse */
 t_game	parse(char *file);
