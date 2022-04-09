@@ -6,14 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 17:14:36 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 21:13:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-// Map-parsing is done. Now I need to parse for the other informations like path to every direction, color of ground and ceiling, etc...
-
 
 int	terminate_parse(char *mapstr, char **map, char *set)
 {
@@ -180,26 +177,26 @@ int	get_color(char *colstr)
 t_draw	put_draw(char **info)
 {
 	t_draw	draw;
-
-	draw.north = ft_strtrim(info[0] + 2, " \n");
-	draw.south = ft_strtrim(info[1] + 2, " \n");
-	draw.west = ft_strtrim(info[2] + 2, " \n");
-	draw.east = ft_strtrim(info[3] + 2, " \n");
-	draw.col_floor = p_color(ft_strtrim(info[4] + 1));
-	draw.col_ceil = put_color(ft_strtrim(info[5] + 1));
+	int		i;
+	
+	i = -1;
+	while (++i < 4)
+		draw.nswe[i] = ft_strtrim(info[i] + 2, " \n");
+	draw.col_floor = get_color(ft_strtrim(info[4] + 1, " \n"));
+	draw.col_ceil = get_color(ft_strtrim(info[5] + 1, " \n"));
 	free(info);
 	return (draw);
 }
 
 t_draw	get_draw(int fd)
 {
-	t_draw	draw;
 	char	**info;
 	char	*line;
 	int		i;
 
 	info = ft_calloc(6, sizeof(char *));
 	line = get_next_line(fd);
+	i = 0;
 	while (line)
 	{
 		if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "WE", 2)

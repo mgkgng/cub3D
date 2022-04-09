@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 15:18:14 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 21:14:20 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,34 @@ t_gui	initialize_window(int width, int height, char *game_name)
 		
 		gui->hook.re = false;
 	}
-}
+}*/
 
 void	hook_control(t_gui gui, t_hook *hook)
 {
 	hook->re = true;
 	mlx_key_hook(gui.win, key_hook, &hook);
-	mlx_mouse_hook(gui.win, mouse_hook, &hook);
-	mlx_loop_hook(gui.mlx, &create_img, &gui);
-}*/
+	//mlx_loop_hook(gui.mlx, &create_img, &gui);
+}
 
 int	terminate(t_game *game)
 {
+	//** map not yet used for testing
+	//free(game->map.map2d);
 	(void) game;
-	// free, close everything
-	return (0);
+	exit(0);
 }
 
-int	cub3D(t_game game)
+//int	cub3D(t_game game)
+int	cub3D(void)
 {	
+	t_game	game;
+	
 	game.gui = initialize_window(100, 100, "cub3d_launching_test");
 	// 1. minilibX initialize
 	// 2. create images
 	// 3. raycasting
 	// 4. Hooks
-	//hook_control(game.gui, &game.hook);
+	hook_control(game.gui, &game.hook);
 	//**draw
 	for (int i = 2; i < 80; i++)
 	//	mlx_pixel_put(&game.gui.mlx, &game.gui.win, i, i, 0x00FFFF00);

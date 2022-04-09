@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 16:41:25 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 21:12:54 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,8 @@ typedef struct s_point {
 	double	y;
 }	t_point;
 
-typedef struct s_line {
-	t_point	a;
-	t_point	b;
-}	t_line;
-
 typedef struct s_draw {
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
+	char	*nswe[4];
 	int		col_floor;
 	int		col_ceil;
 }	t_draw;
@@ -46,7 +38,6 @@ typedef struct s_map {
 	int		width;
 	int		height;
 	bool	**map2d;
-	t_line	*lines;
 	t_point	pos;
 	int		theta;
 }	t_map;
@@ -81,7 +72,8 @@ typedef struct s_raycast {
 	t_point	pos_vec;
 }	t_raycast;
 
-int	cub3D(t_game game);
+//int	cub3D(t_game game);
+int	cub3D(void);
 
 /* parse */
 t_game	parse(char *file);
@@ -90,5 +82,11 @@ t_game	parse(char *file);
 void	error(int c);
 
 void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
+
+
+int	key_hook(int key, t_game *game);
+
+int	terminate(t_game *game);
+
 
 #endif
