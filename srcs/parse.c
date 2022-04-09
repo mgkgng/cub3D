@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 13:27:00 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 15:09:34 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,78 @@ int	check_fileformat(char *mapstr, char **map)
 	return (1);
 }
 
+
+
+static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
+{
+	map->pos.x = pos[0];
+	map->pos.y = pos[1];
+	if (dir == 'N')
+		map->theta = 270;
+	else if (dir == 'S')
+		map->theta = 90;
+	else if (dir == 'W')
+		map->theta = 180;
+	else
+		map->theta = 0;
+	free(*set_dir);
+	*set_dir = NULL;
+}
+
+static void	put_info(t_map *map, char **map_data)
+{
+	//** what to do
+	//** 1. map_width (maximum)
+	//** 2. map_height
+	//** 3. position of the character
+	//** 4. and where it is heading to
+
+	int	max_width;
+	int	i;
+	int	j;
+	char	*set_dir;
+	
+	i = -1;
+	max_width = 0;
+	set_dir = ft_strdup("NSWE");
+	while (map_data[++i])
+	{
+		j = -1;
+		while (map_data[i][++j])
+			if (set_dir && ft_strchr(set_dir, map_data[i][j]))
+				put_player_info(map, (int [2]) {i, j}, map_data[i][j], &set_dir);
+		if (j > max_width)
+			max_width = j;
+	}
+	map->height = i;
+	map->width = max_width;
+}
+
+static bool	**get_boolmap(char **charmap, int map_width, int map_height)
+{
+	bool	**boolmap;
+	int		i;
+	int		j;
+
+	boolmap = ft_calloc(map_width * map_height, sizeof(bool));
+	i = -1;
+	while (charmap[++i])
+	{
+		j = -1;
+		while (charmap[i][++j])
+			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1'))
+				boolmap[i][j] = true;
+	}
+	free(charmap);
+	return (boolmap);
+}
+
 t_map	get_map(int fd)
 {
 	t_map	map;
 	char	*line;
 	char	*mapstr;
+	char	**map_data;
 
 	line = get_next_line(fd);
 	mapstr = NULL;
@@ -72,9 +139,11 @@ t_map	get_map(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	map.map2d = ft_split(mapstr, '\n');
-	if (!check_fileformat(mapstr, map.map2d))
+	map_data = ft_split(mapstr, '\n');\
+	if (!check_fileformat(mapstr, map_data))
 		error(4);
+	put_info(&map, map_data);
+	map.map2d = get_boolmap(map_data, map.width, map.height);
 	return (map);
 }
 
@@ -106,42 +175,7 @@ t_map	get_map(int fd)
 	}
 }*/
 
-static void	put_player_dir(t_map *map, char dir)
-{
-	if (dir == 'N')
-		map->theta = 270;
-	else if (dir == 'S')
-		map->theta = 90;
-	else if (dir == 'W')
-		map->theta = 180;
-	else
-		map->theta = 0;
-}
 
-void	put_player_info(t_map *map)
-{
-	int	i;
-	int	j;
-	char	*set;
-
-	set = ft_strdup("NSWE");
-	i = -1;
-	while (map->map2d[++i])
-	{
-		j = -1;
-		while (map->map2d[i][++j])
-		{
-			if (ft_strchr(set, map->map2d[i][j]))
-			{
-				map->pos.x = i;
-				map->pos.y = j;
-				put_player_dir(map, map->map2d[i][j]);
-				free(set);
-				return ;
-			}
-		}
-	}
-}
 
 t_game	parse(char *file)
 {

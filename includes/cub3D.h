@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 13:39:12 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/09 14:30:41 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_draw {
 typedef struct s_map {
 	int		width;
 	int		height;
-	char	**map2d;
+	bool	**map2d;
 	t_line	*lines;
 	t_point	pos;
 	int		theta;
