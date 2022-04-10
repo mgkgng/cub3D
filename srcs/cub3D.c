@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 19:42:19 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 23:47:07 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	draw_square(t_game *game, int x, int y)
 	int	start_y;
 	
 	start_y = y - 1;
-	while (++start_y <= y + MINIMAP_BLOCKSIZE)
+	while (++start_y <= y + BLOCKSIZE)
 	{
 		start_x = x - 1;
-		while (++start_x <= x + MINIMAP_BLOCKSIZE)
+		while (++start_x <= x + BLOCKSIZE)
 			my_mlx_pixel_put(&game->gui, start_x, start_y, 0x00FFFFFF);	
 	}
 }
@@ -74,7 +74,7 @@ void	draw_minimap(t_game *game)
 		j = -1;
 		while (++j < game->map.width)
 			if (game->map.map2d[i][j] == false)
-				draw_square(game, MINIMAP_POS_X + j * MINIMAP_BLOCKSIZE, 100 + i * MINIMAP_BLOCKSIZE);
+				draw_square(game, MINIMAP_X + j * BLOCKSIZE, MINIMAP_Y + i * BLOCKSIZE);
 	}
 }
 
@@ -83,7 +83,7 @@ int	draw_cub3D(t_game *game)
 	if (game->hook.re)
 	{
 		ft_bzero(game->gui.addr, 500 * 500 * 4);
-		my_mlx_pixel_put(&game->gui, game->map.pos.x, game->map.pos.y, 0x00FFFF00);
+		my_mlx_pixel_put(&game->gui, game->map.pos.x * BLOCKSIZE, game->map.pos.y * BLOCKSIZE, 0x00FFFF00);
 		for (int i = 0; i < 8; i++)
 		{
 			my_mlx_pixel_put(&game->gui, game->map.pos.x + i * cos(game->map.theta), game->map.pos.y + i * sin(game->map.theta), 0x00FF9900);

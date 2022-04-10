@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 17:24:31 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 23:17:28 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	translate(t_map *map, int theta)
 
 void	turn(t_map *map, int dir)
 {
-	map->theta += dir * 0.1;
+	map->theta += dir * (M_PI_4 / 18);
+	if (map->theta > M_PI * 2)
+		map->theta -= M_PI * 2;
+	if (map->theta < 0)
+		map->theta += M_PI * 2;
 }
 
 int	key_hook(int key, t_game *game)
