@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 21:13:27 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 18:22:28 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ int	check_fileformat(char *mapstr, char **map)
 	while (map[++i])
 	{
 		j = -1;
-		while (map[i][++j])
+		while (map[i][++j]) {
+			printf("%d---%d---\n", i ,j);
 			if (!ft_strchr(set, map[i][j]))
 				return (terminate_parse(mapstr, map, set));
+		}
 	}
 	// check n.2 : is the map is well surrounded by wall?
 	// check n.3 : is there only one character?
@@ -58,11 +60,11 @@ static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
 	map->pos.x = pos[0];
 	map->pos.y = pos[1];
 	if (dir == 'N')
-		map->theta = 270;
+		map->theta = 3 * M_PI_4;
 	else if (dir == 'S')
-		map->theta = 90;
+		map->theta = M_PI_4;
 	else if (dir == 'W')
-		map->theta = 180;
+		map->theta = M_PI_2;
 	else
 		map->theta = 0;
 	free(*set_dir);
@@ -98,14 +100,22 @@ static bool	**get_boolmap(char **charmap, int map_width, int map_height)
 	int		i;
 	int		j;
 
-	boolmap = ft_calloc(map_width * map_height, sizeof(bool));
+	boolmap = ft_calloc(map_height, sizeof(bool *));
 	i = -1;
-	while (charmap[++i])
+	while (++i < map_height)
+		boolmap[i] = ft_calloc(map_width, sizeof(bool));
+	i = -1;
+	while (++i < map_height)
 	{
+		printf("hello --- %d\n", i);
 		j = -1;
-		while (charmap[i][++j])
+		while (++j < map_width)
+		{
+			if (!charmap[i][j])
+				break;
 			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1'))
 				boolmap[i][j] = true;
+		}
 	}
 	free(charmap);
 	return (boolmap);
@@ -126,10 +136,13 @@ t_map	get_map(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	map_data = ft_split(mapstr, '\n');\
+	printf("%s", mapstr);
+	map_data = ft_split(mapstr, '\n');
 	if (!check_fileformat(mapstr, map_data))
 		error(4);
 	put_info(&map, map_data);
+	printf("map info : width - %d, height - %d\n", map.width, map.height);
+	printf("there is the person (%d, %d)\n", map.pos.x, map.pos.y);
 	map.map2d = get_boolmap(map_data, map.width, map.height);
 	return (map);
 }
@@ -223,7 +236,7 @@ t_game	parse(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error(3);
-	game.draw = get_draw(fd);
+	//game.draw = get_draw(fd);
 	game.map = get_map(fd);
 	close(fd);
 	return (game);

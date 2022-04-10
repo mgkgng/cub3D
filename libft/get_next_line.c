@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 18:39:44 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/04 20:34:33 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 14:54:49 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	find_endl(char *s)
 	return (-1);
 }
 
-static char	*ft_substr(char *s, int start, int end)
+static char	*get_substr(char *s, int start, int end)
 {
 	char	*res;
 	int		i;
@@ -45,7 +45,7 @@ static void	put_buf(char **r, char *buf)
 	int		j;
 
 	if (!*r)
-		*r = ft_substr("", 0, 0);
+		*r = get_substr("", 0, 0);
 	nov = malloc(ft_strlen(*r) + ft_strlen(buf) + 1);
 	i = -1;
 	while ((*r)[++i])
@@ -69,8 +69,8 @@ static char	*get_line(char **r)
 	pos = find_endl(*r);
 	if (pos == -1)
 		pos = ft_strlen(*r) - 1;
-	res = ft_substr(*r, 0, pos);
-	nov = ft_substr(*r, pos + 1, ft_strlen(*r) - 1);
+	res = get_substr(*r, 0, pos);
+	nov = get_substr(*r, pos + 1, ft_strlen(*r) - 1);
 	free(*r);
 	*r = nov;
 	return (res);

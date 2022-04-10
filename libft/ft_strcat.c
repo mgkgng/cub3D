@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 21:00:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/04 21:11:59 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 18:01:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@ char	*ft_strcat(char *dest, const char *src)
 	size_t	slen;
 	size_t	i;
 
+	if (!dest)
+		return (ft_strdup(src));
 	dlen = ft_strlen(dest);
 	slen = ft_strlen(src);
 	dest = (char *) ft_realloc(dest, dlen + slen + 1);
 	/* how to do memcpy from the middle of a string ? */
 	i = -1;
-	while (dlen + ++i < slen)
+	while (++i < slen)
 		dest[dlen + i] = src[i];
+	dest[dlen + i] = '\0';
 	return (dest);
 }

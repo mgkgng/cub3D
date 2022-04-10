@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 21:14:20 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 17:50:18 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ t_gui	initialize_window(int width, int height, char *game_name)
 	}
 }*/
 
-void	hook_control(t_gui gui, t_hook *hook)
-{
-	hook->re = true;
-	mlx_key_hook(gui.win, key_hook, &hook);
-	//mlx_loop_hook(gui.mlx, &create_img, &gui);
-}
-
 int	terminate(t_game *game)
 {
 	//** map not yet used for testing
@@ -56,22 +49,43 @@ int	terminate(t_game *game)
 	exit(0);
 }
 
-//int	cub3D(t_game game)
-int	cub3D(void)
-{	
-	t_game	game;
-	
-	game.gui = initialize_window(100, 100, "cub3d_launching_test");
+int	draw_cub3D(t_game *game)
+{
+	if (game->hook.re)
+	{
+		ft_bzero(game->gui.addr, 500 * 500 * 4);
+		my_mlx_pixel_put(&game->gui, game->map.pos.x, game->map.pos.y, 0x00FFFF00);
+		for (int i = 0; i < 8; i++)
+		{
+			my_mlx_pixel_put(&game->gui, game->map.pos.x + i * cos(game->map.theta), game->map.pos.y + i * sin(game->map.theta), 0x00FF9900);
+		
+		}
+		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
+		game->hook.re = false;
+	}
+	return (0);
+}	
+
+void	hook_control(t_game *game, t_hook *hook)
+{
+	hook->re = true;
+	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
+	//mlx_key_hook(game->gui.win, key_hook, hook);
+	mlx_loop_hook(game->gui.mlx, draw_cub3D, game);
+}
+
+int	cub3D(t_game game)
+//int	cub3D(void)
+{		
+	game.map.theta = M_PI_4;
+	game.gui = initialize_window(500, 500, "cub3d_launching_test");
 	// 1. minilibX initialize
 	// 2. create images
 	// 3. raycasting
 	// 4. Hooks
-	hook_control(game.gui, &game.hook);
+	hook_control(&game, &game.hook);
 	//**draw
-	for (int i = 2; i < 80; i++)
-	//	mlx_pixel_put(&game.gui.mlx, &game.gui.win, i, i, 0x00FFFF00);
-		my_mlx_pixel_put(&game.gui, i, i, 0x00FFFF00);
-	mlx_put_image_to_window(game.gui.mlx, game.gui.win, game.gui.img, 0, 0);
+	draw_cub3D(&game);
 	//**draw
 	mlx_loop(game.gui.mlx);
 	return (terminate(&game));

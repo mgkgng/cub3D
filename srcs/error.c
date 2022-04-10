@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 21:44:15 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 18:25:06 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int	is_surrounded(char **map)
 		if (open == true)
 			return (0);
 	}
+	//** found an error. should be able to check not only horizontally but also vertically.
 	return (1);
 }
