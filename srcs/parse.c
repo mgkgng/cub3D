@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 18:22:28 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 19:36:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static bool	**get_boolmap(char **charmap, int map_width, int map_height)
 	i = -1;
 	while (++i < map_height)
 	{
-		printf("hello --- %d\n", i);
 		j = -1;
 		while (++j < map_width)
 		{

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 18:14:10 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 19:45:20 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 #include "libft.h"
 #include "hook.h"
 #include "raycast.h"
+
+#define	MINIMAP_BLOCKSIZE 18
+#define MINIMAP_POS_X 100
+#define MINIMAP_POS_Y 100
 
 typedef struct s_point {
 	int	x;
@@ -39,6 +43,7 @@ typedef struct s_map {
 	int		height;
 	bool	**map2d;
 	t_point	pos;
+	t_point pixel_pos;
 	double	theta;
 }	t_map;
 
