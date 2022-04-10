@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 21:53:38 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 17:24:31 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,39 @@
 
 void	translate(t_map *map, int theta)
 {
-	map->pos.x += cos(map->theta) * 0.1;
-	map->pos.y += sin(map->theta) * 0.1;
+	map->pos.x += cos(theta);
+	map->pos.y += sin(theta);
 }
 
 void	turn(t_map *map, int dir)
 {
-	if (!dir)
-		map->theta--;
-	else
-		map->theta++;
+	map->theta += dir * 0.1;
 }
 
 int	key_hook(int key, t_game *game)
 {
-	//printf("key pressed : %d\n", key);
+	printf("key pressed : %d\n", key);
+	//printf("angle now = %d\n", game->map.theta);
 	if (key == ESC)
 		terminate(game);
 	if (key == UP)
+		game->map.pos.y--;
+	else if (key == DOWN)
+		game->map.pos.y++;
+	else if (key == LEFT)
+		game->map.pos.x--;
+	else if (key == RIGHT)
+		game->map.pos.x++;
+	/*if (key == UP)
 		translate(&game->map, game->map.theta);
 	else if (key == DOWN)
-		translate(&game->map, game->map.theta + 180);	
+		translate(&game->map, game->map.theta + M_PI_2);	
 	else if (key == LEFT)
-		translate(&game->map, game->map.theta + 90);
+		translate(&game->map, game->map.theta + M_PI_4);
 	else if (key == RIGHT)
-		translate(&game->map, game->map.theta - 90);
+		translate(&game->map, game->map.theta - M_PI_4);*/
 	else if (key == TURN_L)
-		turn(&game->map, 0);
+		turn(&game->map, -1);
 	else if (key == TURN_R)
 		turn(&game->map, 1);
 	game->hook.re = true;

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 21:12:54 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/10 18:14:10 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #include "raycast.h"
 
 typedef struct s_point {
-	double	x;
-	double	y;
+	int	x;
+	int	y;
 }	t_point;
 
 typedef struct s_draw {
@@ -39,7 +39,7 @@ typedef struct s_map {
 	int		height;
 	bool	**map2d;
 	t_point	pos;
-	int		theta;
+	double	theta;
 }	t_map;
 
 typedef struct s_gui {
@@ -72,8 +72,8 @@ typedef struct s_raycast {
 	t_point	pos_vec;
 }	t_raycast;
 
-//int	cub3D(t_game game);
-int	cub3D(void);
+int	cub3D(t_game game);
+//int	cub3D(void);
 
 /* parse */
 t_game	parse(char *file);
