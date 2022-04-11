@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 23:44:57 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:27:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 #define MINIMAP_Y 100
 
 typedef struct s_point {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }	t_point;
 
 typedef struct s_draw {

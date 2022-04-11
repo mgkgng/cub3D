@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/07 20:17:48 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:39:38 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,63 @@
 // ** should only consider the fact that north and the south (y-axis) is inverted.
 // ** should also consider that fact the slope of the peripendular line of y-axis will be given as inf through atan.
 
+double	get_distX(bool **map, t_point pos, double theta)
+{
+	double	h;
+	double	dist;
+	double	dist_offset;
+	int		start;
+	int		incre;
+	
+	h = pos.y - (int) pos.y;
+	if (theta > 0 && theta < M_PI_2)
+	{
+		dist = h / sin(theta);
+		dist_offset = 1 / sin(theta);
+		start = (int) pos.y + 1;
+		incre = 1;
+	}
+	else if (theta > M_PI_2 && theta < M_PI)
+	{
+		dist = (1 - h) / sin(M_PI - theta);
+		dist_offset = 1 / sin(M_PI - theta);
+		start = (int) pos.y;
+		incre = -1;
+	}
+	else
+		return (-1);
+	while (map[][])
+	{}
+}
+
+double	get_distY(t_point pos, double theta)
+{
+	double	w;
+
+	w = pos.x - (int) pos.x;
+	if ((theta < M_PI_4) || theta > M_PI_4 * 3)
+		return (w / cos(theta));
+	else if (theta > M_PI_4 && theta < M_PI_4)
+		return ((1 - w) / cos(M_PI_2 - theta));
+	// maybe should care about negative values
+	else
+		return (-1);
+}
+
 int	digital_differential_analyzer(t_point pos, t_point dir, char **map, int theta)
 {
-	int	step;
-	int	start;
+	double	distX;
+	double	distY;
+	double	dist;
 
-	if ((theta > 45 && theta < 135) || (theta > 225 && theta < 315))
-		start = pos.y;
+	distX = get_distX(pos, theta);
+	distY = get_distY(pos, theta);
+	if (distX > distY && distX >= 0)
+		dist = distX;
 	else
-		start = pos.x;
-	step = 
+		dist = distY;
+
+
 }
 
 void	raycast(t_point pos, char **map, int theta)

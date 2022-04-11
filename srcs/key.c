@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 23:17:28 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:29:59 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	translate(t_map *map, int theta)
 
 void	turn(t_map *map, int dir)
 {
-	map->theta += dir * (M_PI_4 / 18);
+	map->theta += dir * (M_PI_4 / 9);
 	if (map->theta > M_PI * 2)
 		map->theta -= M_PI * 2;
 	if (map->theta < 0)
@@ -49,13 +49,13 @@ int	key_hook(int key, t_game *game)
 	if (key == ESC)
 		terminate(game);
 	if (key == UP)
-		game->map.pos.y--;
+		game->map.pos.y -= 0.1;
 	else if (key == DOWN)
-		game->map.pos.y++;
+		game->map.pos.y += 0.1;
 	else if (key == LEFT)
-		game->map.pos.x--;
+		game->map.pos.x -= 0.1;
 	else if (key == RIGHT)
-		game->map.pos.x++;
+		game->map.pos.x += 0.1;
 	/*if (key == UP)
 		translate(&game->map, game->map.theta);
 	else if (key == DOWN)

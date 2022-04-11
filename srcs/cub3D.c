@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 23:47:07 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:29:15 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ int	draw_cub3D(t_game *game)
 	if (game->hook.re)
 	{
 		ft_bzero(game->gui.addr, 500 * 500 * 4);
-		my_mlx_pixel_put(&game->gui, game->map.pos.x * BLOCKSIZE, game->map.pos.y * BLOCKSIZE, 0x00FFFF00);
+		my_mlx_pixel_put(&game->gui, MINIMAP_X + game->map.pos.x * BLOCKSIZE, MINIMAP_Y + game->map.pos.y * BLOCKSIZE, 0x00FFFF00);
 		for (int i = 0; i < 8; i++)
 		{
-			my_mlx_pixel_put(&game->gui, game->map.pos.x + i * cos(game->map.theta), game->map.pos.y + i * sin(game->map.theta), 0x00FF9900);
+			my_mlx_pixel_put(&game->gui, MINIMAP_X + game->map.pos.x * BLOCKSIZE + i * cos(game->map.theta), MINIMAP_Y + game->map.pos.y * BLOCKSIZE + i * sin(game->map.theta), 0x00FF9900);
 			draw_minimap(game);
 		}
 		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
