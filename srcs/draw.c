@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/12 21:31:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/12 23:56:18 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 typedef struct	s_raycast {
 	t_point	wall;
 	double	dist;
-}
+}	t_raycast;
 
 // 1. need to implement dda
 // 2. need to implement raycast
@@ -26,27 +26,39 @@ typedef struct	s_raycast {
 // ** should only consider the fact that north and the south (y-axis) is inverted.
 // ** should also consider that fact the slope of the peripendular line of y-axis will be given as inf through atan.
 
-double	get_distX(bool **map, t_point pos, double theta)
+double	get_distX(bool **map, t_point pos, int *case, double theta)
 {
-	double	h;
-	double	dist;
-	double	deltaX = atan(theta);
-	double	deltaH = 1 / sin(theta);
-	
-	h = pos.y - (int) pos.y;
-	if (theta > 0 && theta < M_PI_2)
-		return (h / sin(theta));
-	else if (theta > M_PI_2 && theta < M_PI)
-		return ((1 - h) / sin(M_PI - theta));
-	else
+	t_raycast	res;
+	double		deltaX;
+	double		deltaH;
+	double		increY;
+
+	if (!theta || theta == M_PI_2)
 		return (-1);
-	(void) map;
-	(void) dist;
-	return (h);
+	deltaX = atan(theta);
+	deltaH = 1 / sin(theta);
+	increY = 1;
+	if (theta > 0 && theta < M_PI_2)
+	{
+		res.dist = (case[1] + 1 - pos.y) / sin(theta);
+		res.wall.x = case[0] + (case[1] + 1 - pos.y) * atan(theta);
+		res.wall.y = case[1] + increY;
+	}
+	else if (theta > M_PI_2 && theta < M_PI)
+	{
+		increY = -1;
+	}
+	while (map[(int) res.wall.x][res.wall.y] == true)
+	{
+		res.dist += deltaH;
+		res.wall.x += deltaX;
+		res.wall.y += increY;
+	}
+	return (res);
 }
 
 
-double	get_distY(bool **map, t_point pos, t_point case, double theta)
+t_raycast	get_distY(bool **map, t_point pos, int *case, double theta)
 {
 	t_raycast	res;
 	double		deltaY;
@@ -58,15 +70,11 @@ double	get_distY(bool **map, t_point pos, t_point case, double theta)
 	deltaY = tan(theta);
 	deltaH = 1 / cos(theta);
 	increX = 1;
-	if ((theta < M_PI_4) || theta > M_PI_4 * 3)
-		res.dist = (pos.x - case.x) / cos(theta);
-	else if (theta > M_PI_4 && theta < M_PI_4 * 3)
-	{
-		res.dist = (pos.x - case.x) / cos(M_PI_2 - theta);
+	if (theta > M_PI_4 && theta < M_PI_4 * 3)
 		increX *= -1;
-	}
-	res.wall.x = case.x + increX;
-	res.wall.y = case.y + (tan(theta) * (a.pos + 1 - pos.x)) * increX;
+	res.dist = (pos.x - case[0]) / cos(theta) * increX;
+	res.wall.x = case[0] + increX;
+	res.wall.y = case[1] + (tan(theta) * (a.pos + 1 - pos.x)) * increX;
 	while (map[res.wall.x][(int) res.wall.y] == true)
 	{
 		res.dist += deltaH;
