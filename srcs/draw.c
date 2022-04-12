@@ -6,11 +6,16 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/11 18:39:38 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/12 21:31:43 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+typedef struct	s_raycast {
+	t_point	wall;
+	double	dist;
+}
 
 // 1. need to implement dda
 // 2. need to implement raycast
@@ -25,62 +30,67 @@ double	get_distX(bool **map, t_point pos, double theta)
 {
 	double	h;
 	double	dist;
-	double	dist_offset;
-	int		start;
-	int		incre;
+	double	deltaX = atan(theta);
+	double	deltaH = 1 / sin(theta);
 	
 	h = pos.y - (int) pos.y;
 	if (theta > 0 && theta < M_PI_2)
-	{
-		dist = h / sin(theta);
-		dist_offset = 1 / sin(theta);
-		start = (int) pos.y + 1;
-		incre = 1;
-	}
+		return (h / sin(theta));
 	else if (theta > M_PI_2 && theta < M_PI)
-	{
-		dist = (1 - h) / sin(M_PI - theta);
-		dist_offset = 1 / sin(M_PI - theta);
-		start = (int) pos.y;
-		incre = -1;
-	}
+		return ((1 - h) / sin(M_PI - theta));
 	else
 		return (-1);
-	while (map[][])
-	{}
+	(void) map;
+	(void) dist;
+	return (h);
 }
 
-double	get_distY(t_point pos, double theta)
+
+double	get_distY(bool **map, t_point pos, t_point case, double theta)
 {
-	double	w;
+	t_raycast	res;
+	double		deltaY;
+	double		deltaH;
+	double		increX;
 
-	w = pos.x - (int) pos.x;
-	if ((theta < M_PI_4) || theta > M_PI_4 * 3)
-		return (w / cos(theta));
-	else if (theta > M_PI_4 && theta < M_PI_4)
-		return ((1 - w) / cos(M_PI_2 - theta));
-	// maybe should care about negative values
-	else
+	if (theta == M_PI_4 || theta == M_PI_4 * 3)
 		return (-1);
+	deltaY = tan(theta);
+	deltaH = 1 / cos(theta);
+	increX = 1;
+	if ((theta < M_PI_4) || theta > M_PI_4 * 3)
+		res.dist = (pos.x - case.x) / cos(theta);
+	else if (theta > M_PI_4 && theta < M_PI_4 * 3)
+	{
+		res.dist = (pos.x - case.x) / cos(M_PI_2 - theta);
+		increX *= -1;
+	}
+	res.wall.x = case.x + increX;
+	res.wall.y = case.y + (tan(theta) * (a.pos + 1 - pos.x)) * increX;
+	while (map[res.wall.x][(int) res.wall.y] == true)
+	{
+		res.dist += deltaH;
+		res.wall.x += increX;
+		res.wall.y += deltaY * increX;
+	}
+	return (res);
 }
 
-int	digital_differential_analyzer(t_point pos, t_point dir, char **map, int theta)
+/*int	digital_differential_analyzer(t_point pos, char **map, int theta)
 {
 	double	distX;
 	double	distY;
 	double	dist;
 
-	distX = get_distX(pos, theta);
-	distY = get_distY(pos, theta);
+	distX = get_distX(map, pos, theta);
+	distY = get_distY(map, pos, theta);
 	if (distX > distY && distX >= 0)
 		dist = distX;
 	else
 		dist = distY;
+}*/
 
-
-}
-
-void	raycast(t_point pos, char **map, int theta)
+/*void	raycast(t_point pos, char **map, int theta)
 {
 	// ça c'est une idee geniale ;)
 	t_point	dir;
@@ -104,4 +114,4 @@ int draw(t_map map, t_raycast rc)
 		// right 
 		raycast(map.pos, map.map2d, map.theta + i);
 	}
-}
+}*/
