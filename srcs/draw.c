@@ -6,22 +6,15 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/13 18:37:53 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/13 18:47:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-
-
-// 1. need to implement dda
-// 2. need to implement raycast
 // 3. need to implement the function giving the height regard of the distance between the character's point and the wall
 
-// dda is going to return the distance
-
 // ** should only consider the fact that north and the south (y-axis) is inverted.
-// ** should also consider that fact the slope of the peripendular line of y-axis will be given as inf through atan.
 
 t_raycast	get_distX(bool **map, t_point pos, int *case, double theta)
 {
@@ -56,7 +49,6 @@ t_raycast	get_distX(bool **map, t_point pos, int *case, double theta)
 	}
 	return (res);
 }
-
 
 t_raycast	get_distY(bool **map, t_point pos, int *case, double theta)
 {
@@ -105,16 +97,17 @@ void	raycast(t_point pos, char **map, double theta)
 	// need height/distance calculator here
 }
 
-int draw(t_map map, t_raycast rc)
+int draw(t_map map)
 {
-	int	i;
+	double	r;
 
-	i = -1;
-	while (++i < ANGLE / 2)
+	raycast(map.pos, map.map2d, map.theta);
+	r = M_PI / 180;
+	while (r < ANGLE / 2)
 	{
-		// left
-		raycast(map.pos, map.map2d, map.theta - i);
-		// right 
-		raycast(map.pos, map.map2d, map.theta + i);
+		raycast(map.pos, map.map2d, map.theta - r);
+		raycast(map.pos, map.map2d, map.theta + r);
+		r += M_PI / 180;
 	}
+	return (0);
 }
