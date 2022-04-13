@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/11 14:29:59 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/13 12:53:16 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 
 void	translate(t_map *map, int theta)
 {
+	double	x;
+	double	y;
+	
+	if (map[pos.x + cos(theta)][] == false)
+		return ;
 	map->pos.x += cos(theta);
 	map->pos.y += sin(theta);
 }
