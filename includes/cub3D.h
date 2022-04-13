@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/11 14:27:08 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/13 17:48:53 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ typedef struct s_game {
 	t_draw	draw;
 }	t_game;
 
-typedef struct s_raycast {
-	// f(x) = ax + b func which represents direction vector
-	float	slope;
-	float	intercept;
-	t_point	pos_vec;
+typedef struct	s_raycast {
+	t_point	wall;
+	double	dist;
 }	t_raycast;
 
 int	cub3D(t_game game);
