@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 18:24:51 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:32:58 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ double	anti_fisheye_distortion(double dist)
 	
 }
 
-void	draw_raycast(t_map map, int h, int rayN)
+void	draw_raycast(t_game game, int h, int rayN)
 {
 	double	startX;
 	double	startY;
@@ -45,29 +45,28 @@ void	draw_raycast(t_map map, int h, int rayN)
 	{
 		j = -1;
 		while (++j < h)
-			my_mlx_pixel_put(gui, startX + i, startY + j, 0xFFFF00);
+			my_mlx_pixel_put(&game.gui, startX + i, startY + j, 0xFFFF00);
 	}
 }
 
-void	raycast(t_map map, double angle, int rayN)
+void	raycast(t_game game, double angle, int rayN)
 {
-	t_raycast	res;
+	t_raycast	rayDist;
 	double		r;
 
-	res = digital_differential_analyzer(map.pos, map.map2d, angle);
-	draw_raycast(map, get_hight(anti_fisheye_distortion(res.dist)), rayN);
+	rayDist = digital_differential_analyzer(game.map.pos, game.map.map2d, angle);
+	draw_raycast(game, get_hight(anti_fisheye_distortion(rayDist.dist)), rayN);
 }
 
-int draw(t_map map)
+void	draw_cub3D(t_game game)
 {
 	int		ray;
 	double	startAngle;
 	int		i;
 
 	r = M_PI / 180;
-	startAngle = map.theta - r * ANGLE / 2;
+	startAngle = game.map.theta - r * ANGLE / 2;
 	i = -1;
 	while (++i < ANGLE)
-		raycast(map, startAngle + r * i, i);
-	return (0);
+		raycast(game, startAngle + r * i, i);
 }

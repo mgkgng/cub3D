@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/12 20:01:48 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:35:26 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ t_gui	initialize_window(int width, int height, char *game_name)
 
 int	terminate(t_game *game)
 {
-	//** map not yet used for testing
-	//free(game->map.map2d);
-	(void) game;
+	free(game->map.map2d);
 	exit(0);
 }
 
@@ -78,17 +76,18 @@ void	draw_minimap(t_game *game)
 	}
 }
 
-int	draw_cub3D(t_game *game)
+int	draw(t_game *game)
 {
 	if (game->hook.re)
 	{
 		ft_bzero(game->gui.addr, 500 * 500 * 4);
-		my_mlx_pixel_put(&game->gui, MINIMAP_X + game->map.pos.x * BLOCKSIZE, MINIMAP_Y + game->map.pos.y * BLOCKSIZE, 0x00FFFF00);
+		draw_cub3D(game);
+		/*my_mlx_pixel_put(&game->gui, MINIMAP_X + game->map.pos.x * BLOCKSIZE, MINIMAP_Y + game->map.pos.y * BLOCKSIZE, 0x00FFFF00);
 		for (int i = 0; i < 8; i++)
 		{
 			my_mlx_pixel_put(&game->gui, MINIMAP_X + game->map.pos.x * BLOCKSIZE + i * cos(game->map.theta), MINIMAP_Y + game->map.pos.y * BLOCKSIZE + i * sin(game->map.theta), 0x00FF9900);
 			draw_minimap(game);
-		}
+		}*/
 		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
 		game->hook.re = false;
 	}
@@ -108,14 +107,8 @@ int	cub3D(t_game game)
 {		
 	game.map.theta = M_PI_4;
 	game.gui = initialize_window(500, 500, "cub3d_launching_test");
-	// 1. minilibX initialize
-	// 2. create images
-	// 3. raycasting
-	// 4. Hooks
 	hook_control(&game, &game.hook);
-	//**draw
-	draw_cub3D(&game);
-	//**draw
+	draw(&game);
 	mlx_loop(game.gui.mlx);
 	return (terminate(&game));
 }

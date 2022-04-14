@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 11:56:26 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:33:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	error(int c);
 
 void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 
+void	draw_cub3D(t_game game);
 
 int	key_hook(int key, t_game *game);
 
