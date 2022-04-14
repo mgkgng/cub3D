@@ -6,11 +6,13 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 11:56:12 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 11:58:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+// ** should only consider the fact that north and the south (y-axis) is inverted.
 
 static t_raycast	get_distX(bool **map, t_point pos, int *case, double theta)
 {

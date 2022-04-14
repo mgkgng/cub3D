@@ -6,65 +6,22 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/11 14:27:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:06:10 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int	terminate_parse(char *mapstr, char **map, char *set)
-{
-	free(mapstr);
-	free(map);
-	if (set)
-		free(set);
-	return (0);
-}
-
-int	check_filename(char *file)
-{
-	int	len;
-
-	len = ft_strlen(file);
-	if (!ft_strcmp(file + len - 4, ".cub"))
-		return (1);
-	// there would be some more tricky cases
-	return (0);
-}
-
-int	check_fileformat(char *mapstr, char **map)
-{
-	int	i;
-	int	j;
-	char	*set;
-
-	// check n.1 : is there any other character than one of the ones needed to be
-	set = ft_strdup(" 10NSWE");
-	i = -1;
-	while (map[++i])
-	{
-		j = -1;
-		while (map[i][++j]) {
-			printf("%d---%d---\n", i ,j);
-			if (!ft_strchr(set, map[i][j]))
-				return (terminate_parse(mapstr, map, set));
-		}
-	}
-	// check n.2 : is the map is well surrounded by wall?
-	// check n.3 : is there only one character?
-	return (1);
-}
 
 static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
 {
 	map->pos.x = pos[0];
 	map->pos.y = pos[1];
 	if (dir == 'N')
-		map->theta = 3 * M_PI_4;
+		map->theta = 3 * M_PI_2;
 	else if (dir == 'S')
-		map->theta = M_PI_4;
-	else if (dir == 'W')
 		map->theta = M_PI_2;
+	else if (dir == 'W')
+		map->theta = M_PI;
 	else
 		map->theta = 0;
 	free(*set_dir);
@@ -144,46 +101,6 @@ t_map	get_map(int fd)
 	printf("there is the person (%d, %d)\n", (int) map.pos.x, (int) map.pos.y);
 	map.map2d = get_boolmap(map_data, map.width, map.height);
 	return (map);
-}
-
-/*static void	put_player_dir(t_map *map, char dir)
-{
-	if (dir == 'N')
-	{
-		map->dir.x = 0;
-		map->dir.y = -1;
-		map->theta = 270;
-	}
-	else if (dir == 'S')
-	{
-		map->dir.x = 0;
-		map->dir.y = 1;
-		map->theta = 90;
-	}
-	else if (dir == 'W')
-	{
-		map->dir.x = -1;
-		map->dir.y = 0;
-		map->theta = 180;
-	}
-	else
-	{
-		map->dir.x = 1;
-		map->dir.y = 0;
-		map->theta = 0;
-	}
-}*/
-
-int	get_color(char *colstr)
-{
-	int		col;
-	char	**rgb;
-
-	rgb = ft_split(colstr, ',');
-	col = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | (ft_atoi(rgb[2]));
-	free(rgb);
-	free(colstr);
-	return (col);
 }
 
 t_draw	put_draw(char **info)
