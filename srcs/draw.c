@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 18:32:58 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 19:52:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,17 @@ double	get_height(double dist)
 	return (h);
 }
 
-double	anti_fisheye_distortion(double dist)
+double	anti_fisheye_distortion(double dist, int rayN)
 {
-	
+	double			perpDist;
+	double			r;
+	unsigned int	incline;
+
+	r = M_PI / 180;
+	incline = abs(rayN - ANGLE / 2);
+	if (!incline)
+		return (dist);
+	return (dist * sin(M_PI / 2 - inclien * r));	
 }
 
 void	draw_raycast(t_game game, int h, int rayN)
