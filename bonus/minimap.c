@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/05 17:59:27 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:53:06 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ void	draw_line(t_point a, t_point b)
 	else
 		draw_line_per_y(a, b, slope);
 }
-
-void	
+	
 void	draw_minimap(t_map map)
 {
-	
+	// transparency
 }

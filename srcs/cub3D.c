@@ -6,74 +6,29 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 18:35:26 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 19:14:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-t_gui	initialize_window(int width, int height, char *game_name)
+t_gui	initialize_window(char *game_name)
 {
 	t_gui	gui;
 
-	gui.game_width = width;
-	gui.game_height = height;
 	gui.mlx = mlx_init();
-	gui.win = mlx_new_window(gui.mlx, width, height, game_name);
-	gui.img = mlx_new_image(gui.mlx, width, height);
+	gui.win = mlx_new_window(gui.mlx, SCREEN_X, SCREEN_Y, game_name);
+	gui.img = mlx_new_image(gui.mlx, SCREEN_X, SCREEN_Y);
 	gui.addr = mlx_get_data_addr(gui.img, &gui.bits_per_pixel, &gui.line_len, &gui.endian);
 	//ft_bzero(&gui.hook, sizeof(t_hook));
 	//gui.hook.re = true;
 	return (gui);
 }
 
-/*int	create_img(t_gui *gui)
-{
-	if (gui->hook.re)
-	{
-		ft_bzero(gui.addr, gui.game_width * gui->game_height * gui.bits_per_pixel);
-		
-		...
-		here we draw
-		...
-		
-		gui->hook.re = false;
-	}
-}*/
-
 int	terminate(t_game *game)
 {
 	free(game->map.map2d);
 	exit(0);
-}
-
-void	draw_square(t_game *game, int x, int y)
-{
-	int	start_x;
-	int	start_y;
-	
-	start_y = y - 1;
-	while (++start_y <= y + BLOCKSIZE)
-	{
-		start_x = x - 1;
-		while (++start_x <= x + BLOCKSIZE)
-			my_mlx_pixel_put(&game->gui, start_x, start_y, 0x00FFFFFF);	
-	}
-}
-
-void	draw_minimap(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (++i < game->map.height)
-	{
-		j = -1;
-		while (++j < game->map.width)
-			if (game->map.map2d[i][j] == false)
-				draw_square(game, MINIMAP_X + j * BLOCKSIZE, MINIMAP_Y + i * BLOCKSIZE);
-	}
 }
 
 int	draw(t_game *game)
@@ -82,12 +37,6 @@ int	draw(t_game *game)
 	{
 		ft_bzero(game->gui.addr, 500 * 500 * 4);
 		draw_cub3D(game);
-		/*my_mlx_pixel_put(&game->gui, MINIMAP_X + game->map.pos.x * BLOCKSIZE, MINIMAP_Y + game->map.pos.y * BLOCKSIZE, 0x00FFFF00);
-		for (int i = 0; i < 8; i++)
-		{
-			my_mlx_pixel_put(&game->gui, MINIMAP_X + game->map.pos.x * BLOCKSIZE + i * cos(game->map.theta), MINIMAP_Y + game->map.pos.y * BLOCKSIZE + i * sin(game->map.theta), 0x00FF9900);
-			draw_minimap(game);
-		}*/
 		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
 		game->hook.re = false;
 	}
@@ -106,7 +55,7 @@ int	cub3D(t_game game)
 //int	cub3D(void)
 {		
 	game.map.theta = M_PI_4;
-	game.gui = initialize_window(500, 500, "cub3d_launching_test");
+	game.gui = initialize_window("cub3d_launching_test");
 	hook_control(&game, &game.hook);
 	draw(&game);
 	mlx_loop(game.gui.mlx);
