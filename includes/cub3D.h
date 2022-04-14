@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/13 17:48:53 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 11:56:26 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #define	BLOCKSIZE 18
 #define MINIMAP_X 100
 #define MINIMAP_Y 100
+#define	SCREEN_X 920
+#define SCREEN_Y 600
 
 typedef struct s_point {
 	double	x;
@@ -90,6 +92,7 @@ void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 int	key_hook(int key, t_game *game);
 
 int	terminate(t_game *game);
+t_raycast	digital_differential_analyzer(t_point pos, char **map, double theta);
 
 
 #endif
