@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 00:47:32 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 01:26:59 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ static void	draw_map(t_game *game, int blen)
 		j = -1;
 		while (++j < game->map.width)
 			if (game->map.map2d[j][i])
-				draw_sqaure(game, (int [2] {MINI_X + blen * j, MINI_Y + blen * i}, 0x77000000);
+				draw_sqaure(game, (int [2] {MINI_X + blen * j,
+					MINI_Y + blen * i}, 0x77000000);
 	}
 }
 
 static void	draw_red(t_game *game, int blen)
 {
-	
+	draw_square(game, (int [2]){MINI_X + game->map.pos.x * blen,
+		MINI_Y + game->map.pos.y * blen}, 3, 0x77FF0000};
 }
 
 void	draw_minimap(t_game *game)
