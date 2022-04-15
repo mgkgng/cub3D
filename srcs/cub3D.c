@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/15 20:21:29 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/15 20:45:40 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	hook_control(t_game *game, t_hook *hook)
 {
 	hook->re = true;
 	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
-	//mlx_key_hook(game->gui.win, key_hook, hook);
 	mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
@@ -77,6 +76,8 @@ int	cub3D(t_game game)
 //int	cub3D(void)
 {		
 	game.map.theta = M_PI / 4;
+	game.draw.col_ceil = 0x00FF0000;
+	game.draw.col_floor = 0x000000FF;
 	game.gui = initialize_window("cub3d_launching_test");
 	hook_control(&game, &game.hook);
 	draw(&game);

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/15 20:41:19 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/15 21:00:15 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double	get_height(double dist)
 	int	h;
 	double	c;
 
-	c = 0.5;
+	c = 0.7;
 	h = (int) ((SCREEN_Y / dist) * c);
 	if (h > SCREEN_Y)
 		h = SCREEN_Y;
@@ -59,8 +59,8 @@ void	draw_cub3D(t_game *game)
 	double	startAngle;
 	int		rayN;
 
-	startAngle = game->map.theta + ANGLE / 2;
+	startAngle = game->map.theta - ANGLE / 2;
 	rayN = -1;
 	while (++rayN < SCREEN_X)
-		raycast(game, startAngle - (rayN + 1) * ANGLE / SCREEN_X, rayN);
+		raycast(game, startAngle + (rayN + 1) * ANGLE / SCREEN_X, rayN);
 }
