@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 21:32:40 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/15 19:26:19 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 #include "libft.h"
 #include "hook.h"
 #include "raycast.h"
+
+#define	PI 3.141592
+#define DEG	0.017453
 
 #define	BLOCKSIZE 18
 #define MINI_X 20

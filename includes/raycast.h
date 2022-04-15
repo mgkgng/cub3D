@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:35:42 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 13:14:15 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/15 20:23:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "cub3D.h"
 
-# define ANGLE 90
+# define ANGLE 1.04718
 
 
 #endif

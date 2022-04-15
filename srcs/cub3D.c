@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 21:28:41 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/15 20:21:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	hook_control(t_game *game, t_hook *hook)
 int	cub3D(t_game game)
 //int	cub3D(void)
 {		
-	game.map.theta = M_PI_4;
+	game.map.theta = M_PI / 4;
 	game.gui = initialize_window("cub3d_launching_test");
 	hook_control(&game, &game.hook);
 	draw(&game);

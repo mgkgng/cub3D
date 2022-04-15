@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 21:33:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/15 20:41:19 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,23 @@ double	get_height(double dist)
 
 double	anti_fisheye_distortion(double dist, int rayN)
 {
-	double			r;
-	unsigned int	incline;
+	double	incline;
 
-	r = M_PI / 180;
-	incline = abs(rayN - ANGLE / 2);
+	incline = fabs(rayN * DEG - ANGLE / 2);
 	if (!incline)
 		return (dist);
-	return (dist * sin(M_PI / 2 - incline * r));	
+	return (dist * sin(M_PI / 2 - incline));
 }
 
-void	draw_raycast(t_game *game, int h, int rayN)
+void	draw_raycast(t_game *game, int h, int rayX)
 {
-	double	startX;
-	double	startY;
-	int		pixNbX;
-	int		i;
-	int		j;
+	int	startY;
+	int	i;
 
-	pixNbX = SCREEN_X / ANGLE;
-	startX = rayN * pixNbX;
-	startY = (SCREEN_Y - h) /2;
+	startY = (int) ((SCREEN_Y - h) /2);
 	i = -1;
-	while (++i < pixNbX)
-	{
-		j = -1;
-		while (++j < h)
-			my_mlx_pixel_put(&game->gui, startX + i, startY + j, 0xFFFF00);
-	}
+	while (++i < h)
+		my_mlx_pixel_put(&game->gui, rayX, startY + i, 0x00FFFF00);
 }
 
 void	raycast(t_game *game, double angle, int rayN)
@@ -61,18 +50,17 @@ void	raycast(t_game *game, double angle, int rayN)
 	t_raycast	rayDist;
 
 	rayDist = digital_differential_analyzer(game->map.pos, game->map.map2d, angle);
-	draw_raycast(game, get_height(anti_fisheye_distortion(rayDist.dist, rayN)), rayN);
+	// there was an error with anti_fisheye_distortion function
+	draw_raycast(game, get_height(rayDist.dist), rayN);
 }
 
 void	draw_cub3D(t_game *game)
 {
-	int		ray;
 	double	startAngle;
-	double	r;
+	int		rayN;
 
-	r = M_PI / 180;
-	startAngle = game->map.theta - r * ANGLE / 2;
-	ray = -1;
-	while (++ray < ANGLE)
-		raycast(game, startAngle + r * ray, ray);
+	startAngle = game->map.theta + ANGLE / 2;
+	rayN = -1;
+	while (++rayN < SCREEN_X)
+		raycast(game, startAngle - (rayN + 1) * ANGLE / SCREEN_X, rayN);
 }

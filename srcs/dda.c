@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/15 11:45:59 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/15 20:36:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static t_raycast	get_distX(bool **map, t_point pos, int *where, double theta)
 		return (res);
 	deltaH = 1 / sin(theta);
 	increY = 1;
+	//printf("yoooo xxxx == %f y ==== %f\n", pos.x, pos.y);
+	//printf("wwwhhheeerre xx==%d, y == %d\n", where[0], where[1]);
+	//printf("angle --> %f\n", theta);
 	if (theta > 0 && theta < M_PI)
 	{
 		pos.y += 1;
@@ -39,8 +42,13 @@ static t_raycast	get_distX(bool **map, t_point pos, int *where, double theta)
 	deltaX = 1 / tan(theta) * increY;
 	res.dist = (where[1] - pos.y) / sin(theta);
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
+	//printf("hahaha\n");
+	//printf("x====%f\n", res.wall.x);
+	//printf("y====%f\n", res.wall.y);
 	while (map[(int) res.wall.x][(int) res.wall.y] == true)
 	{
+
+		//printf("lollol\n");
 		res.dist += deltaH;
 		res.wall.x += deltaX;
 		res.wall.y += increY;
