@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/15 19:26:19 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 00:06:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 #define	BLOCKSIZE 18
 #define MINI_X 20
 #define MINI_Y 20
-#define MINI_W 50
-#define MINI_H 50
+#define MINI_W 150
+#define MINI_H 150
 #define	SCREEN_X 920
 #define SCREEN_Y 600
 
@@ -59,8 +59,13 @@ typedef struct s_gui {
 	void	*win;
 	void	*img;
 	char	*addr;
-	int		game_width;
-	int		game_height;
+	//* bonus
+	void	*mini_img;
+	char	*mini_addr;
+	int		mini_pixel;
+	int		mini_len;
+	int		mini_endian;
+	//* bonus
 	int		bits_per_pixel;
 	int		line_len;
 	int		endian;
@@ -104,5 +109,8 @@ t_raycast	digital_differential_analyzer(t_point pos, bool **map, double theta);
 int	check_filename(char *file);
 int	check_fileformat(char *mapstr, char **map);
 int	get_color(char *colstr);
+
+
+void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 
 #endif

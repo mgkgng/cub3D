@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/15 19:15:23 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 00:47:32 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,49 @@
 
 // for minimap i have to recreate an image.
 
-static void	draw_line_per_x(t_point a, t_point b, double slope)
+static void	draw_square(t_game *game, int where, int size, int color)
 {
-	double	intercept;
-	double	delta;
+	int	i;
+	int	j;
 
-	intercept = a.y - a.x * slope;
-	delta = (a.x > b.x) ? -1 : 1;
-	while (a.x + delta != b.x)
-		draw_func(a.x + delta, roundf(slope * (a.x + delta) + intercept), COLOR); // something like that
-	
-}
-
-static void	draw_line_per_y(t_point a, t_point b, double slope)
-{
-	double intercept;
-	int		delta;
-
-	intercept = a.y - a.x * slope;
-	delta = (a.y > b.y) ? -1 : 1;
-	while (a.y + delta != b.y)
-		draw_func(roundf(a.x * slope - intercept), a.y + delta++); // something like that
-}
-
-void	draw_line(t_point a, t_point b)
-{
-	double	delta_x;
-	int		delta;
-	int		endpoint;
-	double	slope;
-
-	delta_x = b.x - a.x;
-	if (!delta_x)
+	i = -1;
+	while (++i < size)
 	{
-		delta = (a.y > b.y) ? -1 : 1;
-		while (a.y + delta != b.y)
-			draw_func(a.x, a.y + delta++);
-		return ;
+		j = -1;
+		while (++j < size)
+			minimap_pixel_put(&game->gui, where[0], where[1], color);
 	}
-	slope = (b.y - a.y) / delta_x;
-	if (slope < 1 && slope > -1)
-		draw_line_per_x(a, b, slope);
-	else
-		draw_line_per_y(a, b, slope);
 }
-	
-void	draw_minimap(t_map map)
+
+static void	draw_map(t_game *game, int blen)
 {
-	// transparency
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < game->map.height)
+	{
+		j = -1;
+		while (++j < game->map.width)
+			if (game->map.map2d[j][i])
+				draw_sqaure(game, (int [2] {MINI_X + blen * j, MINI_Y + blen * i}, 0x77000000);
+	}
+}
+
+static void	draw_red(t_game *game, int blen)
+{
+	
+}
+
+void	draw_minimap(t_game *game)
+{
+	int	blockLength;
+
+	// maybe need to decide again beginning point of miniX and miniY according to the blockLength
+	blockLength = MINI_W / game->map.width;
+	if (blockLength > MINI_H / game->map.height)
+		blockLength = MINI_H / game->map.height;
+	draw_map(game->map, blockLength);
+	draw_red(game, blockLength);
+	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.mini_img, MINI_X, MINI_Y);
 }

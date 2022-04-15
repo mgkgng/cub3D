@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/15 20:45:40 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/15 23:20:15 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ t_gui	initialize_window(char *game_name)
 	gui.win = mlx_new_window(gui.mlx, SCREEN_X, SCREEN_Y, game_name);
 	gui.img = mlx_new_image(gui.mlx, SCREEN_X, SCREEN_Y);
 	gui.addr = mlx_get_data_addr(gui.img, &gui.bits_per_pixel, &gui.line_len, &gui.endian);
+	//* here is for the bonus
+	gui.mini_img = mlx_new_image(gui.mlx, MINI_W, MINI_H);
+	gui.mini_addr = mlx_get_data_addr(gui.mini_img, &gui.mini_pixel, &gui.mini_len, &gui.mini_endian); 
+	//* bonus
 	//ft_bzero(&gui.hook, sizeof(t_hook));
 	//gui.hook.re = true;
 	return (gui);
@@ -60,8 +64,14 @@ int	draw(t_game *game)
 		paint_background(game);
 		draw_cub3D(game);
 		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
+		//* for bonus
+		if (game->minimapOn)
+			draw_minimap(game);
+		//* bonus
 		game->hook.re = false;
 	}
+	else if (game->minimapOn)
+		draw_minimap(game);
 	return (0);
 }
 
