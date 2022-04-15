@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 18:33:27 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 21:32:40 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 #include "raycast.h"
 
 #define	BLOCKSIZE 18
-#define MINIMAP_X 100
-#define MINIMAP_Y 100
+#define MINI_X 20
+#define MINI_Y 20
+#define MINI_W 50
+#define MINI_H 50
 #define	SCREEN_X 920
 #define SCREEN_Y 600
 
@@ -88,12 +90,16 @@ void	error(int c);
 
 void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 
-void	draw_cub3D(t_game game);
+void	draw_cub3D(t_game *game);
 
 int	key_hook(int key, t_game *game);
 
 int	terminate(t_game *game);
-t_raycast	digital_differential_analyzer(t_point pos, char **map, double theta);
+t_raycast	digital_differential_analyzer(t_point pos, bool **map, double theta);
 
+/*parse utils*/
+int	check_filename(char *file);
+int	check_fileformat(char *mapstr, char **map);
+int	get_color(char *colstr);
 
 #endif

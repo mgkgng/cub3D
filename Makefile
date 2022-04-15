@@ -1,6 +1,6 @@
 SRCS =	srcs/cub3D.c srcs/key.c srcs/main.c srcs/parse.c \
-		srcs/raycasting.c srcs/utils.c srcs/pixel_put.c \
-		srcs/draw.c srcs/dda.h
+		srcs/utils.c srcs/pixel_put.c \
+		srcs/draw.c srcs/dda.c srcs/parse_utils.c
 
 NAME = cub3D
 

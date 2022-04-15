@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 19:14:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 21:28:41 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,46 @@ int	terminate(t_game *game)
 	exit(0);
 }
 
+void	paint_background(t_game *game)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (++j < SCREEN_Y / 2)
+	{
+		i = -1;
+		while (++i < SCREEN_X)
+			my_mlx_pixel_put(&game->gui, i, j, game->draw.col_ceil);
+	}
+	j--;
+	while (++j < SCREEN_Y)
+	{
+		i = -1;
+		while (++i < SCREEN_X)
+			my_mlx_pixel_put(&game->gui, i, j, game->draw.col_floor);
+	}	
+}
+
 int	draw(t_game *game)
 {
 	if (game->hook.re)
 	{
-		ft_bzero(game->gui.addr, 500 * 500 * 4);
+		//ft_bzero(game->gui.addr, SCREEN_X * SCREEN_Y * 4);
+		paint_background(game);
 		draw_cub3D(game);
 		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
 		game->hook.re = false;
 	}
 	return (0);
-}	
+}
 
 void	hook_control(t_game *game, t_hook *hook)
 {
 	hook->re = true;
 	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
 	//mlx_key_hook(game->gui.win, key_hook, hook);
-	mlx_loop_hook(game->gui.mlx, draw_cub3D, game);
+	mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
 int	cub3D(t_game game)

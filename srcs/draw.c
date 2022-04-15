@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 19:52:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/14 21:33:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ double	get_height(double dist)
 
 double	anti_fisheye_distortion(double dist, int rayN)
 {
-	double			perpDist;
 	double			r;
 	unsigned int	incline;
 
@@ -34,10 +33,10 @@ double	anti_fisheye_distortion(double dist, int rayN)
 	incline = abs(rayN - ANGLE / 2);
 	if (!incline)
 		return (dist);
-	return (dist * sin(M_PI / 2 - inclien * r));	
+	return (dist * sin(M_PI / 2 - incline * r));	
 }
 
-void	draw_raycast(t_game game, int h, int rayN)
+void	draw_raycast(t_game *game, int h, int rayN)
 {
 	double	startX;
 	double	startY;
@@ -45,7 +44,7 @@ void	draw_raycast(t_game game, int h, int rayN)
 	int		i;
 	int		j;
 
-	pixNbX = startX / ANGLE;
+	pixNbX = SCREEN_X / ANGLE;
 	startX = rayN * pixNbX;
 	startY = (SCREEN_Y - h) /2;
 	i = -1;
@@ -53,28 +52,27 @@ void	draw_raycast(t_game game, int h, int rayN)
 	{
 		j = -1;
 		while (++j < h)
-			my_mlx_pixel_put(&game.gui, startX + i, startY + j, 0xFFFF00);
+			my_mlx_pixel_put(&game->gui, startX + i, startY + j, 0xFFFF00);
 	}
 }
 
-void	raycast(t_game game, double angle, int rayN)
+void	raycast(t_game *game, double angle, int rayN)
 {
 	t_raycast	rayDist;
-	double		r;
 
-	rayDist = digital_differential_analyzer(game.map.pos, game.map.map2d, angle);
-	draw_raycast(game, get_hight(anti_fisheye_distortion(rayDist.dist)), rayN);
+	rayDist = digital_differential_analyzer(game->map.pos, game->map.map2d, angle);
+	draw_raycast(game, get_height(anti_fisheye_distortion(rayDist.dist, rayN)), rayN);
 }
 
-void	draw_cub3D(t_game game)
+void	draw_cub3D(t_game *game)
 {
 	int		ray;
 	double	startAngle;
-	int		i;
+	double	r;
 
 	r = M_PI / 180;
-	startAngle = game.map.theta - r * ANGLE / 2;
-	i = -1;
-	while (++i < ANGLE)
-		raycast(game, startAngle + r * i, i);
+	startAngle = game->map.theta - r * ANGLE / 2;
+	ray = -1;
+	while (++ray < ANGLE)
+		raycast(game, startAngle + r * ray, ray);
 }
