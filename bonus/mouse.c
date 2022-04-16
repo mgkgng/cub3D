@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 02:02:19 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 02:16:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 11:26:07 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	click_hook(int mouse, t_game *game)
 {
 	if (mouse == 1)
 	{
-		//attack
+		(void) game;
 	}
 	return (0);
 }

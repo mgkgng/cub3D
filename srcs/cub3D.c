@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 02:05:27 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 13:21:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,25 @@ int	draw(t_game *game)
 		draw_cub3D(game);
 		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
 		//* for bonus
-		if (game->hook.minimapOn)
-			draw_minimap(game);
+		//if (game->hook.minimapOn)
+		draw_minimap(game);
 		//* bonus
 		game->hook.re = false;
 	}
 	return (0);
 }
 
-void	hook_control(t_game *game, t_hook *hook)
+void	key_hook_control(t_game *game, t_hook *hook)
+{
+	hook->re = true;
+	mlx_hook(game->gui.win, 6, 1L << 6, mouse_hook, game);
+	mlx_loop_hook(game->gui.mlx, draw, game);
+}
+
+void	mouse_hook_control(t_game *game, t_hook *hook)
 {
 	hook->re = true;
 	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
-	mlx_hook(game->gui.win, 6, 1L << 6, mouse_hook, game);
 	mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
@@ -85,10 +91,11 @@ int	cub3D(t_game game)
 //int	cub3D(void)
 {		
 	game.map.theta = M_PI / 4;
-	game.draw.col_ceil = 0x00FF0000;
+	game.draw.col_ceil = 0x0000FF00;
 	game.draw.col_floor = 0x000000FF;
 	game.gui = initialize_window("cub3d_launching_test");
-	hook_control(&game, &game.hook);
+	mouse_hook_control(&game, &game.hook);
+	key_hook_control(&game, &game.hook);
 	draw(&game);
 	mlx_loop(game.gui.mlx);
 	return (terminate(&game));

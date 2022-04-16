@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 01:51:50 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 11:55:47 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	draw_square(t_game *game, int *where, int size, int color)
 	{
 		j = -1;
 		while (++j < size)
-			minimap_pixel_put(&game->gui, where[0], where[1], color);
+			minimap_pixel_put(&game->gui, where[0] + j, where[1] + i, color);
 	}
 }
 
@@ -34,20 +34,30 @@ static void	draw_map(t_game *game, int blen)
 	int	j;
 
 	i = -1;
+	printf("height == %d, width == %d\n", game->map.height, game->map.width);
 	while (++i < game->map.height)
 	{
 		j = -1;
 		while (++j < game->map.width)
-			if (game->map.map2d[j][i])
+		{
+			printf("number ----> x = %d, y = %d\n", j, i);
+			if (game->map.map2d[i][j])
+			{
 				draw_square(game, (int [2]) {MINI_X + blen * j,
-					MINI_Y + blen * i}, blen, 0x77000000);
+					MINI_Y + blen * i}, blen, 0x88FFFFFF);
+			}
+			else
+				draw_square(game, (int [2]) {MINI_X + blen * j,
+					MINI_Y + blen * i}, blen, 0xFFFFFFFF);
+
+		}
 	}
 }
 
 static void	draw_red(t_game *game, int blen)
 {
 	draw_square(game, (int [2]){MINI_X + game->map.pos.x * blen,
-		MINI_Y + game->map.pos.y * blen}, 3, 0x77FF0000);
+		MINI_Y + game->map.pos.y * blen}, 3, 0x22FF0000);
 }
 
 void	draw_minimap(t_game *game)
@@ -58,6 +68,7 @@ void	draw_minimap(t_game *game)
 	blockLength = MINI_W / game->map.width;
 	if (blockLength > MINI_H / game->map.height)
 		blockLength = MINI_H / game->map.height;
+	printf("blockLength====%d\n", blockLength);
 	draw_map(game, blockLength);
 	draw_red(game, blockLength);
 	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.mini_img, MINI_X, MINI_Y);

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 02:05:50 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 14:29:06 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	draw_cub3D(t_game *game);
 int	key_hook(int key, t_game *game);
 
 int	terminate(t_game *game);
-t_raycast	digital_differential_analyzer(t_point pos, bool **map, double theta);
+t_raycast	digital_differential_analyzer(t_map map, double theta);
 
 /*parse utils*/
 int	check_filename(char *file);
