@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 00:06:08 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 02:05:50 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_gui {
 
 typedef struct s_hook {
 	bool	re;
+	//*bonus
+	bool	minimapOn;
 }	t_hook;
 
 typedef struct s_game {
@@ -110,7 +112,11 @@ int	check_filename(char *file);
 int	check_fileformat(char *mapstr, char **map);
 int	get_color(char *colstr);
 
+//*bonus
 
+void	draw_minimap(t_game *game);
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
+int		mouse_hook(int x, int y, t_game *game);
+
 
 #endif

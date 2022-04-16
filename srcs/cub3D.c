@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/15 23:20:15 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 02:05:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,11 @@ int	draw(t_game *game)
 		draw_cub3D(game);
 		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
 		//* for bonus
-		if (game->minimapOn)
+		if (game->hook.minimapOn)
 			draw_minimap(game);
 		//* bonus
 		game->hook.re = false;
 	}
-	else if (game->minimapOn)
-		draw_minimap(game);
 	return (0);
 }
 
@@ -79,6 +77,7 @@ void	hook_control(t_game *game, t_hook *hook)
 {
 	hook->re = true;
 	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
+	mlx_hook(game->gui.win, 6, 1L << 6, mouse_hook, game);
 	mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
