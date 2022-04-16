@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 14:35:15 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 14:50:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	translate(t_map *map, int theta)
 {
-	if (map->map2d[(int) (map->pos.x + cos(theta) * 0.1)][(int) (map->pos.y + sin(theta) * 0.1)] == false)
+	if (map->map2d[(int) (map->pos.y + cos(theta) * 0.1)][(int) (map->pos.x + sin(theta) * 0.1)] == false)
 		return ;
 	map->pos.x += cos(theta) * 0.1;
 	map->pos.y += sin(theta) * 0.1;
@@ -37,16 +37,16 @@ int	key_hook(int key, t_game *game)
 		terminate(game);
 	if (key == UP)
 		translate(&game->map, game->map.theta);
-	else if (key == dsDOWN)
+	else if (key == DOWN)
 		translate(&game->map, game->map.theta + M_PI);	
 	else if (key == LEFT)
 		translate(&game->map, game->map.theta + M_PI_2);
 	else if (key == RIGHT)
 		translate(&game->map, game->map.theta - M_PI_2);
 	else if (key == TURN_L)
-		turn(&game->map, -1);
-	else if (key == TURN_R)
 		turn(&game->map, 1);
+	else if (key == TURN_R)
+		turn(&game->map, -1);
 	game->hook.re = true;
 	return (0);
 }

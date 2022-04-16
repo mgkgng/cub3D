@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 14:30:13 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/16 14:52:36 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	draw_cub3D(t_game *game)
 	double	startAngle;
 	int		rayN;
 
-	startAngle = game->map.theta - ANGLE / 2;
+	startAngle = game->map.theta + ANGLE / 2;
 	rayN = -1;
 	while (++rayN < SCREEN_X)
-		raycast(game, startAngle + (rayN + 1) * ANGLE / SCREEN_X, rayN);
+		raycast(game, startAngle - (rayN + 1) * ANGLE / SCREEN_X, rayN);
 }
