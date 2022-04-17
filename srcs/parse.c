@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 13:42:35 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/17 15:35:26 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,15 @@ t_map	get_map(int fd)
 	if (!check_fileformat(mapstr, map_data))
 		error(4);
 	put_info(&map, map_data);
-	printf("map info : width - %d, height - %d\n", map.width, map.height);
-	printf("there is the person (%d, %d)\n", (int) map.pos.x, (int) map.pos.y);
+	//printf("map info : width - %d, height - %d\n", map.width, map.height);
+	//printf("there is the person (%d, %d)\n", (int) map.pos.x, (int) map.pos.y);
 	map.map2d = get_boolmap(map_data, map.width, map.height);
+	for (int i = 0; i < map.height; i++)
+	{
+		for (int j = 0; j < map.width; j++)
+			printf("%d", map.map2d[i][j]);
+		printf("\n");
+	}
 	return (map);
 }
 

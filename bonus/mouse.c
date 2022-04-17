@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 02:02:19 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 11:26:07 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/17 15:05:36 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	mouse_hook(int x, int y, t_game *game)
 	int	timeFrame;
 
 	(void) game;
-	printf("MOUSE POSITION: X - %d Y - %d\n", x, y);
+	(void) y;
+	//printf("MOUSE POSITION: X - %d Y - %d\n", x, y);
 	// if pthread_try works
 	// thread_lock
 	if (SCREEN_X - x > SCREEN_X / 3 * 2)

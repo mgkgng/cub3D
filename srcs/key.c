@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 14:35:15 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/17 15:59:23 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	translate(t_map *map, int theta)
 {
 	if (map->map2d[(int) (map->pos.x + cos(theta) * 0.1)][(int) (map->pos.y + sin(theta) * 0.1)] == false)
 		return ;
-	map->pos.x += cos(theta) * 0.1;
-	map->pos.y += sin(theta) * 0.1;
+	map->pos.x += cos(theta);
+	map->pos.y += sin(theta);
 }
 
 void	turn(t_map *map, int dir)
@@ -31,13 +31,13 @@ void	turn(t_map *map, int dir)
 
 int	key_hook(int key, t_game *game)
 {
-	printf("key pressed : %d\n", key);
+	//printf("key pressed : %d\n", key);
 	//printf("angle now = %d\n", game->map.theta);
 	if (key == ESC)
 		terminate(game);
 	if (key == UP)
 		translate(&game->map, game->map.theta);
-	else if (key == dsDOWN)
+	else if (key == DOWN)
 		translate(&game->map, game->map.theta + M_PI);	
 	else if (key == LEFT)
 		translate(&game->map, game->map.theta + M_PI_2);
