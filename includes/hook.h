@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:41:17 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 21:06:59 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/17 17:44:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@
 # define RIGHT 2
 # define TURN_L 123
 # define TURN_R 124
+
 
 #endif
