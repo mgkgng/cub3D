@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/17 15:59:23 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/29 18:38:46 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	translate(t_map *map, int theta)
 {
 	if (map->map2d[(int) (map->pos.x + cos(theta) * 0.1)][(int) (map->pos.y + sin(theta) * 0.1)] == false)
 		return ;
-	map->pos.x += cos(theta);
-	map->pos.y += sin(theta);
+	map->pos.x += cos(theta) * 0.1;
+	map->pos.y += sin(theta) * 0.1;
 }
 
 void	turn(t_map *map, int dir)
 {
-	map->theta += dir * (M_PI_4 / 45);
+	map->theta += dir * (M_PI_4 / 18);
 	if (map->theta > M_PI * 2)
 		map->theta -= M_PI * 2;
 	if (map->theta < 0)
