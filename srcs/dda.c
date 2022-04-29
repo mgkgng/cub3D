@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/29 19:00:45 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/29 20:55:48 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ static float	get_distX(t_map map, t_point pos, int *where, double theta)
 	double		deltaX;
 	double		deltaH;
 	double		increY;
+	int			test;
 
 	if (!theta || theta == PI)
 		return (INT32_MAX);
 	increY = 1;
+	test = 0;
 	if (theta > 0 && theta < PI)
 		where[1]++;
 	else
@@ -33,13 +35,15 @@ static float	get_distX(t_map map, t_point pos, int *where, double theta)
 	res.dist = (where[1] - pos.y) / sin(theta);
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
-	while (res.wall.y > 1 && res.wall.x >= 0 && res.wall.x < map.width
+	while (res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map2d[(int) res.wall.y][(int) res.wall.x])
 	{
 		res.dist += deltaH;
 		res.wall.x += deltaX;
 		res.wall.y += increY;
 	}
+	//if (theta > PI && theta < PI * 2)
+		//res.dist -= deltaH;
 	return (res.dist);
 }
 
@@ -62,13 +66,15 @@ static float	get_distY(t_map map, t_point pos, int *where, double theta)
 	res.dist = (where[0] - pos.x) / cos(theta);
 	res.wall.x = where[0];
 	res.wall.y = pos.y + (where[0] - pos.x) * tan(theta);
-	while (res.wall.x > 1 && res.wall.y >= 0 && res.wall.y < map.height
+	while (res.wall.y >= 0 && res.wall.y < map.height
 		&& map.map2d[(int) res.wall.y][(int) res.wall.x])
 	{
 		res.dist += deltaH;
 		res.wall.x += increX;
 		res.wall.y += deltaY;
 	}
+	//if (theta > PI / 2 && theta < PI / 2 * 3)
+		///res.dist -= deltaH;
 	return (res.dist);
 }
 
