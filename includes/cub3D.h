@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/17 17:44:14 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/29 19:02:10 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,15 @@ void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 
 void	draw_cub3D(t_game *game);
 
-int	key_hook(int key, t_game *game);
+int		key_hook(int key, t_game *game);
 
-int	terminate(t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, double theta);
+int		terminate(t_game *game);
+float	digital_differential_analyzer(t_map map, double theta);
 
 /*parse utils*/
-int	check_filename(char *file);
-int	check_fileformat(char *mapstr, char **map);
-int	get_color(char *colstr);
+int		check_filename(char *file);
+int		check_fileformat(char *mapstr, char **map);
+int		get_color(char *colstr);
 
 //*bonus
 

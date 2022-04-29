@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/29 18:37:30 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/29 19:00:45 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 // ** should only consider the fact that north and the south (y-axis) is inverted.
 
-t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
+static float	get_distX(t_map map, t_point pos, int *where, double theta)
 {
 	t_raycast	res;
 	double		deltaX;
 	double		deltaH;
 	double		increY;
 
-	res.dist = INT32_MAX;
 	if (!theta || theta == PI)
-		return (res);
+		return (INT32_MAX);
 	increY = 1;
 	if (theta > 0 && theta < PI)
 		where[1]++;
@@ -40,22 +39,19 @@ t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 		res.dist += deltaH;
 		res.wall.x += deltaX;
 		res.wall.y += increY;
-		/*if (res.wall.y == 0)
-			res.dist -= deltaH;*/
 	}
-	return (res);
+	return (res.dist);
 }
 
-static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)
+static float	get_distY(t_map map, t_point pos, int *where, double theta)
 {
 	t_raycast	res;
 	double		deltaY;
 	double		deltaH;
 	double		increX;
 
-	res.dist = INT32_MAX;
 	if (theta == PI / 2 || theta == PI / 2 * 3)
-		return (res);
+		return (INT32_MAX);
 	increX = 1;
 	if (theta > PI / 2 && theta < PI / 2 * 3)
 		increX = -1;
@@ -72,23 +68,18 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)
 		res.dist += deltaH;
 		res.wall.x += increX;
 		res.wall.y += deltaY;
-		/*if (!res.wall.x)
-			res.dist -= deltaH;*/
 	}
-	return (res);
+	return (res.dist);
 }
 
-t_raycast	digital_differential_analyzer(t_map map, double theta)
+float	digital_differential_analyzer(t_map map, double theta)
 {
-	t_raycast	resX;
-	t_raycast	resY;
+	float	res_x;
+	float	res_y;
 
-	resX = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
-	resY = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
-	//printf("theta value == %f\n", theta);
-	//printf("result of raycasting ===== x=== %f y ===%f\n", resX.dist, resY.dist);
-	if (resX.dist < resY.dist)
-		return (resX);
-	// what happens if resX.dist == resY.dist?
-	return (resY);
+	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
+	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
+	if (res_x < res_y)
+		return (res_x);
+	return (res_y);
 }

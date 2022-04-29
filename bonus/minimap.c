@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/17 16:30:35 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/29 19:22:38 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,18 @@ static void	draw_map(t_game *game, int blen)
 	int	j;
 
 	i = -1;
-	//printf("height == %d, width == %d\n", game->map.height, game->map.width);
 	while (++i < game->map.height)
 	{
 		j = -1;
 		while (++j < game->map.width)
 		{
-			//printf("number ----> x = %d, y = %d\n", j, i);
 			if (game->map.map2d[i][j])
 			{
-				draw_square(game, (int [2]) {MINI_X + blen * j,
+				draw_square(game, (int [2]) {blen * j,
 					MINI_Y + blen * i}, blen, 0x88FFFFFF);
 			}
 			else
-				draw_square(game, (int [2]) {MINI_X + blen * j,
+				draw_square(game, (int [2]) {blen * j,
 					MINI_Y + blen * i}, blen, 0xFFFFFFFF);
 
 		}

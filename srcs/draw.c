@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/29 18:36:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/29 19:05:23 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	draw_raycast(t_game *game, int h, int rayX)
 
 void	raycast(t_game *game, double angle, int rayN)
 {
-	t_raycast	rayDist;
+	float	rayDist;
 
 	rayDist = digital_differential_analyzer(game->map, angle);
 	// there was an error with anti_fisheye_distortion function
-	draw_raycast(game, get_height(rayDist.dist), rayN);
+	draw_raycast(game, get_height(rayDist), rayN);
 }
 
 void	draw_cub3D(t_game *game)
