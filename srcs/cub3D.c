@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/29 17:59:45 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/30 15:16:15 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	cub3D(t_game game)
 //int	cub3D(void)
 {		
 	game.map.theta = M_PI / 4;
-	game.draw.col_ceil = 0x0000FF00;
-	game.draw.col_floor = 0x000000FF;
+	game.draw.col_ceil = 0x00008800;
+	game.draw.col_floor = 0x00000088;
 	game.gui = initialize_window("cub3d_launching_test");
 	//mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/29 19:05:23 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/30 18:03:59 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,16 @@ void	draw_raycast(t_game *game, int h, int rayX)
 
 void	raycast(t_game *game, double angle, int rayN)
 {
-	float	rayDist;
+	t_raycast	ray;
 
-	rayDist = digital_differential_analyzer(game->map, angle);
+	ray = digital_differential_analyzer(game->map, angle);
 	// there was an error with anti_fisheye_distortion function
-	draw_raycast(game, get_height(rayDist), rayN);
+	/*	Find the texture that the ray hit (NO, SO, WE, EA) and the 
+		corresponding position to print the correct line */
+	printf("which wall did it hit? rayN = %d, x = %f, x = %f\n", rayN, ray.wall.x, ray.wall.y);
+	printf("Height : %f\n", get_height(ray.dist));
+	draw_text(game, get_height(ray.dist), rayN, ray);
+	draw_raycast(game, get_height(ray.dist), rayN);
 }
 
 void	draw_cub3D(t_game *game)

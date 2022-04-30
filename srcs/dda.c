@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/29 20:55:48 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:38:13 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // ** should only consider the fact that north and the south (y-axis) is inverted.
 
-static float	get_distX(t_map map, t_point pos, int *where, double theta)
+static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 {
 	t_raycast	res;
 	double		deltaX;
@@ -22,8 +22,9 @@ static float	get_distX(t_map map, t_point pos, int *where, double theta)
 	double		increY;
 	int			test;
 
+	res.dist = INT32_MAX;
 	if (!theta || theta == PI)
-		return (INT32_MAX);
+		return (res);
 	increY = 1;
 	test = 0;
 	if (theta > 0 && theta < PI)
@@ -44,18 +45,19 @@ static float	get_distX(t_map map, t_point pos, int *where, double theta)
 	}
 	//if (theta > PI && theta < PI * 2)
 		//res.dist -= deltaH;
-	return (res.dist);
+	return (res);
 }
 
-static float	get_distY(t_map map, t_point pos, int *where, double theta)
+static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)
 {
 	t_raycast	res;
 	double		deltaY;
 	double		deltaH;
 	double		increX;
 
+	res.dist = INT32_MAX;
 	if (theta == PI / 2 || theta == PI / 2 * 3)
-		return (INT32_MAX);
+		return (res);
 	increX = 1;
 	if (theta > PI / 2 && theta < PI / 2 * 3)
 		increX = -1;
@@ -75,17 +77,17 @@ static float	get_distY(t_map map, t_point pos, int *where, double theta)
 	}
 	//if (theta > PI / 2 && theta < PI / 2 * 3)
 		///res.dist -= deltaH;
-	return (res.dist);
+	return (res);
 }
 
-float	digital_differential_analyzer(t_map map, double theta)
+t_raycast	digital_differential_analyzer(t_map map, double theta)
 {
-	float	res_x;
-	float	res_y;
+	t_raycast	res_x;
+	t_raycast	res_y;
 
 	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
-	if (res_x < res_y)
+	if (res_x.dist < res_y.dist)
 		return (res_x);
 	return (res_y);
 }
