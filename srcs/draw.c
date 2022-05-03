@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/30 18:03:59 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:12:29 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	raycast(t_game *game, double angle, int rayN)
 		corresponding position to print the correct line */
 	printf("which wall did it hit? rayN = %d, x = %f, x = %f\n", rayN, ray.wall.x, ray.wall.y);
 	printf("Height : %f\n", get_height(ray.dist));
-	draw_text(game, get_height(ray.dist), rayN, ray);
+	// draw_text(game, get_height(ray.dist), rayN, ray);
 	draw_raycast(game, get_height(ray.dist), rayN);
 }
 

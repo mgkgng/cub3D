@@ -3,14 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 18:25:06 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:21:08 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	end_program(char *str)
+{
+	printf("%s\n", str);
+	exit(1);
+}
+
+int	ft_skip(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != ' ')
+		i++;
+	return (i);
+}
+
+int	right_format(char *str)
+{
+	int	i;
+
+	i = 0;
+	i = ft_skip(str);
+	if (str[i] != '1')
+		return (-1);
+	i = ft_strlen(str) - 1;
+	while (str[i] && str[i] == ' ')
+		i--;
+	if (str[i] != '1')
+		return (-1);
+}
+
+int	ft_tablen(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
+int	zero_near_space(char **map, int i, int j)
+{
+	if (i - 1 < 0)
+		end_program("Error");
+	else if (i + 1 > ft_tablen(map) - 1)
+		end_program("Error");
+}
 
 int	is_surrounded(char **map)
 {
@@ -26,6 +75,9 @@ int	is_surrounded(char **map)
 	{
 		j = -1;
 		open = false;
+		// Check if the first and the last char of the ligne is a 1
+		if (right_format(map[i]) == -1) 
+			end_program("Error");
 		while (map[i][++j])
 		{
 			if (!open && !(map[i][j] == ' ' || map[i][j] == '1'))
