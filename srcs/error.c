@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 18:21:08 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:47:08 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	right_format(char *str)
 	i = 0;
 	i = ft_skip(str);
 	if (str[i] != '1')
-		return (-1);
+		end_program("Error");
 	i = ft_strlen(str) - 1;
 	while (str[i] && str[i] == ' ')
 		i--;
 	if (str[i] != '1')
-		return (-1);
+		end_program("Error");
 }
 
 int	ft_tablen(char **tab)
@@ -53,11 +53,20 @@ int	ft_tablen(char **tab)
 	return (i);
 }
 
+// Check if a 0 is not next to a 1 in all the direction
 int	zero_near_space(char **map, int i, int j)
 {
 	if (i - 1 < 0)
 		end_program("Error");
 	else if (i + 1 > ft_tablen(map) - 1)
+		end_program("Error");
+	if (map[i][j + 1] == ' ')
+		end_program("Error");
+	if (map[i][j - 1] == ' ')
+		end_program("Error");
+	if (map[i + 1][j] == ' ')
+		end_program("Error");
+	if (map[i - 1][j] == ' ')
 		end_program("Error");
 }
 
@@ -76,12 +85,13 @@ int	is_surrounded(char **map)
 		j = -1;
 		open = false;
 		// Check if the first and the last char of the ligne is a 1
-		if (right_format(map[i]) == -1) 
-			end_program("Error");
+		// right_format(map[i]);																																																end_program("Error");
 		while (map[i][++j])
 		{
 			if (!open && !(map[i][j] == ' ' || map[i][j] == '1'))
 				open = true;
+			// if (map[i][j] == '0')
+			// 	zero_near_space(map, i, j);
 			if (open && map[i][j] == '1')
 				open = false;
 		}
