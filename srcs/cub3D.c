@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 20:43:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/03 23:38:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,19 @@ int	draw(t_game *game)
 
 void	mouse_hook_control(t_game *game, t_hook *hook)
 {
-	hook->re = true;
+	int	i;
+	
 	mlx_hook(game->gui.win, 6, 1L << 6, mouse_hook, game);
-	mlx_loop_hook(game->gui.mlx, draw, game);
+	i = 0;
+	while (i++ * hook->m_sensibility < hook->m_turn)
+	{
+		paint_background(game);
+		draw_cub3D(game);
+		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
+		draw_minimap(game);
+		//mlx_loop_hook(game->gui.mlx, draw, game);
+		printf("toto\n");
+	}
 }
 
 void	key_hook_control(t_game *game, t_hook *hook)
@@ -94,7 +104,10 @@ int	cub3D(t_game game)
 	game.draw.col_ceil = 0x00008800;
 	game.draw.col_floor = 0x00000088;
 	game.gui = initialize_window("cub3d_launching_test");
-	//mouse_hook_control(&game, &game.hook);
+	game.hook.m_turn = 0;
+	game.hook.x_prev = SCREEN_X / 2;
+	game.hook.m_sensibility = 10;
+	mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);
 	draw(&game);
 	mlx_loop(game.gui.mlx);
