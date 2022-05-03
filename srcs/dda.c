@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/30 17:38:13 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:19:12 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-// ** should only consider the fact that north and the south (y-axis) is inverted.
 
 static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 {
@@ -20,31 +18,32 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 	double		deltaX;
 	double		deltaH;
 	double		increY;
-	int			test;
+	int			side;
 
 	res.dist = INT32_MAX;
 	if (!theta || theta == PI)
 		return (res);
 	increY = 1;
-	test = 0;
+	side = 0;
 	if (theta > 0 && theta < PI)
 		where[1]++;
 	else
+	{
 		increY = -1;
+		side--;
+	}
 	deltaH = 1 / sin(theta) * increY;
 	deltaX = 1 / tan(theta) * increY;
 	res.dist = (where[1] - pos.y) / sin(theta);
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
 	while (res.wall.x >= 0 && res.wall.x < map.width
-		&& map.map2d[(int) res.wall.y][(int) res.wall.x])
+		&& map.map2d[(int) res.wall.y + side][(int) res.wall.x])
 	{
 		res.dist += deltaH;
 		res.wall.x += deltaX;
 		res.wall.y += increY;
 	}
-	//if (theta > PI && theta < PI * 2)
-		//res.dist -= deltaH;
 	return (res);
 }
 
@@ -54,13 +53,18 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)
 	double		deltaY;
 	double		deltaH;
 	double		increX;
+	int			side;
 
 	res.dist = INT32_MAX;
 	if (theta == PI / 2 || theta == PI / 2 * 3)
 		return (res);
 	increX = 1;
+	side = 0;
 	if (theta > PI / 2 && theta < PI / 2 * 3)
+	{
+		side--;
 		increX = -1;
+	}
 	else
 		where[0]++;
 	deltaH = 1 / cos(theta) * increX;
@@ -69,14 +73,12 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)
 	res.wall.x = where[0];
 	res.wall.y = pos.y + (where[0] - pos.x) * tan(theta);
 	while (res.wall.y >= 0 && res.wall.y < map.height
-		&& map.map2d[(int) res.wall.y][(int) res.wall.x])
+		&& map.map2d[(int) res.wall.y][(int) res.wall.x + side])
 	{
 		res.dist += deltaH;
 		res.wall.x += increX;
 		res.wall.y += deltaY;
 	}
-	//if (theta > PI / 2 && theta < PI / 2 * 3)
-		///res.dist -= deltaH;
 	return (res);
 }
 
