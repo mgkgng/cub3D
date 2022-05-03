@@ -5,31 +5,21 @@
 
 // }
 
-char	**get_texture(int fd)
-{
-	char	*line;
-	int		ret;
-	char	buf[2];
-
-	ret = read(fd, buf, 2);
-	buf[ret] = '\0';
-	line = ft_strdup(buf);
-	while (ret > 0)
-	{
-		ret = read(fd, buf, 2);
-		buf[ret] = '\0';
-		line = ft_strjoin(line, buf);
-		// free line dans strjoin
-	}
-	return (ft_split(line, '\n'));
-}
+// Comment recuperer la texture.
 
 void	draw_text(t_game *game, int h, int x, t_raycast ray)
 {
 	// Essaye avec une texture partout
-	int	startY;
-	int	line; // C'est la ligne de l'image qu'on doit afficher;
+	// int	startY;
+	// int	line; // C'est la ligne de l'image qu'on doit afficher;
+	void	*img;
+	void	*mlx;
+	int	i;
 
+	i = 0;
+	mlx = mlx_init();
+	img = mlx_xpm_file_to_image(mlx, "../texture/test.xpm", 32, 32);
+	printf("%c\n", img[0]);
 	// line = (int) ray.wall.x;
 	// line = line * // Longueur longeur de l'image;
 	// startY = (int) ((SCREEN_Y - h) /2);

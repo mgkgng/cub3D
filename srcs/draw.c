@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 17:29:15 by min-kang         ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void	raycast(t_game *game, double angle, int rayN)
 	// there was an error with anti_fisheye_distortion function
 	/*	Find the texture that the ray hit (NO, SO, WE, EA) and the 
 		corresponding position to print the correct line */
-	//printf("which wall did it hit? rayN = %d, x = %f, x = %f\n", rayN, ray.wall.x, ray.wall.y);
-	//printf("Height : %f\n", get_height(ray.dist));
-	//draw_text(game, get_height(ray.dist), rayN, ray);
+
 	draw_raycast(game, get_height(ray.dist), rayN);
 }
 
