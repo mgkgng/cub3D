@@ -6,11 +6,16 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 18:19:12 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/03 21:21:20 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+//* to do list
+//* 1. anti fisheye distortion
+//* 2. 0 height at 90 degree
+//* 3. seg fault when out of the wall 
 
 static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 {

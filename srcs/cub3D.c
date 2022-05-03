@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 20:43:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/03 21:19:16 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	key_hook_control(t_game *game, t_hook *hook)
 }
 
 int	cub3D(t_game game)
-//int	cub3D(void)
 {		
 	game.map.theta = M_PI / 2;
 	game.draw.col_ceil = 0x00008800;
