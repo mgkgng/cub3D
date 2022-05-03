@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/14 13:04:42 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/03 17:30:18 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_fileformat(char *mapstr, char **map)
 	{
 		j = -1;
 		while (map[i][++j]) {
-			printf("%d---%d---\n", i ,j);
+			//printf("%d---%d---\n", i ,j);
 			if (!ft_strchr(set, map[i][j]))
 				return (terminate_parse(mapstr, map, set));
 		}
