@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/04 13:07:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:34:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_gui	initialize_window(char *game_name)
 	gui.mini_img = mlx_new_image(gui.mlx, MINI_W, MINI_H);
 	gui.mini_addr = mlx_get_data_addr(gui.mini_img, &gui.mini_pixel, &gui.mini_len, &gui.mini_endian); 
 	//* bonus
-	//ft_bzero(&gui.hook, sizeof(t_hook));
-	//gui.hook.re = true;
 	return (gui);
 }
 
@@ -56,20 +54,22 @@ void	paint_background(t_game *game)
 	}	
 }
 
+void	redraw(t_game *game)
+{
+	paint_background(game);
+	draw_cub3D(game);
+	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
+	if (game->hook.minimap_on % 2)
+		draw_minimap(game);
+}
+
 int	draw(t_game *game)
 {
 	int	i;
 
 	if (game->hook.re)
 	{
-		//ft_bzero(game->gui.addr, SCREEN_X * SCREEN_Y * 4);
-		paint_background(game);
-		draw_cub3D(game);
-		mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
-		//* for bonus
-		//if (game->hook.minimapOn)
-		draw_minimap(game);
-		//* bonus
+		redraw(game);
 		game->hook.re = false;
 	}
 	if (game->hook.m_re)
@@ -78,14 +78,10 @@ int	draw(t_game *game)
 		while (++i * game->hook.m_sensibility < game->hook.m_turn)
 		{
 			turn(&game->map, game->hook.m_dir);
-			paint_background(game);
-			draw_cub3D(game);
-			mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
-			draw_minimap(game);
+			redraw(game);
 		}
 		game->hook.m_re = false;
 	}
-
 	return (0);
 }
 
@@ -112,6 +108,7 @@ int	cub3D(t_game game)
 	game.hook.m_turn = 0;
 	game.hook.x_prev = SCREEN_X / 2;
 	game.hook.m_sensibility = 20;
+	game.hook.minimap_on = 0;
 	mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);
 	draw(&game);

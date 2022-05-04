@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/04 12:52:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:36:18 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	turn(t_map *map, int dir)
 
 int	key_hook(int key, t_game *game)
 {
+	//printf("%d--\n", key);
 	if (key == ESC)
 		terminate(game);
 	if (key == UP)
@@ -58,6 +59,9 @@ int	key_hook(int key, t_game *game)
 		turn(&game->map, -1);
 	else if (key == TURN_R)
 		turn(&game->map, 1);
+	//* bonus
+	else if (key == MINIMAP)
+		game->hook.minimap_on++;
 	game->hook.re = true;
 	return (0);
 }
