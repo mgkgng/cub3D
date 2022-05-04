@@ -104,7 +104,6 @@ void	key_hook_control(t_game *game, t_hook *hook)
 }
 
 int	cub3D(t_game game)
-//int	cub3D(void)
 {		
 	game.map.theta = M_PI / 2;
 	game.draw.col_ceil = 0x00008800;

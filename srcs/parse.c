@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 18:59:18 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/03 20:54:18 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ t_game	parse(char *file)
 		error(3);
 	//game.draw = get_draw(fd);
 	game.map = get_map(fd);
-	printf("coucou\n");
 	close(fd);
 	return (game);
 }
