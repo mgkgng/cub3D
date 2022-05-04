@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/04 13:34:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/04 21:55:18 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,20 @@ int	draw(t_game *game)
 {
 	int	i;
 
-	if (game->hook.re)
+	/*if (game->hook.re)
 	{
 		redraw(game);
 		game->hook.re = false;
+	}*/
+	if (game->hook.move_re)
+	{
+		i = -1;
+		while (++i < 2)
+		{
+			translate(game);
+			redraw(game);
+		}
+		game->hook.move_re = false;
 	}
 	if (game->hook.m_re)
 	{
@@ -109,6 +119,7 @@ int	cub3D(t_game game)
 	game.hook.x_prev = SCREEN_X / 2;
 	game.hook.m_sensibility = 20;
 	game.hook.minimap_on = 0;
+	game.hook.move_re = STOP;
 	mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);
 	draw(&game);

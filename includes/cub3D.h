@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/04 13:32:06 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/04 21:52:49 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ typedef struct s_point {
 	double	x;
 	double	y;
 }	t_point;
+
+typedef enum e_move {
+	STOP,
+	W,
+	S,
+	A,
+	D
+}	t_move;
+
 
 typedef struct s_draw {
 	char	*nswe[4];
@@ -73,6 +82,7 @@ typedef struct s_gui {
 
 typedef struct s_hook {
 	bool	re;
+	t_move	move_re;
 	//*bonus
 	unsigned int	minimap_on;
 	int		x_prev;
@@ -124,5 +134,6 @@ void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 
 void	turn(t_map *map, int dir);
+void	translate(t_game *game);
 
 #endif
