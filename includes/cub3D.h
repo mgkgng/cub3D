@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 23:37:03 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:32:06 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ typedef struct s_gui {
 typedef struct s_hook {
 	bool	re;
 	//*bonus
-	bool	minimap_on;
+	unsigned int	minimap_on;
 	int		x_prev;
 	int		m_turn;
 	int		m_dir;
 	int		m_sensibility;
+	bool	m_re;
 }	t_hook;
 
 typedef struct s_game {
@@ -121,7 +122,6 @@ int		get_color(char *colstr);
 void	draw_minimap(t_game *game);
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
-
 
 void	turn(t_map *map, int dir);
 
