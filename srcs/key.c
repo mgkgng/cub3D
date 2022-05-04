@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 20:31:10 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/04 12:52:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	translate(t_map *map, double theta)
 	//* this is wall collision
 	/*if (map->map2d[(int) (map->pos.x + cos(theta) * 0.1)][(int) (map->pos.y + sin(theta) * 0.1)] == false)
 		return ;*/
-	printf("%f...move\n", theta);
+	//printf("%f...move\n", theta);
 	map->pos.x += cos(theta) * 0.1;
 	map->pos.y += sin(theta) * 0.1;
 }
