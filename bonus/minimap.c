@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/29 19:22:38 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:34:14 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,21 @@ static void	draw_map(t_game *game, int blen)
 	}
 }
 
-static void	draw_red(t_game *game, int blen)
+/*static void	draw_red(t_game *game, int blen)
 {
 	draw_square(game, (int [2]){MINI_X + game->map.pos.x * blen,
 		MINI_Y + game->map.pos.y * blen}, 3, 0x22FF0000);
-}
+}*/
+
+static void	put_virus(t_game *game, int blen)
+{
+	void	*img;
+	int		pos[2];
+	
+	img = NULL;
+	img = mlx_xpm_file_to_image(game->gui.mlx, "./texture/virus_48x48.xpm", &pos[0], &pos[1]);
+	mlx_put_image_to_window(game->gui.mlx, game->gui.win, img, MINI_X + game->map.pos.x * blen, MINI_Y + game->map.pos.y * blen);
+}	
 
 void	draw_minimap(t_game *game)
 {
@@ -68,6 +78,6 @@ void	draw_minimap(t_game *game)
 		blockLength = MINI_H / game->map.height;
 	//printf("blockLength====%d\n", blockLength);
 	draw_map(game, blockLength);
-	draw_red(game, blockLength);
 	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.mini_img, MINI_X, MINI_Y);
+	put_virus(game, blockLength);
 }
