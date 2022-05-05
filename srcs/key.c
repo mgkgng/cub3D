@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/04 21:53:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:09:58 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,18 @@ double	get_angle(double old, double change)
 	return (res);
 }
 
-//void	translate(t_map *map, double theta)
-void	translate(t_game *game)
+void	translate(t_map *map, double theta)
 {
-	double	theta;
-	if (game->hook.move_re == W)
-		theta = game->map.theta;
-	else if (game->hook.move_re == A)
-		theta = game->map.theta - M_PI / 2;
-	else if (game->hook.move_re == S)
-		theta = game->map.theta + M_PI;
-	else
-		theta = game->map.theta + M_PI / 2;
-	//* this is wall collision
-	/*if (map->map2d[(int) (map->pos.x + cos(theta) * 0.1)][(int) (map->pos.y + sin(theta) * 0.1)] == false)
-		return ;*/
-	//printf("%f...move\n", theta);
-	game->map.pos.x += cos(theta) * 0.01;
-	game->map.pos.y += sin(theta) * 0.01;
+	double	new_x;
+	double	new_y;
+
+	new_x = map->pos.x + cos(theta) * 0.1;
+	new_y = map->pos.y + sin(theta) * 0.1;
+	if (new_x < 0 || new_x > map->width || new_y < 0 || new_y > map->height
+		|| !map->map2d[(int) new_y][(int) new_x])
+		return ;
+	map->pos.x = new_x;
+	map->pos.y = new_y;
 }
 
 void	turn(t_map *map, int dir)
@@ -58,25 +52,13 @@ int	key_hook(int key, t_game *game)
 	if (key == ESC)
 		terminate(game);
 	if (key == UP)
-	{
-		//translate(&game->map, game->map.theta);
-		game->hook.move_re = W;
-	}
+		translate(&game->map, game->map.theta);
 	else if (key == DOWN)
-	{
-		//translate(&game->map, game->map.theta + M_PI);
-		game->hook.move_re = S;
-	}
+		translate(&game->map, game->map.theta + M_PI);
 	else if (key == LEFT) 
-	{
-		//translate(&game->map, game->map.theta - M_PI / 2);
-		game->hook.move_re = A;
-	}
+		translate(&game->map, game->map.theta - M_PI / 2);
 	else if (key == RIGHT)
-	{
-		//translate(&game->map, game->map.theta + M_PI / 2);
-		game->hook.move_re = D;
-	}
+		translate(&game->map, game->map.theta + M_PI / 2);
 	else if (key == TURN_L)
 		turn(&game->map, -1);
 	else if (key == TURN_R)

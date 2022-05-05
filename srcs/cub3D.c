@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/04 21:55:18 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:08:55 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,10 @@ int	draw(t_game *game)
 {
 	int	i;
 
-	/*if (game->hook.re)
+	if (game->hook.re)
 	{
 		redraw(game);
 		game->hook.re = false;
-	}*/
-	if (game->hook.move_re)
-	{
-		i = -1;
-		while (++i < 2)
-		{
-			translate(game);
-			redraw(game);
-		}
-		game->hook.move_re = false;
 	}
 	if (game->hook.m_re)
 	{
