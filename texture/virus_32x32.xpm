@@ -174,7 +174,7 @@ static char *d98c36bfb70845448fe5b62ca414466a4d53wwJ0aUm8JUkB[] = {
 "Q. c #FFFEFF",
 "!. c #FEFFFF",
 "~. c white",
-"^. c #FEFEFE",
+"^. c none",
 "/. c gray99",
 "(. c #FEFEFC",
 /* pixels */

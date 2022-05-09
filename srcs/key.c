@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/06 17:35:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:28:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ int	key_hook(int key, t_game *game)
 	//* bonus
 	else if (key == MINIMAP)
 		game->hook.minimap_on++;
+	else if (key == MINIMAP_ZOOM_IN && game->hook.minimap_size > 5)
+		game->hook.minimap_size--;
+	else if (key == MINIMAP_ZOOM_OUT && game->hook.minimap_size < 20)
+		game->hook.minimap_size++;
 	game->hook.re = true;
 	return (0);
 }

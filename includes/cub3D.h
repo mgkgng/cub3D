@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/09 13:38:54 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:25:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 #define	BLOCKSIZE 18
 #define MINI_X 20
 #define MINI_Y 20
-#define MINI_SQUARE 36
-#define MINI_W 180
-#define MINI_H 180
+#define MINI_SQUARE 50
+#define MINI_W 250
+#define MINI_H 250
 #define	SCREEN_X 920
 #define SCREEN_Y 600
 
@@ -47,7 +47,6 @@ typedef enum e_move {
 	A,
 	D
 }	t_move;
-
 
 typedef struct s_draw {
 	char	*nswe[4];
@@ -86,6 +85,7 @@ typedef struct s_hook {
 	t_move	move_re;
 	//*bonus
 	unsigned int	minimap_on;
+	unsigned int	minimap_size;
 	int		x_prev;
 	int		m_turn;
 	int		m_dir;

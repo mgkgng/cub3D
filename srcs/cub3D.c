@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/05 18:55:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:28:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	cub3D(t_game game)
 	game.hook.x_prev = SCREEN_X / 2;
 	game.hook.m_sensibility = 20;
 	game.hook.minimap_on = 0;
+	game.hook.minimap_size = 7;
 	game.hook.move_re = STOP;
 	mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);
