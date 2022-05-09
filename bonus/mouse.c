@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 02:02:19 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/04 13:36:53 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:33:59 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,5 @@ int	mouse_hook(int x, int y, t_hook *hook)
 	hook->m_turn = abs(hook->x_prev - x);
 	hook->x_prev = x;
 	hook->m_re = true;
-	return (0);
-}
-
-int	click_hook(int mouse, t_game *game)
-{
-	if (mouse == 1)
-	{
-		(void) game;
-	}
 	return (0);
 }

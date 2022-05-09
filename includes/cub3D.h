@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/05 17:09:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:38:54 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@
 #define	BLOCKSIZE 18
 #define MINI_X 20
 #define MINI_Y 20
-#define MINI_W 150
-#define MINI_H 150
+#define MINI_SQUARE 36
+#define MINI_W 180
+#define MINI_H 180
 #define	SCREEN_X 920
 #define SCREEN_Y 600
 
