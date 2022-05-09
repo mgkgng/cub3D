@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/04 13:34:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:28:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,15 @@ void	key_hook_control(t_game *game, t_hook *hook)
 int	cub3D(t_game game)
 {		
 	game.map.theta = M_PI / 2;
-	game.draw.col_ceil = 0x00008800;
+	game.draw.col_ceil = 0x00DA1FE9;
 	game.draw.col_floor = 0x00000088;
 	game.gui = initialize_window("cub3d_launching_test");
 	game.hook.m_turn = 0;
 	game.hook.x_prev = SCREEN_X / 2;
 	game.hook.m_sensibility = 20;
 	game.hook.minimap_on = 0;
+	game.hook.minimap_size = 7;
+	game.hook.move_re = STOP;
 	mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);
 	draw(&game);
