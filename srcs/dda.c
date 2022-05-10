@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
 /*   Updated: 2022/05/10 19:41:17 by min-kang         ###   ########.fr       */
@@ -30,7 +30,7 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 	double		increY;
 	int			side;
 
-	res.dist = INT32_MAX;
+	res.dist =INT32_MAX;
 	if (!theta || theta == PI)
 		return (res);
 	increY = 1;
