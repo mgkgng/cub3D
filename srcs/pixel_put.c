@@ -6,16 +6,14 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 12:59:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/16 00:05:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:21:47 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-//** this code should be studied and modified (or optimized.)
-//** for now, i'm using it in order to advance as soon as possible.
+//* should find a way to unify these two codes
 
-//tomorrow after testing it, i'll simplify it by creating another sub-structure inside of GUI structure
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color)
 {
 	char	*dst;

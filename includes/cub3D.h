@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/09 18:25:11 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:27:17 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,7 @@ typedef struct	s_raycast {
 	double	dist;
 }	t_raycast;
 
-int	cub3D(t_game game);
-//int	cub3D(void);
+int	cub3d(t_game game);
 
 /* parse */
 t_game	parse(char *file);
@@ -116,7 +115,7 @@ void	error(int c);
 
 void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 
-void	draw_cub3D(t_game *game);
+void	draw_cub3d(t_game *game);
 
 int		key_hook(int key, t_game *game);
 

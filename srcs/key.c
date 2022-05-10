@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/09 18:28:00 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:23:03 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 double	get_angle(double old, double change)
 {
 	double	res;
+
 	res = old + change;
 	if (res > M_PI * 2)
 		return (res - M_PI * 2);
@@ -55,7 +56,7 @@ int	key_hook(int key, t_game *game)
 		translate(&game->map, game->map.theta);
 	else if (key == DOWN)
 		translate(&game->map, game->map.theta + M_PI);
-	else if (key == LEFT) 
+	else if (key == LEFT)
 		translate(&game->map, game->map.theta - M_PI / 2);
 	else if (key == RIGHT)
 		translate(&game->map, game->map.theta + M_PI / 2);
