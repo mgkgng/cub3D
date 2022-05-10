@@ -19,7 +19,7 @@ void	draw_text(t_game *game, int h, int x, t_raycast ray)
 	i = 0;
 	mlx = mlx_init();
 	img = mlx_xpm_file_to_image(mlx, "../texture/test.xpm", 32, 32);
-	printf("%c\n", img[0]);
+	// printf("%c\n", img[0]);
 	// line = (int) ray.wall.x;
 	// line = line * // Longueur longeur de l'image;
 	// startY = (int) ((SCREEN_Y - h) /2);

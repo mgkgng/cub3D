@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 20:27:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:29:51 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ t_raycast	digital_differential_analyzer(t_map map, double theta);
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);
 int		get_color(char *colstr);
+int		is_surrounded(char **map);
 
 //*bonus
 
