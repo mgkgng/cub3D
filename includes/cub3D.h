@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 16:36:59 by mlecherb         ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@
 #define	BLOCKSIZE 18
 #define MINI_X 20
 #define MINI_Y 20
-#define MINI_W 150
-#define MINI_H 150
+#define MINI_SQUARE 50
+#define MINI_W 250
+#define MINI_H 250
 #define	SCREEN_X 920
 #define SCREEN_Y 600
 
@@ -38,6 +39,14 @@ typedef struct s_point {
 	double	x;
 	double	y;
 }	t_point;
+
+typedef enum e_move {
+	STOP,
+	W,
+	S,
+	A,
+	D
+}	t_move;
 
 typedef struct s_draw {
 	char	*nswe[4];
@@ -73,8 +82,15 @@ typedef struct s_gui {
 
 typedef struct s_hook {
 	bool	re;
+	t_move	move_re;
 	//*bonus
-	bool	minimapOn;
+	unsigned int	minimap_on;
+	unsigned int	minimap_size;
+	int		x_prev;
+	int		m_turn;
+	int		m_dir;
+	int		m_sensibility;
+	bool	m_re;
 }	t_hook;
 
 typedef struct s_game {
@@ -117,8 +133,7 @@ int		is_surrounded(char **map);
 
 void	draw_minimap(t_game *game);
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
-int		mouse_hook(int x, int y, t_game *game);
-
+int		mouse_hook(int x, int y, t_hook *hook);
 
 void	turn(t_map *map, int dir);
 

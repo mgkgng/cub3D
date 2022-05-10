@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:41:17 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/17 17:44:08 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:26:05 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define RIGHT 2
 # define TURN_L 123
 # define TURN_R 124
-
+# define MINIMAP 46
+# define MINIMAP_ZOOM_IN 126
+# define MINIMAP_ZOOM_OUT 125
 
 #endif
