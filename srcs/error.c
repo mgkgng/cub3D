@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 18:57:10 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:40:45 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	right_format(char *str)
 		i--;
 	if (str[i] != '1')
 		end_program("Error");
+	return (0);
 }
 
 int	ft_tablen(char **tab)
@@ -60,14 +61,15 @@ int	zero_near_space(char **map, int i, int j)
 		end_program("Error");
 	else if (i + 1 > ft_tablen(map) - 1)
 		end_program("Error");
-	if (map[i][j + 1] == ' ')
+	if (map[i][j + 1] && map[i][j + 1] == ' ')
 		end_program("Error");
-	if (map[i][j - 1] == ' ')
+	if (map[i][j - 1] && map[i][j - 1] == ' ')
 		end_program("Error");
-	if (map[i + 1][j] == ' ')
+	if (map[i + 1][j] && map[i + 1][j] == ' ')
 		end_program("Error");
-	if (map[i - 1][j] == ' ')
+	if (map[i - 1][j] && map[i - 1][j] == ' ')
 		end_program("Error");
+	return (0);
 }
 
 int	is_surrounded(char **map)
@@ -80,6 +82,7 @@ int	is_surrounded(char **map)
 	//** maybe space value should be TRUE as a bool value.
 	//** it's trickier... (because of the space character)
 	//** i could just use charmap for this func
+	i = 0;
 	while (map[i])
 	{
 		j = -1;
@@ -90,11 +93,12 @@ int	is_surrounded(char **map)
 		{
 			if (!open && !(map[i][j] == ' ' || map[i][j] == '1'))
 				open = true;
-			// if (map[i][j] == '0')
-			// 	zero_near_space(map, i, j);
+			if (map[i][j] == '0')
+				zero_near_space(map, i, j);
 			if (open && map[i][j] == '1')
 				open = false;
 		}
+		i++;
 		if (open == true)
 			return (0);
 	}

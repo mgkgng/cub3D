@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 17:31:42 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:38:21 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ t_map	get_map(int fd)
 	}
 	//printf("%s", mapstr);
 	map_data = ft_split(mapstr, '\n');
+	if (is_surrounded(map_data) == 0)
+		exit(1);
 	if (!check_fileformat(mapstr, map_data))
 		error(4);
 	put_info(&map, map_data);

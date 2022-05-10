@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/30 17:38:24 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:36:59 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ t_raycast	digital_differential_analyzer(t_map map, double theta);
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);
 int		get_color(char *colstr);
+int		is_surrounded(char **map);
 
 //*bonus
 
