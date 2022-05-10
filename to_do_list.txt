@@ -1,0 +1,3 @@
+Apply les textures.
+Faire le bonus des portes.
+Faire un sprite animation.
