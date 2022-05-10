@@ -24,15 +24,21 @@ double	get_height(double dist)
 	return (h);
 }
 
+/*
 double	anti_fisheye_distortion(double dist, int rayN)
 {
 	double	incline;
 
-	incline = fabs(rayN * DEG - ANGLE / 2);
+	incline = ANGLE / 2 - rayN * ANGLE / SCREEN_X;
 	if (!incline)
 		return (dist);
+	if (incline < 0)
+		incline *= -1;
+	double res = dist * cos(incline);
+	printf("dist == %f .... height == %f ... angle == %f \n", dist, res, incline);
 	return (dist * sin(M_PI / 2 - incline));
 }
+*/
 
 void	draw_raycast(t_game *game, int h, int rayX)
 {
@@ -50,13 +56,9 @@ void	raycast(t_game *game, double angle, int rayN)
 	t_raycast	ray;
 
 	ray = digital_differential_analyzer(game->map, angle);
-	// there was an error with anti_fisheye_distortion function
-	/*	Find the texture that the ray hit (NO, SO, WE, EA) and the 
-		corresponding position to print the correct line */
-
 	draw_raycast(game, get_height(ray.dist), rayN);
 }
-
+                                                                                                                                                
 void	draw_cub3D(t_game *game)
 {
 	double	startAngle;

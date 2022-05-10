@@ -6,22 +6,27 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/03 21:21:20 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/10 19:41:17 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-//* to do list
-//* 1. anti fisheye distortion
-//* 2. 0 height at 90 degree
-//* 3. seg fault when out of the wall 
+static double	perpendicular_dist(double *from, double *to, double angle)
+{
+	double	sin_v;
+	double	cos_v;
+
+	sin_v = sin(angle);
+	cos_v = cos(angle);
+	return (fabs(sin_v * (to[0] - from[0]) - cos_v * (to[1] - from[1]))
+		/ sqrt(pow(sin_v, 2) + pow(cos_v, 2)));
+}
 
 static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 {
 	t_raycast	res;
 	double		deltaX;
-	double		deltaH;
 	double		increY;
 	int			side;
 
@@ -37,18 +42,16 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 		increY = -1;
 		side--;
 	}
-	deltaH = 1 / sin(theta) * increY;
 	deltaX = 1 / tan(theta) * increY;
-	res.dist = (where[1] - pos.y) / sin(theta);
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
 	while (res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map2d[(int) res.wall.y + side][(int) res.wall.x])
 	{
-		res.dist += deltaH;
 		res.wall.x += deltaX;
 		res.wall.y += increY;
 	}
+	res.dist = perpendicular_dist((double [2]) {pos.x, pos.y}, (double [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
 	return (res);
 }
 
@@ -56,7 +59,6 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)
 {
 	t_raycast	res;
 	double		deltaY;
-	double		deltaH;
 	double		increX;
 	int			side;
 
@@ -72,18 +74,16 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)
 	}
 	else
 		where[0]++;
-	deltaH = 1 / cos(theta) * increX;
 	deltaY = tan(theta) * increX;
-	res.dist = (where[0] - pos.x) / cos(theta);
 	res.wall.x = where[0];
 	res.wall.y = pos.y + (where[0] - pos.x) * tan(theta);
 	while (res.wall.y >= 0 && res.wall.y < map.height
 		&& map.map2d[(int) res.wall.y][(int) res.wall.x + side])
 	{
-		res.dist += deltaH;
 		res.wall.x += increX;
 		res.wall.y += deltaY;
 	}
+	res.dist = perpendicular_dist((double [2]) {pos.x, pos.y}, (double [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
 	return (res);
 }
 
