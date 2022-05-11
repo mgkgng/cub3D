@@ -6,10 +6,11 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
+/*   Updated: 2022/05/10 16:56:06 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../includes/cub3D.h"
 
 static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
 {
@@ -93,8 +94,7 @@ t_map	get_map(int fd)
 	}
 	//printf("%s", mapstr);
 	map_data = ft_split(mapstr, '\n');
-	if (is_surrounded(map_data) == 0)
-		exit(1);
+	is_surrounded(map_data);
 	if (!check_fileformat(mapstr, map_data))
 		error(4);
 	put_info(&map, map_data);

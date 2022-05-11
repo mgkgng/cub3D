@@ -7,18 +7,33 @@
 
 // Comment recuperer la texture.
 
+t_text	*t_init(void)
+{
+	t_text *temp;
+
+	temp = malloc(sizeof(t_text));
+	temp->img = NULL;
+	temp->addr = NULL;
+	temp->mlx = NULL;
+	temp->bits_per_pixel = 0;
+	temp->endian = 0;
+	temp->line_length = 0;
+	temp->w = 32;
+	temp->h = 32;
+	return (temp);
+}
+
 void	draw_text(t_game *game, int h, int x, t_raycast ray)
 {
 	// Essaye avec une texture partout
 	// int	startY;
 	// int	line; // C'est la ligne de l'image qu'on doit afficher;
-	void	*img;
-	void	*mlx;
-	int	i;
+	t_text *t;
 
-	i = 0;
-	mlx = mlx_init();
-	img = mlx_xpm_file_to_image(mlx, "../texture/test.xpm", 32, 32);
+	t = t_init();
+	t->img = mlx_xpm_file_to_image(game->gui.mlx, "../texture/test.xpm", t->w, t->h);
+	t->addr = mlx_get_data_addr(t->img, &t->bits_per_pixel, &t->line_length, &t->endian);
+
 	// printf("%c\n", img[0]);
 	// line = (int) ray.wall.x;
 	// line = line * // Longueur longeur de l'image;

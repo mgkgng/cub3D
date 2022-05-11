@@ -105,6 +105,19 @@ typedef struct	s_raycast {
 	double	dist;
 }	t_raycast;
 
+typedef struct s_text
+{
+	void	*img;
+	char	*addr;
+	void	*mlx;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		*w;
+	int		*h;
+}	t_text;
+
+
 int	cub3D(t_game game);
 //int	cub3D(void);
 

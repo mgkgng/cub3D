@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 16:40:45 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/10 17:42:20 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,29 @@ int	ft_tablen(char **tab)
 int	zero_near_space(char **map, int i, int j)
 {
 	if (i - 1 < 0)
-		end_program("Error");
+		end_program("Wall");
 	else if (i + 1 > ft_tablen(map) - 1)
 		end_program("Error");
 	if (map[i][j + 1] && map[i][j + 1] == ' ')
-		end_program("Error");
+		end_program("Near a 0 is not a 1");
 	if (map[i][j - 1] && map[i][j - 1] == ' ')
-		end_program("Error");
+		end_program("Near a 0 is not a 1");
 	if (map[i + 1][j] && map[i + 1][j] == ' ')
-		end_program("Error");
+		end_program("Near a 0 is not a 1");
 	if (map[i - 1][j] && map[i - 1][j] == ' ')
-		end_program("Error");
+		end_program("Near a 0 is not a 1");
 	return (0);
+}
+
+void	border_line(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	while (str[i] && str[i] == ' ')
+		i--;
+	if (str[i] != '1')
+		end_program("Border of map is not a wall");
 }
 
 int	is_surrounded(char **map)
@@ -88,7 +99,7 @@ int	is_surrounded(char **map)
 		j = -1;
 		open = false;
 		// Check if the first and the last char of the ligne is a 1
-		// right_format(map[i]);																																																end_program("Error");
+		// right_format(map[i]);																																															end_program("Error");
 		while (map[i][++j])
 		{
 			if (!open && !(map[i][j] == ' ' || map[i][j] == '1'))
@@ -97,6 +108,7 @@ int	is_surrounded(char **map)
 				zero_near_space(map, i, j);
 			if (open && map[i][j] == '1')
 				open = false;
+			border_line(map[i]);	
 		}
 		i++;
 		if (open == true)
