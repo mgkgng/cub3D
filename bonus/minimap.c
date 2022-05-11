@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/09 19:36:12 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:00:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	fill_floor(t_game *game, int size, int color)
 
 	x_init = (int) game->map.pos.x - size / 2;
 	y_init = (int) game->map.pos.y - size / 2;
-	i = -1;	
+	i = -1;
 	while (++i < size)
 	{
 		j = -1;
@@ -58,7 +58,8 @@ static void	fill_floor(t_game *game, int size, int color)
 			if (x_init + i < 0 || x_init + i >= game->map.width
 				|| y_init + j < 0 || y_init + j >= game->map.height
 				|| !game->map.map2d[y_init + j][x_init + i])
-				draw_square(game, (int [2]) {i * MINI_W / size, j * MINI_H / size}, MINI_W / size, color);
+				draw_square(game, (int [2]){i * MINI_W / size,
+					j * MINI_H / size}, MINI_W / size, color);
 		}
 	}
 }
@@ -67,10 +68,12 @@ static void	put_character(t_game *game, int border)
 {
 	void	*img;
 	int		pos[2];
-	
+
 	img = NULL;
-	img = mlx_xpm_file_to_image(game->gui.mlx, "./texture/virus_48x48.xpm", &pos[0], &pos[1]);
-	mlx_put_image_to_window(game->gui.mlx, game->gui.win, img, MINI_W / 2, MINI_H / 2 - border);
+	img = mlx_xpm_file_to_image(game->gui.mlx,
+			"./texture/virus_48x48.xpm", &pos[0], &pos[1]);
+	mlx_put_image_to_window(game->gui.mlx, game->gui.win,
+		img, MINI_W / 2, MINI_H / 2 - border);
 }	
 
 void	draw_minimap(t_game *game)
@@ -78,6 +81,7 @@ void	draw_minimap(t_game *game)
 	ft_bzero(game->gui.mini_addr, MINI_W * MINI_H * 4);
 	fill_void(game, 0x8887ceeb);
 	fill_floor(game, game->hook.minimap_size, 0x44505050);
-	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.mini_img, MINI_X, MINI_Y);
+	mlx_put_image_to_window(game->gui.mlx, game->gui.win,
+		game->gui.mini_img, MINI_X, MINI_Y);
 	put_character(game, MINI_X / game->hook.minimap_size);
 }

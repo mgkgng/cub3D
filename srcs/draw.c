@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-
+/*   Updated: 2022/05/10 20:26:43 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,23 @@
 
 double	get_height(double dist)
 {
-	int	h;
-	double	c;
+	int		h;
 
-	c = 1;
-	h = (int) ((SCREEN_Y / dist) * c);
+	h = (int)(SCREEN_Y / dist);
 	if (h > SCREEN_Y)
 		h = SCREEN_Y;
 	return (h);
 }
 
-double	anti_fisheye_distortion(double dist, int rayN)
+void	draw_raycast(t_game *game, int h, int ray_x)
 {
-	double	incline;
-
-	incline = fabs(rayN * DEG - ANGLE / 2);
-	if (!incline)
-		return (dist);
-	return (dist * sin(M_PI / 2 - incline));
-}
-
-void	draw_raycast(t_game *game, int h, int rayX)
-{
-	int	startY;
+	int	start_y;
 	int	i;
 
-	startY = (int) ((SCREEN_Y - h) /2);
+	start_y = (int)((SCREEN_Y - h) / 2);
 	i = -1;
 	while (++i < h)
-		my_mlx_pixel_put(&game->gui, rayX, startY + i, 0x00FFFF00);
+		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, 0x00FFFF00);
 }
 
 void	raycast(t_game *game, double angle, int rayN)
@@ -50,28 +38,24 @@ void	raycast(t_game *game, double angle, int rayN)
 	t_raycast	ray;
 
 	ray = digital_differential_analyzer(game->map, angle);
-	// there was an error with anti_fisheye_distortion function
-	/*	Find the texture that the ray hit (NO, SO, WE, EA) and the 
-		corresponding position to print the correct line */
-
 	draw_raycast(game, get_height(ray.dist), rayN);
 }
 
-void	draw_cub3D(t_game *game)
+void	draw_cub3d(t_game *game)
 {
-	double	startAngle;
+	double	start_angle;
 	double	angle;
-	int		rayN;
+	int		ray;
 
-	startAngle = game->map.theta - ANGLE / 2;
-	rayN = -1;
-	while (++rayN < SCREEN_X)
+	start_angle = game->map.theta - ANGLE / 2;
+	ray = -1;
+	while (++ray < SCREEN_X)
 	{
-		angle = startAngle + (rayN + 1) * ANGLE / SCREEN_X;
+		angle = start_angle + (ray + 1) * ANGLE / SCREEN_X;
 		if (angle < 0)
 			angle += M_PI * 2;
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
-		raycast(game, angle, rayN);
+		raycast(game, angle, ray);
 	}
 }
