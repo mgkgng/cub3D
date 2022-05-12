@@ -98,6 +98,7 @@ typedef struct s_game {
 	t_gui	gui;
 	t_hook	hook;
 	t_draw	draw;
+	int		height;
 }	t_game;
 
 typedef struct	s_raycast {
@@ -113,8 +114,8 @@ typedef struct s_text
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		*w;
-	int		*h;
+	int		w;
+	int		h;
 }	t_text;
 
 
@@ -149,5 +150,8 @@ void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 
 void	turn(t_map *map, int dir);
+/*draw*/
+void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t);
+t_text	*t_init(void);
 
 #endif
