@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/12 19:23:59 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:24:54 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	raycast(t_game *game, double angle, int rayN, t_text *t)
 	t_raycast	ray;
 	ray = digital_differential_analyzer(game->map, angle);
 	draw_raycast(game, get_height(ray.dist, game), rayN);
+	(void)t;
 	// draw_text(game, get_height(ray.dist, game), ray, rayN, t);
 }
 
