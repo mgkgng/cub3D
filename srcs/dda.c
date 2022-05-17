@@ -6,13 +6,13 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 19:41:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:08:21 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static double	perpendicular_dist(double *from, double *to, double angle)
+double	perpendicular_dist(double *from, double *to, double angle)
 {
 	double	sin_v;
 	double	cos_v;

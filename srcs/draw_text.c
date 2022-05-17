@@ -12,41 +12,47 @@ t_text	*t_init(void)
 	t_text *temp;
 
 	temp = malloc(sizeof(t_text));
-	// temp->img = NULL;
-	// temp->addr = NULL;
-	// temp->mlx = NULL;
-	// temp->bits_per_pixel = 0;
-	// temp->endian = 0;
-	// temp->line_length = 0;
-	temp->w = 32;
-	temp->h = 32;
+	temp->w = 64;
+	temp->h = 64;
 	return (temp);
 }
 
-unsigned int	get_data_color(int x, int y, t_text *p)
+unsigned int	get_data_color(int x, int y, void *addr, t_text *p)
 {
 	char	*dst;
 
-	dst = p->addr + (y * p->line_length + x * (p->bits_per_pixel / 8));
+	dst = addr + (y * p->line_length + x * (p->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }
 
-int		get_column(int	x, int width)
+int	is_door(t_point *door, int x, int y, t_game *game)
 {
-	float c;
+	int	i;
 
-	c = x * width;
-	return ((int)c);
+	i = -1;
+	// printf("COUNT : %i\n", game->nb_count);
+	while (++i <= game->nb_count) {
+
+		// printf("X : %f\n Y : %f\n", door[i].x, door[i].y);
+		if (door[i].x == x && door[i].y == y)
+			return (1);
+	}
+	return (0);
 }
 
 void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
 {
 	float	y;
 	float	i;
-	(void)game;
+	// (void)game;
 	int		start;
 	int     tmp = h;
+	void	*img_addr;
 
+	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game))
+		img_addr = game->t->addr_door;
+	else
+		img_addr = game->t->addr_wall;
 	if (game->height > 600)
 		h = (int) h / ray.dist;
 	start = 0;
@@ -74,7 +80,7 @@ void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
 	{
 		texy = (int)texPos & (64 - 1);
 		texPos += step;
-		color = get_data_color((int) texx, texy, t);
+		color = get_data_color((int) texx, texy, img_addr, t);
 		my_mlx_pixel_put(&game->gui, ray_x, start + j , color);
 	}
 }

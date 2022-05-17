@@ -93,23 +93,12 @@ typedef struct s_hook {
 	bool	m_re;
 }	t_hook;
 
-typedef struct s_game {
-	t_map	map;
-	t_gui	gui;
-	t_hook	hook;
-	t_draw	draw;
-	int		height;
-}	t_game;
-
-typedef struct	s_raycast {
-	t_point	wall;
-	double	dist;
-}	t_raycast;
-
 typedef struct s_text
 {
-	void	*img;
-	char	*addr;
+	void	*img_wall;
+	void	*img_door;
+	char	*addr_wall;
+	char	*addr_door;
 	void	*mlx;
 	int		bits_per_pixel;
 	int		line_length;
@@ -118,6 +107,24 @@ typedef struct s_text
 	int		h;
 }	t_text;
 
+typedef struct	s_raycast {
+	t_point	wall;
+	double	dist;
+}	t_raycast;
+
+typedef struct s_game {
+	t_map		map;
+	t_gui		gui;
+	t_hook		hook;
+	t_draw		draw;
+	t_raycast	ray;
+	int			height;
+	t_text		*t;
+	t_point		*door;
+	int			nb_count;
+	double		min_door;
+	int			pos[2];
+}	t_game;
 
 int	cub3D(t_game game);
 //int	cub3D(void);
@@ -153,5 +160,7 @@ void	turn(t_map *map, int dir);
 /*draw*/
 void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t);
 t_text	*t_init(void);
+int		is_door(t_point *door, int x, int y, t_game *game);
+double	perpendicular_dist(double *from, double *to, double angle);
 
 #endif
