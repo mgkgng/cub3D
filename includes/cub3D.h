@@ -110,6 +110,7 @@ typedef struct s_text
 typedef struct	s_raycast {
 	t_point	wall;
 	double	dist;
+	int		verif;
 }	t_raycast;
 
 typedef struct s_game {
@@ -142,8 +143,8 @@ void	draw_cub3D(t_game *game);
 int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
+// t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game);
 t_raycast	digital_differential_analyzer(t_map map, double theta);
-
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);

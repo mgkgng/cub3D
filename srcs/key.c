@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/17 17:27:46 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:40:49 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,16 @@ void	open_door(t_game *game)
 	game->map.pos.y; // player pos y
 	game->map.theta; // player dir
 	*/
-	printf("Dist door : %f\n", game->min_door);
-	if (game->min_door < 2)
+	// printf("Dist door : %f\n", game->min_door);
+	if (game->map.map2d[game->pos[1]][game->pos[0]] == true && game->min_door > 1)
 	{
-		printf("Passe\n");
+		game->map.map2d[game->pos[1]][game->pos[0]] = false;
+	}
+	else if (game->min_door < 2)
+	{
+		// printf("Passe\n");
 		game->map.map2d[game->pos[1]][game->pos[0]] = true;
-		printf("POS 1 : %i\n POS 2 : %i\n", game->pos[1], game->pos[0]);
+		// printf("POS 1 : %i\n POS 2 : %i\n", game->pos[1], game->pos[0]);
 	}
 }
 

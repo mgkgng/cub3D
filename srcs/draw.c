@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/05/17 17:26:16 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:06:42 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	raycast(t_game *game, double angle, int rayN, t_text *t)
 	double tmp;
 
 	tmp = 0;
-	ray = digital_differential_analyzer(game->map, angle);
+	ray = digital_differential_analyzer(game->map, angle);//, game);
 	// draw_raycast(game, get_height(ray.dist, game), rayN);
 	// (void)t;
 	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game))
