@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 13:44:22 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 14:11:48 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ void	turn(t_map *map, int dir)
 
 void	open_door(t_game *game)
 {
-/*
-	game->map.pos.x; // player pos x
-	game->map.pos.y; // player pos y
-	game->map.theta; // player dir
-	*/
 	game->lock = 1;
 	if (game->map.map2d[game->pos[1]][game->pos[0]] == true && game->min_door > 1)
 		game->map.map2d[game->pos[1]][game->pos[0]] = false;

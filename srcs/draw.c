@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/11 13:45:18 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 16:34:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	raycast(t_game *game, float angle, int rayN, t_text *t)
 	float tmp;
 
 	tmp = 0;
-	ray = digital_differential_analyzer(game->map, angle, game);
-	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game))
+	ray = digital_differential_analyzer(game->map, angle);
+	/*if (is_door(game->door, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], game))
 	{
 		tmp = perpendicular_dist((float [2]) {game->map.pos.x, game->map.pos.y}, (float [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
 		if (tmp < game->min_door)
@@ -54,8 +54,8 @@ void	raycast(t_game *game, float angle, int rayN, t_text *t)
 			game->pos[0] = (int)ray.wall.x;// - side_x;
 			game->pos[1] = (int)ray.wall.y;// - side_y;
 		}	
-	}
-	draw_text(game, get_height(ray.dist, game), ray, rayN, t);	
+	}*/
+	draw_text(game, get_height(ray.dist, game), ray, rayN, t);
 }
 
 void	draw_cub3D(t_game *game)

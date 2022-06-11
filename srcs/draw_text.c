@@ -7,17 +7,20 @@
 
 // Comment recuperer la texture.
 
-t_text	*t_init(void)
+t_texture	*get_texture(t_game game)
 {
-	t_text *temp;
+	t_texture	res;
 
-	temp = malloc(sizeof(t_text));
-	temp->w = 64;
-	temp->h = 64;
-	return (temp);
+	res.width = 64;
+	res.height = 64;
+	res.img_wall = mlx_xpm_file_to_image(game.gui.mlx, "./texture/wall.xpm", &game.texture.width, &game.texture.height);
+	res.img_door = mlx_xpm_file_to_image(game.gui.mlx, "./texture/Group-2.xpm", &game.texture.width, &game.texture.height);
+	res.addr_wall = mlx_get_data_addr(game.texture.img_wall, &game.texture.bits_per_pixel, &game.texture.line_length, &game.texture.endian);
+	res.addr_door = mlx_get_data_addr(game.texture.img_door, &game.texture.bits_per_pixel, &game.texture.line_length, &game.texture.endian);
+	return (res);
 }
 
-unsigned int	get_data_color(int x, int y, void *addr, t_text *p)
+unsigned int	get_data_color(int x, int y, void *addr, t_texture *p)
 {
 	char	*dst;
 
@@ -25,33 +28,18 @@ unsigned int	get_data_color(int x, int y, void *addr, t_text *p)
 	return (*(unsigned int *)dst);
 }
 
-int	is_door(t_point *door, int x, int y, t_game *game)
+bool	is_door(t_point *door, int x, int y, int nb)
 {
 	int	i;
 
 	i = -1;
-	// printf("COUNT : %i\n", game->nb_count);
-	int side_x = 0;
-	int side_y = 0;
-
-	if (game->map.theta > PI && game->map.theta < PI * 2)
-		side_y--;
-	if (game->map.theta > PI / 2 && game->map.theta < PI / 2 * 3)
-		side_x--;
-	while (++i <= game->nb_count) {
-
-		// printf("X : %f\n Y : %f\n", door[i].x, door[i].y);
+	while (++i <= nb)
 		if (door[i].x == x && door[i].y == y)
-			return (1);
-		// else if (door[i].x + side_x == x && door[i].y == y)
-		// 	return (1);
-		// else if (door[i].x + side_x == x && door[i].y + side_y == y)
-		// 	return (1);
-	}
-	return (0);
+			return (true);
+	return (false);
 }
 
-void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
+void	draw_text(t_game *game, int h, t_raycast ray, int ray_n, t_texture t)
 {
 	float	y;
 	float	i;
@@ -61,9 +49,9 @@ void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
 	void	*img_addr;
 
 	if (game->mapi[(int) ray.wall.y + ray.side[1]][(int) ray.wall.x + ray.side[0]] == '2')
-		img_addr = game->t->addr_door;
-	else if (is_door(game->door, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], game))
-		img_addr = game->t->addr_door;
+		img_addr = t.addr_door;
+	else if (is_door(game->map.doors, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], game->map.doors_nb))
+		img_addr = t.addr_door;
 	else
 		img_addr = game->t->addr_wall;
 	if (game->height > 600)

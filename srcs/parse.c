@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/17 16:00:05 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 16:40:38 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,33 @@ static bool	**get_boolmap(char **charmap, int map_width, int map_height)
 	return (boolmap);
 }
 
+static t_point *get_doors(char **charmap, int map_width, int map_height)
+{
+	int		count;
+	int		i;
+	int		j;
+	t_point	*res;
+
+	res = NULL;
+	count = 0;
+	i = -1;
+	j = -1;
+	while (++i < map_height)
+	{
+		j = -1;
+		while (++j < map_width)
+		{
+			if (charmap[i][j] == 'D')
+			{
+				ft_realloc(res, ++count);
+				res[count - 1].x = j;
+				res[count - 1].y = i;
+			}
+		}
+	}
+	return (res);
+}
+
 t_map	get_map(int fd)
 {
 	t_map	map;
@@ -92,21 +119,14 @@ t_map	get_map(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	//printf("%s", mapstr);
 	map_data = ft_split(mapstr, '\n');
 	is_surrounded(map_data);
 	if (!check_fileformat(mapstr, map_data))
 		error(4);
 	put_info(&map, map_data);
-	//printf("map info : width - %d, height - %d\n", map.width, map.height);
-	//printf("there is the person (%d, %d)\n", (int) map.pos.x, (int) map.pos.y);
 	map.map2d = get_boolmap(map_data, map.width, map.height);
-	/*for (int i = 0; i < map.height; i++)
-	{
-		for (int j = 0; j < map.width; j++)
-			printf("%d", map.map2d[i][j]);
-		printf("\n");
-	}*/
+	map.doors = get_doors(map_data, map.width, map.height);
+	free(map_data);
 	return (map);
 }
 
