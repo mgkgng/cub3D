@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 13:26:32 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:37:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta, t_ga
 		// }
 	}
 	res.dist = perpendicular_dist((float [2]) {pos.x, pos.y}, (float [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
+	res.side[1] = side;
+	res.side[0] = 0;
 	return (res);
 }
 
@@ -106,6 +108,8 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta, t_ga
 		// }
 	}
 	res.dist = perpendicular_dist((float [2]) {pos.x, pos.y}, (float [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
+	res.side[0] = side;
+	res.side[1] = 0;
 	return (res);
 }
 

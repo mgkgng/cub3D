@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 13:18:44 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:40:39 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	redraw(t_game *game)
 		draw_minimap(game);
 }
 
-void	put_image_to_image(t_game *game, t_sprite tmp, int x, int y)
+/*void	put_image_to_image(t_game *game, t_sprite tmp, int x, int y)
 {
 	int i;
 	int j;
@@ -72,7 +72,7 @@ void	put_image_to_image(t_game *game, t_sprite tmp, int x, int y)
 	i = 0;
 	j = 0;
 	
-}
+}*/
 
 void	sprite(t_game *game)
 {

@@ -111,6 +111,7 @@ typedef struct	s_raycast {
 	t_point	wall;
 	float	dist;
 	int		verif;
+	int		side[2];
 }	t_raycast;
 
 typedef struct s_sprite {

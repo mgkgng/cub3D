@@ -60,45 +60,39 @@ void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
 	int     tmp = h;
 	void	*img_addr;
 
-	int side_x = 0;
-	int side_y = 0;
-
-	if (game->map.theta > PI && game->map.theta < PI * 2)
-		side_y--;
-	if (game->map.theta > PI / 2 && game->map.theta < PI / 2 * 3)
-		side_x--;
-	if (game->mapi[(int) ray.wall.y][(int) ray.wall.x] == '2')
+	if (game->mapi[(int) ray.wall.y + ray.side[1]][(int) ray.wall.x + ray.side[0]] == '2')
 		img_addr = game->t->addr_door;
-	else if (is_door(game->door, (int) ray.wall.x + side_y, (int) ray.wall.y + side_x, game))
+	else if (is_door(game->door, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], game))
 		img_addr = game->t->addr_door;
 	else
 		img_addr = game->t->addr_wall;
 	if (game->height > 600)
-		h = (int) h / ray.dist;
+		h = h / ray.dist;
 	start = 0;
 	i = 0;
-	if (ray.wall.x - (int)ray.wall.x == 0)
-		y = ray.wall.y - (int)ray.wall.y;
+	double lol;
+	if (modf(ray.wall.x, &lol) == 0)
+		y = modf(ray.wall.y, &lol);
 	else
-		y = ray.wall.x - (int)ray.wall.x; // On recuperer le bon endroit ou ca a frappe;
+		y = modf(ray.wall.x, &lol); // On recuperer le bon endroit ou ca a frappe;
 	if (game->height < SCREEN_Y)
-		start = (int)((SCREEN_Y - h) / 2);
+		start = (SCREEN_Y - h) / 2;
 	int j = 0;
 	unsigned int color = 0;
-	float	step = (float) 64 / (float) h;
-	int drawStart = -h / 2 + 600 / 2;
+	float	step = 64.0f / (float) h;
+	int drawStart = (600 - h) / 2;
     if (drawStart < 0)
 	  	drawStart = 0;
-    int drawEnd = h / 2 + 600 / 2;
+    int drawEnd = (600 + h) / 2;
     if(drawEnd >= h)
 		drawEnd = h - 1;
 	int	texx;
-	texx = (int)(y * (float)64);
-	float texPos = (drawStart - 600 / 2 + h / 2) * step;
+	texx = y * 64;
+	float texPos = (drawStart - (600 + h) / 2) * step;
 	float texy = 0;
 	while (j++ < tmp)
 	{
-		texy = (int)texPos & (64 - 1);
+		texy = (int) texPos & (64 - 1);
 		texPos += step;
 		color = get_data_color((int) texx, texy, img_addr, t);
 		my_mlx_pixel_put(&game->gui, ray_x, start + j , color);
