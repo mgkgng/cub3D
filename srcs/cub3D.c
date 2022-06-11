@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/17 17:24:24 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:18:44 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,37 @@ void	redraw(t_game *game)
 		draw_minimap(game);
 }
 
+void	put_image_to_image(t_game *game, t_sprite tmp, int x, int y)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	
+}
+
+void	sprite(t_game *game)
+{
+	t_sprite *tmp;
+	int	i;
+
+	tmp = game->spr;
+	i = 0;
+	if (game->sprite == 5)
+	{
+		game->lock = 0;
+		game->sprite = 0;
+	}
+	while (i < game->sprite)
+	{
+		i++;
+		tmp  = tmp->next;
+	}
+	game->sprite++;
+	mlx_put_image_to_window(game->gui.mlx, game->gui.win, tmp->img, SCREEN_X / 2, SCREEN_Y / 2);
+}
+
 int	draw(t_game *game)
 {
 	int	i;
@@ -83,6 +114,10 @@ int	draw(t_game *game)
 		}
 		game->hook.m_re = false;
 	}
+	// printf("%d\n", j++);
+	if (game->lock == 1 && game->count % 2 == 0)
+		sprite(game); // A REGLER.
+	game->count++;
 	return (0);
 }
 
@@ -90,14 +125,14 @@ void	mouse_hook_control(t_game *game, t_hook *hook)
 {	
 	hook->m_re = true;
 	mlx_hook(game->gui.win, 6, 1L << 6, mouse_hook, hook);
-	mlx_loop_hook(game->gui.mlx, draw, game);
+	// mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
 void	key_hook_control(t_game *game, t_hook *hook)
 {
 	hook->re = true;
 	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
-	mlx_loop_hook(game->gui.mlx, draw, game);
+	// mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
 char **gm(char *path)
@@ -148,14 +183,14 @@ t_point	*get_door(char **tab)
 	int		j;
 	t_point	*door;
 	int	count;
-
+	
 	count = 0;
 	i = 0;
 	printf("%s\n", tab[0]);
 	while (tab[i])
 	{
 		j = 0;
-		printf("String : %s\n", tab[i]);
+		// printf("String : %s\n", tab[i]);
 		while (tab[i][j])
 		{
 			if (tab[i][j] == '2')
@@ -165,6 +200,7 @@ t_point	*get_door(char **tab)
 					door = remalloc(count + 1, door);
 					door[count].x = j;
 					door[count].y = i;
+					printf("Y = %f\n", door[count].y);
 					count++;
 				}
 				else
@@ -172,7 +208,7 @@ t_point	*get_door(char **tab)
 					door = malloc(sizeof(t_point));
 					door[count].x = j;
 					door[count].y = i;
-					printf("ici\n");
+					printf("Y = %f\n", door[count].y);
 					count++;
 				}
 			}
@@ -205,6 +241,50 @@ int	count(char **tab)
 	return (count);
 }
 
+t_sprite	*ft_lstnew(char *name, t_game *game)
+{
+	t_sprite	*new;
+
+	new = malloc(sizeof(t_sprite));
+	if (new == NULL)
+		return (NULL);
+	new->h = 64;
+	new->w = 64;
+	new->img = mlx_xpm_file_to_image(game->gui.mlx, name, &new->w, &new->h);
+	new->addr = mlx_get_data_addr(new->img, &new->bits_per_pixel, &new->line_length, &new->endian);
+	new->next = NULL;
+	return (new);
+}
+
+void	ft_lstadd_back(t_sprite **alst, t_sprite *new)
+{
+	t_sprite	*temp;
+
+	if (!new)
+		return ;
+	if (!*alst)
+	{
+		*alst = new;
+		return ;
+	}
+	else
+	{
+		temp = *alst;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
+	}
+}
+
+void	init_sprite(t_game *game)
+{
+	game->spr = ft_lstnew("./sprite/Couche-1.xpm", game);
+	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-2.xpm", game));
+	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-3.xpm", game));
+	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-4.xpm", game));
+	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-5.xpm", game));
+}
+
 int	cub3D(t_game game)
 {
 	game.map.theta = M_PI / 2;
@@ -223,10 +303,15 @@ int	cub3D(t_game game)
 	game.t->addr_wall = mlx_get_data_addr(game.t->img_wall, &game.t->bits_per_pixel, &game.t->line_length, &game.t->endian);
 	game.t->addr_door = mlx_get_data_addr(game.t->img_door, &game.t->bits_per_pixel, &game.t->line_length, &game.t->endian);
 	game.door = get_door(gm("../test_map.cub"));
+	game.mapi = gm("../test_map.cub");
 	game.nb_count = count(gm("../test_map.cub"));
+	init_sprite(&game);
+	game.lock = 0;
+	game.count = 0;
 	mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);
-	draw(&game);
-	mlx_loop(game.gui.mlx);
+	// draw(&game);
+	mlx_loop_hook(game.gui.mlx, draw, &game);
+	mlx_loop(game.gui.mlx); // BOUCLER SUR DRAW
 	return (terminate(&game));
 }

@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/05/17 18:14:34 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/10 18:38:57 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,28 @@ void	draw_raycast(t_game *game, int h, int ray_x)
 		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, 0x00FFFF00);
 }
 
+// int	dist_door(t_game *game)
+// {
+	
+// }
+
 void	raycast(t_game *game, double angle, int rayN, t_text *t)
 {
 	t_raycast	ray;
 	double tmp;
+	// int side_x = 0;
+	// int side_y = 0;
 
+	// if (game->map.theta > PI && game->map.theta < PI * 2)
+	// 	side_y--;
+	// if (game->map.theta > PI / 2 && game->map.theta < PI / 2 * 3)
+	// 	side_x--;
 	tmp = 0;
-	ray = digital_differential_analyzer(game->map, angle);//, game);
+	ray = digital_differential_analyzer(game->map, angle, game);
 	// draw_raycast(game, get_height(ray.dist, game), rayN);
 	// (void)t;
-	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game) == 1)
-		printf("1\n");
+	// if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game) == 1)
+	// 	printf("1\n");
 	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game))
 	{
 		tmp = perpendicular_dist((double [2]) {game->map.pos.x, game->map.pos.y}, (double [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
@@ -57,13 +68,12 @@ void	raycast(t_game *game, double angle, int rayN, t_text *t)
 		if (tmp < game->min_door)
 		{
 			game->min_door = perpendicular_dist((double [2]) {game->map.pos.x, game->map.pos.y}, (double [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
-			game->pos[0] = (int)ray.wall.x;
-			game->pos[1] = (int)ray.wall.y;
+			game->pos[0] = (int)ray.wall.x;// - side_x;
+			game->pos[1] = (int)ray.wall.y;// - side_y;
 		}	
 	}
 	// printf("MIN : %f\n", game->min_door);
-	draw_text(game, get_height(ray.dist, game), ray, rayN, t);
-	
+	draw_text(game, get_height(ray.dist, game), ray, rayN, t);	
 }
 
 void	draw_cub3D(t_game *game)
