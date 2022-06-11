@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 17:20:22 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:32:34 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,17 @@ void	paint_background(t_game *game)
 	}	
 }
 
-void	redraw(t_game *game)
+int	redraw(t_game *game)
 {
 	game->min_door = INT32_MAX;
+	// movement(game);
+	// redraw(game);
 	paint_background(game);
 	draw_cub3D(game);
 	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
 	if (game->hook.minimap_on % 2)
 		draw_minimap(game);
+	return (0);
 }
 
 /*void	put_image_to_image(t_game *game, t_sprite tmp, int x, int y)
@@ -99,6 +102,8 @@ int	draw(t_game *game)
 {
 	int	i;
 
+	// movement(game);
+	// printf("%d\n", game->key.w);
 	if (game->hook.re)
 	{
 		redraw(game);
@@ -305,12 +310,16 @@ int	cub3D(t_game game)
 	game.door = get_door(gm("../test_map.cub"));
 	game.mapi = gm("../test_map.cub");
 	game.nb_count = count(gm("../test_map.cub"));
+	printf("%d\n", game.nb_count);
 	init_sprite(&game);
 	game.lock = 0;
 	game.count = 0;
+	// game.key = malloc(sizeof(t_key));
 	mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);
-	// draw(&game);
+	// // draw(&game);
+	// mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
+	// mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
 	mlx_loop_hook(game.gui.mlx, draw, &game);
 	mlx_loop(game.gui.mlx); // BOUCLER SUR DRAW
 	return (terminate(&game));

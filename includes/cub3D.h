@@ -125,6 +125,12 @@ typedef struct s_sprite {
 	struct s_sprite *next;
 }	t_sprite;
 
+typedef struct	s_key {
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+}	t_key;
 
 typedef struct s_game {
 	t_map		map;
@@ -133,6 +139,7 @@ typedef struct s_game {
 	t_draw		draw;
 	t_raycast	ray;
 	t_sprite	*spr;
+	t_key		*key;
 	int			height;
 	t_text		*t;
 	t_point		*door;
@@ -153,6 +160,14 @@ t_game	parse(char *file);
 
 /* error */
 void	error(int c);
+
+/* key */
+int	key_pressed(int key, t_game *game);
+int	key_released(int key, t_game *game);
+void	movement(t_game *game);
+void	translate(t_map *map, double theta);
+
+
 
 void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 

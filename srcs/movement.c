@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.h                                             :+:      :+:    :+:   */
+/*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 01:41:17 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 17:29:36 by mlecherb         ###   ########.fr       */
+/*   Created: 2022/06/11 17:36:02 by mlecherb          #+#    #+#             */
+/*   Updated: 2022/06/11 17:41:39 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOK_H
-# define HOOK_H
+#include "../includes/cub3D.h"
 
-# define ESC 53
-# define UP 13
-# define DOWN 1
-# define LEFT 0
-# define RIGHT 2
-# define TURN_L 123
-# define TURN_R 124
-# define MINIMAP 46
-# define MINIMAP_ZOOM_IN 126
-# define MINIMAP_ZOOM_OUT 125
-
-#endif
+void	movement(t_game *game)
+{
+	if (game->key.w == 1) // UP
+		translate(&game->map, game->map.theta);
+	if (game->key.a == 1) // LEFT
+		translate(&game->map, game->map.theta - M_PI / 2);
+	if (game->key.s == 1) // DOWN
+		translate(&game->map, game->map.theta + M_PI);
+	if (game->key.d == 1) // RIGHT
+		translate(&game->map, game->map.theta + M_PI / 2);
+}
