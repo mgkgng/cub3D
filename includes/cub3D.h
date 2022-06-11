@@ -172,18 +172,36 @@ typedef struct	s_raycast {
 	int		verif;
 }	t_raycast;
 
+typedef struct s_sprite {
+	void	*img;
+	char	*addr;
+	void	*mlx;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		w;
+	int		h;
+	struct s_sprite *next;
+}	t_sprite;
+
+
 typedef struct s_game {
 	t_map		map;
 	t_gui		gui;
 	t_hook		hook;
 	t_draw		draw;
 	t_raycast	ray;
+	t_sprite	*spr;
 	int			height;
 	t_text		*t;
 	t_point		*door;
 	int			nb_count;
 	double		min_door;
 	int			pos[2];
+	char		**mapi;
+	int			lock;
+	int			sprite;
+	int 		count;
 }	t_game;
 >>>>>>> 5b9a5d1193c6bb660eac9aeb5e274273cba6fa2d
 
@@ -208,7 +226,7 @@ int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
 // t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, double theta);
+t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);

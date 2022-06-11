@@ -6,11 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/05/13 20:36:25 by mlecherb         ###   ########.fr       */
-=======
-/*   Updated: 2022/05/17 17:51:18 by mlecherb         ###   ########.fr       */
->>>>>>> 5b9a5d1193c6bb660eac9aeb5e274273cba6fa2d
+/*   Updated: 2022/06/11 17:24:20 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +23,13 @@ double	perpendicular_dist(double *from, double *to, double angle)
 		/ sqrt(pow(sin_v, 2) + pow(cos_v, 2)));
 }
 
-static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)//, t_game *game)
+static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta, t_game *game)
 {
 	t_raycast	res;
 	double		deltaX;
 	double		increY;
 	int			side;
+	(void)game;
 
 	res.dist =INT32_MAX;
 	res.verif = 0;
@@ -53,6 +50,8 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)//, 
 	while ((int) res.wall.y + side >= 0 && (int) res.wall.y + side < map.height && res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map2d[(int) res.wall.y + side][(int) res.wall.x])
 	{
+		// if (game->mapi[(int) res.wall.y][(int) res.wall.x] == '2')
+			// printf("DOOR : %c\n", game->mapi[(int) res.wall.y][(int) res.wall.x]);
 		res.wall.x += deltaX;
 		res.wall.y += increY;
 		// if (is_door(game->door, (int) res.wall.x, (int) res.wall.y, game))
@@ -67,13 +66,14 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)//, 
 	return (res);
 }
 
-static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)//, t_game *game)
+static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta, t_game *game)
 {
 	t_raycast	res;
 	double		deltaY;
 	double		increX;
 	int			side;
-
+	(void)game;
+	
 	res.verif = 0;
 	res.dist = INT32_MAX;
 	if (theta == PI / 2 || theta == PI / 2 * 3)
@@ -93,6 +93,8 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)//, 
 	while (res.wall.y >= 0 && res.wall.y < map.height
 		&& map.map2d[(int) res.wall.y][(int) res.wall.x + side])
 	{
+		// if (game->mapi[(int) res.wall.y][(int) res.wall.x] == '2')
+			// printf("DOOR : %c\n", game->mapi[(int) res.wall.y][(int) res.wall.x]);
 		res.wall.x += increX;
 		res.wall.y += deltaY;
 		// if (is_door(game->door, (int) res.wall.x, (int) res.wall.y, game))
@@ -107,13 +109,13 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta)//, 
 	return (res);
 }
 
-t_raycast	digital_differential_analyzer(t_map map, double theta)//, t_game *game)
+t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game)
 {
 	t_raycast	res_x;
 	t_raycast	res_y;
 
-	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);//, game);
-	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);//, game);
+	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta, game);
+	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta, game);
 	if (res_x.dist < res_y.dist)
 		return (res_x);
 	return (res_y);

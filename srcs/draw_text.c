@@ -31,11 +31,22 @@ int	is_door(t_point *door, int x, int y, t_game *game)
 
 	i = -1;
 	// printf("COUNT : %i\n", game->nb_count);
+	int side_x = 0;
+	int side_y = 0;
+
+	if (game->map.theta > PI && game->map.theta < PI * 2)
+		side_y--;
+	if (game->map.theta > PI / 2 && game->map.theta < PI / 2 * 3)
+		side_x--;
 	while (++i <= game->nb_count) {
 
 		// printf("X : %f\n Y : %f\n", door[i].x, door[i].y);
 		if (door[i].x == x && door[i].y == y)
 			return (1);
+		// else if (door[i].x + side_x == x && door[i].y == y)
+		// 	return (1);
+		// else if (door[i].x + side_x == x && door[i].y + side_y == y)
+		// 	return (1);
 	}
 	return (0);
 }
@@ -99,7 +110,16 @@ void	fdraw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
 	int     tmp = h;
 	void	*img_addr;
 
-	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game))
+	int side_x = 0;
+	int side_y = 0;
+
+	if (game->map.theta > PI && game->map.theta < PI * 2)
+		side_y--;
+	if (game->map.theta > PI / 2 && game->map.theta < PI / 2 * 3)
+		side_x--;
+	if (game->mapi[(int) ray.wall.y][(int) ray.wall.x] == '2')
+		img_addr = game->t->addr_door;
+	else if (is_door(game->door, (int) ray.wall.x + side_y, (int) ray.wall.y + side_x, game))
 		img_addr = game->t->addr_door;
 	else
 		img_addr = game->t->addr_wall;
