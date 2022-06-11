@@ -97,6 +97,7 @@ typedef struct s_hook {
 }	t_hook;
 
 typedef struct s_text
+<<<<<<< HEAD
 {
 	void	*img_wall;
 	void	*img_door;
@@ -151,6 +152,40 @@ typedef struct s_drawed
 	int				h;
 	int				tmp;
 }	t_drawed;
+=======
+{
+	void	*img_wall;
+	void	*img_door;
+	char	*addr_wall;
+	char	*addr_door;
+	void	*mlx;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		w;
+	int		h;
+}	t_text;
+
+typedef struct	s_raycast {
+	t_point	wall;
+	double	dist;
+	int		verif;
+}	t_raycast;
+
+typedef struct s_game {
+	t_map		map;
+	t_gui		gui;
+	t_hook		hook;
+	t_draw		draw;
+	t_raycast	ray;
+	int			height;
+	t_text		*t;
+	t_point		*door;
+	int			nb_count;
+	double		min_door;
+	int			pos[2];
+}	t_game;
+>>>>>>> 5b9a5d1193c6bb660eac9aeb5e274273cba6fa2d
 
 int	cub3D(t_game game);
 //int	cub3D(void);
@@ -172,8 +207,8 @@ void	draw_cub3D(t_game *game);
 int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
+// t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game);
 t_raycast	digital_differential_analyzer(t_map map, double theta);
-
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);
@@ -191,5 +226,7 @@ void	turn(t_map *map, int dir);
 void	draw_text(t_drawed *draw);
 void	fdraw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t);
 t_text	*t_init(void);
+int		is_door(t_point *door, int x, int y, t_game *game);
+double	perpendicular_dist(double *from, double *to, double angle);
 
 #endif

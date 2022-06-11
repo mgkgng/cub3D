@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/17 12:39:51 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:18:01 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,26 @@ void	turn(t_map *map, int dir)
 		map->theta += M_PI * 2;
 }
 
+void	open_door(t_game *game)
+{
+	/*
+	game->map.pos.x; // player pos x
+	game->map.pos.y; // player pos y
+	game->map.theta; // player dir
+	*/
+	// printf("Dist door : %f\n", game->min_door);
+	if (game->map.map2d[game->pos[1]][game->pos[0]] == true && game->min_door > 1)
+	{
+		game->map.map2d[game->pos[1]][game->pos[0]] = false;
+	}
+	else if (game->min_door < 2)
+	{
+		// printf("Passe\n");
+		game->map.map2d[game->pos[1]][game->pos[0]] = true;
+		// printf("POS 1 : %i\n POS 2 : %i\n", game->pos[1], game->pos[0]);
+	}
+}
+
 int	key_hook(int key, t_game *game)
 {
 	printf("%d--\n", key);
@@ -63,7 +83,8 @@ int	key_hook(int key, t_game *game)
 		turn(&game->map, -1);
 	else if (key == TURN_R)
 		turn(&game->map, 1);
-	//* bonus
+	else if (key == 14) // BONUS
+		open_door(game);
 	else if (key == MINIMAP)
 		game->hook.minimap_on++;
 	else if (key == MINIMAP_ZOOM_IN && game->hook.minimap_size > 5)

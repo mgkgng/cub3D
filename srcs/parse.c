@@ -6,7 +6,11 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/17 15:04:35 by mlecherb         ###   ########.fr       */
+=======
+/*   Updated: 2022/05/17 16:00:05 by mlecherb         ###   ########.fr       */
+>>>>>>> 5b9a5d1193c6bb660eac9aeb5e274273cba6fa2d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +73,7 @@ static bool	**get_boolmap(char **charmap, int map_width, int map_height)
 		{
 			if (!charmap[i][j])
 				break;
-			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1'))
+			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == '2'))
 				boolmap[i][j] = true;
 		}
 	}

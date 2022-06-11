@@ -6,11 +6,11 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 16:47:05 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:16:39 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../includes/cub3D.h"
 
 double	get_height(double dist, t_game *game)
 {
@@ -66,14 +66,28 @@ t_drawed *init_draw(t_game *g, int rayN, t_text *t, t_raycast r)
 void	raycast(t_game *game, double angle, int rayN, t_text *t)
 {
 	t_raycast	ray;
-	// t_drawed	*draw;
+	double tmp;
 
-	ray = digital_differential_analyzer(game->map, angle);
-	// draw = init_draw(game, rayN, t, ray);
+	tmp = 0;
+	ray = digital_differential_analyzer(game->map, angle);//, game);
 	// draw_raycast(game, get_height(ray.dist, game), rayN);
 	// (void)t;
-	// draw_text(draw);
-	fdraw_text(game, get_height(ray.dist, game), ray, rayN, t);
+	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game) == 1)
+		printf("1\n");
+	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game))
+	{
+		tmp = perpendicular_dist((double [2]) {game->map.pos.x, game->map.pos.y}, (double [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
+		// printf("TMP : %f\n", tmp);
+		if (tmp < game->min_door)
+		{
+			game->min_door = perpendicular_dist((double [2]) {game->map.pos.x, game->map.pos.y}, (double [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
+			game->pos[0] = (int)ray.wall.x;
+			game->pos[1] = (int)ray.wall.y;
+		}	
+	}
+	// printf("MIN : %f\n", game->min_door);
+	draw_text(game, get_height(ray.dist, game), ray, rayN, t);
+	
 }
 
 void	draw_cub3D(t_game *game)
