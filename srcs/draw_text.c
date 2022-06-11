@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 18:28:15 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:33:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ t_texture	get_texture(void *mlx_ptr) // it should be developped as we start to w
 	int			size_info[2];
 
 	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall.xpm", &size_info[0], &size_info[1]);
-	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Group-2.xpm", &size_info[0], &size_info[1];
+	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Group-2.xpm", &size_info[0], &size_info[1]);
 	res.wall_n.addr = mlx_get_data_addr(res.wall_n.img, &res.wall_n.bits_per_pixel, &res.wall_n.line_length, &res.wall_n.endian);
 	res.door.addr = mlx_get_data_addr(res.door.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
 	return (res);
 }
 
-unsigned int	get_data_color(int x, int y, void *addr, t_texture *p)
+unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 {
 	char	*dst;
 
-	dst = addr + (y * p->line_length + x * (p->bits_per_pixel / 8));
+	dst = addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }
 
@@ -50,12 +50,12 @@ void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_textu
 	float	i;
 	int		start;
 	int     tmp = h;
-	void	*img_addr;
+	t_img	img;
 
 	if (is_door(map.doors, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], map.doors_nb))
-		img_addr = texture.addr_door;
+		img = texture.door;
 	else
-		img_addr = texture.addr_wall;
+		img = texture.wall_n;
 	if (game->height > 600)
 		h = h / ray.dist;
 	start = 0;
@@ -84,7 +84,7 @@ void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_textu
 	{
 		texy = (int) texPos & (64 - 1);
 		texPos += step;
-		color = get_data_color((int) texx, texy, img_addr, &texture);
+		color = get_data_color((int) texx, texy, img.addr, img);
 		my_mlx_pixel_put(&game->gui, ray_n, start + j , color);
 	}
 }
