@@ -3,6 +3,7 @@ SRCS =	srcs/cub3D.c srcs/key.c srcs/main.c srcs/parse.c \
 		srcs/draw.c srcs/dda.c srcs/parse_utils.c \
 		bonus/minimap.c bonus/mouse.c \
 		srcs/error.c srcs/draw_text.c \
+		srcs/key_management.c \
 
 NAME = cub3D
 
@@ -23,7 +24,7 @@ all:		${NAME}
 ${NAME}:	${OBJS}
 			make all -C ${LIB_PATH}
 			make all -C ${MLX_PATH}
-			gcc ${CFLAGS} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} ./minilibx/libmlx.a ./libft/libft.a -fsanitize=address
+			gcc ${CFLAGS} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} ./minilibx_opengl_20191021/libmlx.a ./libft/libft.a -fsanitize=address
 			
 .c.o:
 			gcc ${CFLAG} -I${INCLUDES} -c $< -o ${<:.c=.o}

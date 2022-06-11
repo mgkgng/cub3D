@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 16:56:06 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:04:35 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,12 @@ t_game	parse(char *file)
 	//game.draw = get_draw(fd);
 	game.map = get_map(fd);
 	close(fd);
+	for (int i = 0; game.map.map2d[i]; i++) {
+		for (int j = 0; game.map.map2d[i][j]; j++) {
+			printf("%d----", game.map.map2d[i][j]);
+		}
+		printf("\n");
+	}
 	return (game);
 }
 

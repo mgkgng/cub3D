@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 19:41:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/05/13 20:36:25 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta)
 	deltaX = 1 / tan(theta) * increY;
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
-	while (res.wall.x >= 0 && res.wall.x < map.width
+	while ((int) res.wall.y + side >= 0 && (int) res.wall.y + side < map.height && res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map2d[(int) res.wall.y + side][(int) res.wall.x])
 	{
 		res.wall.x += deltaX;

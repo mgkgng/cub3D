@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 17:42:20 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:05:39 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	is_surrounded(char **map)
 				zero_near_space(map, i, j);
 			if (open && map[i][j] == '1')
 				open = false;
-			border_line(map[i]);	
+			border_line(map[i]);
 		}
 		i++;
 		if (open == true)

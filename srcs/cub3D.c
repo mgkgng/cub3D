@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/12 17:59:50 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:08:25 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	redraw(t_game *game)
 int	draw(t_game *game)
 {
 	int	i;
-
 	if (game->hook.re)
 	{
 		redraw(game);
@@ -99,6 +98,80 @@ void	key_hook_control(t_game *game, t_hook *hook)
 	mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
+// int	door_count(char **map)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	count;
+
+// 	count = 0;
+// 	i = -1;
+// 	j = 0;
+// 	while (map[i])
+// 	{
+// 		printf("%s\n", map[i]);
+// 		while (map[i][j] != '\0')
+// 		{
+// 			if (map[i][j] == '2')
+// 				count++;
+// 			j++;
+// 		}
+// 		j = 0;
+// 		i++;
+// 	}
+// 	return (count);
+// }
+
+int	count_door(char **map)
+{
+	int	i;
+	int j;
+	int count;
+
+	count = 0;
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		while (map[i][j])
+		{
+			if (map[i][j] == '2')
+				count++;
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (count);
+}
+
+t_point	*get_door(char **map, t_game game)
+{
+	t_point	*door;
+	int	i;
+	int	j;
+	int	count;
+
+	door = malloc(sizeof(t_point) * count_door(map));
+	count = 0;
+	i = 0;
+	j = 0;
+	while (map[i++])
+	{
+		while (map[i][j++])
+		{
+			if (map[i][j] == '2')
+			{
+				door[count].x = j;
+				door[count++].y = i;
+			}
+		}
+		j = 0;
+	}
+	game.nb_door = count;
+	return (door);
+}
+
 int	cub3D(t_game game)
 {		
 	game.map.theta = M_PI / 2;
@@ -111,9 +184,18 @@ int	cub3D(t_game game)
 	game.hook.minimap_on = 0;
 	game.hook.minimap_size = 7;
 	game.hook.move_re = STOP;
+	game.t = t_init();
+	game.t->img_wall = mlx_xpm_file_to_image(game.gui.mlx, "./texture/wall.xpm", &game.t->w, &game.t->h);
+	game.t->img_door = mlx_xpm_file_to_image(game.gui.mlx, "./texture/Group-2.xpm", &game.t->w, &game.t->h);
+	game.t->addr_wall = mlx_get_data_addr(game.t->img_wall, &game.t->bits_per_pixel, &game.t->line_length, &game.t->endian);
+	game.t->addr_door = mlx_get_data_addr(game.t->img_door, &game.t->bits_per_pixel, &game.t->line_length, &game.t->endian);
+	// game.map.mapchar = gm()
+	game.map.door = get_door(game.map.mapchar, game);
 	mouse_hook_control(&game, &game.hook);
 	key_hook_control(&game, &game.hook);
-	draw(&game);
+	// mlx_hook(game.gui.mlx, 2, 1L << 0, &key_pressed, &game);
+	// mlx_hook(game.gui.mlx, 3, 1L << 1, &key_released, &game);
+	mlx_loop_hook(game.gui.mlx, &draw, &game);
 	mlx_loop(game.gui.mlx);
 	return (terminate(&game));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-
+/*   Updated: 2022/06/11 16:52:20 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <math.h>
-#include <mlx.h>
+// #include <mlx.h>
+#include "../minilibx_opengl_20191021/mlx.h"
 
 #include "libft.h"
 #include "hook.h"
@@ -60,7 +61,9 @@ typedef struct s_map {
 	bool	**map2d;
 	t_point	pos;
 	t_point pixel_pos;
+	t_point *door;
 	double	theta;
+	char	**mapchar;
 }	t_map;
 
 typedef struct s_gui {
@@ -93,23 +96,12 @@ typedef struct s_hook {
 	bool	m_re;
 }	t_hook;
 
-typedef struct s_game {
-	t_map	map;
-	t_gui	gui;
-	t_hook	hook;
-	t_draw	draw;
-	int		height;
-}	t_game;
-
-typedef struct	s_raycast {
-	t_point	wall;
-	double	dist;
-}	t_raycast;
-
 typedef struct s_text
 {
-	void	*img;
-	char	*addr;
+	void	*img_wall;
+	void	*img_door;
+	char	*addr_wall;
+	char	*addr_door;
 	void	*mlx;
 	int		bits_per_pixel;
 	int		line_length;
@@ -118,6 +110,47 @@ typedef struct s_text
 	int		h;
 }	t_text;
 
+typedef struct s_key {
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+}	t_key;
+
+typedef struct s_game {
+	t_map	map;
+	t_gui	gui;
+	t_hook	hook;
+	t_draw	draw;
+	t_key	key;
+	int		height;
+	int		nb_door;
+	t_text	*t;
+}	t_game;
+
+typedef struct	s_raycast {
+	t_point	wall;
+	double	dist;
+}	t_raycast;
+
+typedef struct s_drawed
+{
+	unsigned int	color;
+	double			step;
+	int				drawend;
+	int				drawstart;
+	double			texpos;
+	int				texx;
+	double			texy;
+	t_game			*game;
+	t_raycast		ray;
+	int				start;
+	t_text			*text;
+	int				ray_x;
+	float			y;
+	int				h;
+	int				tmp;
+}	t_drawed;
 
 int	cub3D(t_game game);
 //int	cub3D(void);
@@ -128,8 +161,12 @@ t_game	parse(char *file);
 /* error */
 void	error(int c);
 
-void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
+/* key */
+int	key_pressed(int key, t_game game);
+int	key_released(int key, t_game game);
 
+void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
+// int     mlx_mouse_move(mlx_win_list_t *win, int x, int y);
 void	draw_cub3D(t_game *game);
 
 int		key_hook(int key, t_game *game);
@@ -151,7 +188,8 @@ int		mouse_hook(int x, int y, t_hook *hook);
 
 void	turn(t_map *map, int dir);
 /*draw*/
-void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t);
+void	draw_text(t_drawed *draw);
+void	fdraw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t);
 t_text	*t_init(void);
 
 #endif
