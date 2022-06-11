@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 18:29:16 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 20:39:47 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "hook.h"
 #include "raycast.h"
 #include "texture.h"
+#include "sprite.h"
 
 #define	PI 3.141592
 #define DEG	0.017453
@@ -58,7 +59,9 @@ typedef struct s_draw {
 typedef struct s_map {
 	int		width;
 	int		height;
-	bool	**map2d;
+	bool	**map_move;
+	bool	**map_raycast;
+	bool	**map_door;
 	t_point	pos;
 	t_point *doors;
 	int		doors_nb;
@@ -167,5 +170,6 @@ void	turn(t_map *map, int dir);
 void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture);
 
 float	perpendicular_dist(float *from, float *to, float angle);
+void	init_sprite(t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 18:07:00 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 20:48:40 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ static void	put_info(t_map *map, char **map_data)
 	map->width = max_width;
 }
 
-static bool	**get_boolmap(char **charmap, int map_width, int map_height)
+static void put_maps(t_map *map, char **charmap, int map_width, int map_height)
 {
-	bool	**boolmap;
 	int		i;
 	int		j;
 
-	boolmap = ft_calloc(map_height, sizeof(bool *));
+	map->map_move = ft_calloc(map_height, sizeof(bool *));
+	map->map_raycast = ft_calloc(map_height, sizeof(bool *));
+	map->map_door = ft_calloc(map_height, sizeof(bool *));
 	i = -1;
 	while (++i < map_height)
 		boolmap[i] = ft_calloc(map_width, sizeof(bool));
@@ -69,8 +70,8 @@ static bool	**get_boolmap(char **charmap, int map_width, int map_height)
 		{
 			if (!charmap[i][j])
 				break;
-			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == '2'))
-				boolmap[i][j] = true;
+			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmp[i][j] == 'D')
+				map->map_raycast = true;
 		}
 	}
 	return (boolmap);
@@ -125,7 +126,7 @@ t_map	get_map(int fd)
 	if (!check_fileformat(mapstr, map_data))
 		error(4);
 	put_info(&map, map_data);
-	map.map2d = get_boolmap(map_data, map.width, map.height);
+	map.map_raycast = get_boolmap(map_data, map.width, map.height);
 	map.doors = get_doors(map_data, map.width, map.height);
 	free(map_data);
 	return (map);
@@ -162,7 +163,7 @@ t_draw	get_draw(int fd)
 		else
 			free(line);
 		if (i == 6)
-			break;
+			break; // i should find a way more elegant
 		line = get_next_line(fd);
 	}
 	if (i < 6)
