@@ -1,119 +1,92 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_text.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/11 18:41:42 by mlecherb         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-// int	wich_texture(t_game *game, t_raycast ray)
-// {
-
-// }
-
-// Comment recuperer la texture.
-
-t_text	*t_init(void)
+t_texture	get_texture(void *mlx_ptr) // it should be developped as we start to want to put more images
+// there will be another parameter later, the path infos for each texture
 {
-	t_text *temp;
+	t_texture	res;
+	int			size_info[2];
 
-	temp = malloc(sizeof(t_text));
-	temp->w = 64;
-	temp->h = 64;
-	return (temp);
+	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall.xpm", &size_info[0], &size_info[1]);
+	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Group-2.xpm", &size_info[0], &size_info[1]);
+	res.wall_n.addr = mlx_get_data_addr(res.wall_n.img, &res.wall_n.bits_per_pixel, &res.wall_n.line_length, &res.wall_n.endian);
+	res.door.addr = mlx_get_data_addr(res.door.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
+	return (res);
 }
 
-unsigned int	get_data_color(int x, int y, void *addr, t_text *p)
+unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 {
 	char	*dst;
 
-	dst = addr + (y * p->line_length + x * (p->bits_per_pixel / 8));
+	dst = addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }
 
-int	is_door(t_point *door, int x, int y, t_game *game)
+static bool	is_door(t_point *door, int x, int y, int nb)
 {
 	int	i;
 
 	i = -1;
-	// printf("COUNT : %i\n", game->nb_count);
-	int side_x = 0;
-	int side_y = 0;
-
-	if (game->map.theta > PI && game->map.theta < PI * 2)
-		side_y--;
-	if (game->map.theta > PI / 2 && game->map.theta < PI / 2 * 3)
-		side_x--;
-	printf("A\n");
-	(void)y;
-	(void)x;
-	(void)door;
-	// while (++i < game->nb_count - 1) {
-	// 	printf("B\n");
-	// 	// printf("X : %f\n Y : %f\n", door[i].x, door[i].y);
-	// 	printf("ADRESSE DOOR : %p\n", &door[i]);
-	// 	if (door[i].x == x && door[i].y == y)
-	// 		return (1);
-	// 	// else if (door[i].x + side_x == x && door[i].y == y)
-	// 	// 	return (1);
-	// 	// else if (door[i].x + side_x == x && door[i].y + side_y == y)
-	// 	// 	return (1);
-	// }
-	return (0);
+	while (++i <= nb)
+		if (door[i].x == x && door[i].y == y)
+			return (true);
+	return (false);
 }
 
-void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
+void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture)
 {
 	float	y;
 	float	i;
-	// (void)game;
 	int		start;
 	int     tmp = h;
-	void	*img_addr;
+	t_img	img;
 
-	int side_x = 0;
-	int side_y = 0;
-
-	if (game->map.theta > PI && game->map.theta < PI * 2)
-		side_y--;
-	if (game->map.theta > PI / 2 && game->map.theta < PI / 2 * 3)
-		side_x--;
-	printf("1\n");
-	if (game->mapi[(int) ray.wall.y][(int) ray.wall.x] == '2')
-		img_addr = game->t->addr_door;
-	else if (is_door(game->door, (int) ray.wall.x + side_y, (int) ray.wall.y + side_x, game))
-		img_addr = game->t->addr_door;
+	if (is_door(map.doors, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], map.doors_nb))
+		img = texture.door;
 	else
-		img_addr = game->t->addr_wall;
-	printf("2\n");
+		img = texture.wall_n;
 	if (game->height > 600)
-		h = (int) h / ray.dist;
+		h = h / ray.dist;
 	start = 0;
 	i = 0;
-	printf("3\n");
-	if (ray.wall.x - (int)ray.wall.x == 0)
-		y = ray.wall.y - (int)ray.wall.y;
+	double lol;
+	if (modf(ray.wall.x, &lol) == 0)
+		y = modf(ray.wall.y, &lol);
 	else
-		y = ray.wall.x - (int)ray.wall.x; // On recuperer le bon endroit ou ca a frappe;
+		y = modf(ray.wall.x, &lol); // On recuperer le bon endroit ou ca a frappe;
 	if (game->height < SCREEN_Y)
-		start = (int)((SCREEN_Y - h) / 2);
-	printf("4\n");
+		start = (SCREEN_Y - h) / 2;
 	int j = 0;
 	unsigned int color = 0;
-	double	step = (double) 64 / (double) h;
-	int drawStart = -h / 2 + 600 / 2;
+	float	step = 64.0f / (float) h;
+	int drawStart = (600 - h) / 2;
     if (drawStart < 0)
 	  	drawStart = 0;
-    int drawEnd = h / 2 + 600 / 2;
+    int drawEnd = (600 + h) / 2;
     if(drawEnd >= h)
 		drawEnd = h - 1;
 	printf("5\n");
 	int	texx;
-	texx = (int)(y * (double)64);
-	double texPos = (drawStart - 600 / 2 + h / 2) * step;
-	double texy = 0;
-	printf("6\n");
+	texx = y * 64;
+	float texPos = (drawStart - (600 + h) / 2) * step;
+	float texy = 0;
 	while (j++ < tmp)
 	{
-		texy = (int)texPos & (64 - 1);
+		texy = (int) texPos & (64 - 1);
 		texPos += step;
-		color = get_data_color((int) texx, texy, img_addr, t);
-		my_mlx_pixel_put(&game->gui, ray_x, start + j , color);
-		printf("%d\n", j);
+		color = get_data_color((int) texx, texy, img.addr, img);
+		my_mlx_pixel_put(&game->gui, ray_n, start + j , color);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-
+/*   Updated: 2022/06/11 18:29:16 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "libft.h"
 #include "hook.h"
 #include "raycast.h"
+#include "texture.h"
 
 #define	PI 3.141592
 #define DEG	0.017453
@@ -36,8 +37,8 @@
 #define SCREEN_Y 600
 
 typedef struct s_point {
-	double	x;
-	double	y;
+	float	x;
+	float	y;
 }	t_point;
 
 typedef enum e_move {
@@ -59,8 +60,10 @@ typedef struct s_map {
 	int		height;
 	bool	**map2d;
 	t_point	pos;
+	t_point *doors;
+	int		doors_nb;
 	t_point pixel_pos;
-	double	theta;
+	float	theta;
 }	t_map;
 
 typedef struct s_gui {
@@ -93,24 +96,10 @@ typedef struct s_hook {
 	bool	m_re;
 }	t_hook;
 
-typedef struct s_text
-{
-	void	*img_wall;
-	void	*img_door;
-	char	*addr_wall;
-	char	*addr_door;
-	void	*mlx;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		w;
-	int		h;
-}	t_text;
-
 typedef struct	s_raycast {
 	t_point	wall;
-	double	dist;
-	int		verif;
+	float	dist;
+	int		side[2];
 }	t_raycast;
 
 typedef struct s_sprite {
@@ -141,10 +130,9 @@ typedef struct s_game {
 	t_sprite	*spr;
 	t_key		*key;
 	int			height;
-	t_text		*t;
-	t_point		*door;
+	t_texture	texture;
 	int			nb_count;
-	double		min_door;
+	float		min_door;
 	int			pos[2];
 	char		**mapi;
 	int			lock;
@@ -176,8 +164,8 @@ void	draw_cub3D(t_game *game);
 int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
-// t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game);
+// t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
+t_raycast	digital_differential_analyzer(t_map map, float theta);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);
@@ -189,12 +177,10 @@ int		is_surrounded(char **map);
 void	draw_minimap(t_game *game);
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
-
 void	turn(t_map *map, int dir);
 /*draw*/
-void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t);
-t_text	*t_init(void);
-int		is_door(t_point *door, int x, int y, t_game *game);
-double	perpendicular_dist(double *from, double *to, double angle);
+void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture);
+
+float	perpendicular_dist(float *from, float *to, float angle);
 
 #endif

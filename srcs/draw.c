@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/10 18:38:57 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:09:41 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-double	get_height(double dist, t_game *game)
+float	get_height(float dist, t_game *game)
 {
 	int		h;
 
@@ -34,58 +34,35 @@ void	draw_raycast(t_game *game, int h, int ray_x)
 
 	start_y = (int)((SCREEN_Y - h) / 2);
 	i = -1;
-	printf("Start Y : %i\n", start_y);
 	while (++i < h)
 		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, 0x00FFFF00);
 }
 
-// int	dist_door(t_game *game)
-// {
-	
-// }
-
-void	raycast(t_game *game, double angle, int rayN, t_text *t)
+void	raycast(t_game *game, float angle, int rayN, t_texture texture)
 {
 	t_raycast	ray;
-	double tmp;
-	// int side_x = 0;
-	// int side_y = 0;
+	float tmp;
 
-	// if (game->map.theta > PI && game->map.theta < PI * 2)
-	// 	side_y--;
-	// if (game->map.theta > PI / 2 && game->map.theta < PI / 2 * 3)
-	// 	side_x--;
 	tmp = 0;
-	ray = digital_differential_analyzer(game->map, angle, game);
-	// draw_raycast(game, get_height(ray.dist, game), rayN);
-	// (void)t;
-	// if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game) == 1)
-	// 	printf("1\n");
-	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game))
+	ray = digital_differential_analyzer(game->map, angle);
+	/*if (is_door(game->door, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], game))
 	{
-		tmp = perpendicular_dist((double [2]) {game->map.pos.x, game->map.pos.y}, (double [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
-		// printf("TMP : %f\n", tmp);
+		tmp = perpendicular_dist((float [2]) {game->map.pos.x, game->map.pos.y}, (float [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
 		if (tmp < game->min_door)
 		{
-			game->min_door = perpendicular_dist((double [2]) {game->map.pos.x, game->map.pos.y}, (double [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
+			game->min_door = perpendicular_dist((float [2]) {game->map.pos.x, game->map.pos.y}, (float [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
 			game->pos[0] = (int)ray.wall.x;// - side_x;
 			game->pos[1] = (int)ray.wall.y;// - side_y;
 		}	
-	}
-	// printf("MIN : %f\n", game->min_door);
-	draw_text(game, get_height(ray.dist, game), ray, rayN, t);	
+	}*/
+	draw_text(game, game->map, get_height(ray.dist, game), ray, rayN, texture);
 }
 
 void	draw_cub3D(t_game *game)
 {
-	double	start_angle;
-	double	angle;
+	float	start_angle;
+	float	angle;
 	int		ray;
-	// t_text	*t;
-
-	// t = t_init();
-	// t->img = mlx_xpm_file_to_image(game->gui.mlx, "./texture/wall.xpm", &t->w, &t->h);
-	// t->addr = mlx_get_data_addr(t->img, &t->bits_per_pixel, &t->line_length, &t->endian);
 
 	start_angle = game->map.theta - ANGLE / 2;
 	ray = -1;
@@ -96,6 +73,6 @@ void	draw_cub3D(t_game *game)
 			angle += M_PI * 2;
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
-		raycast(game, angle, ray, game->t);
+		raycast(game, angle, ray, game->texture);
 	}
 }
