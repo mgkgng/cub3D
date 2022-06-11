@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 16:46:27 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:11:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,6 @@ void	redraw(t_game *game)
 	if (game->hook.minimap_on % 2)
 		draw_minimap(game);
 }
-
-/*void	put_image_to_image(t_game *game, t_sprite tmp, int x, int y)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	
-}*/
 
 void	sprite(t_game *game)
 {
@@ -190,7 +180,7 @@ int	cub3D(t_game game)
 	game.hook.minimap_on = 0;
 	game.hook.minimap_size = 7;
 	game.hook.move_re = STOP;
-	game.texture = get_texture();
+	game.texture = get_texture(game);
 	
 	init_sprite(&game);
 	game.lock = 0;

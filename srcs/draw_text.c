@@ -1,22 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_text.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/11 18:28:15 by min-kang         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-// int	wich_texture(t_game *game, t_raycast ray)
-// {
-
-// }
-
-// Comment recuperer la texture.
-
-t_texture	*get_texture(t_game game)
+t_texture	get_texture(void *mlx_ptr) // it should be developped as we start to want to put more images
+// there will be another parameter later, the path infos for each texture
 {
 	t_texture	res;
+	int			size_info[2];
 
-	res.width = 64;
-	res.height = 64;
-	res.img_wall = mlx_xpm_file_to_image(game.gui.mlx, "./texture/wall.xpm", &game.texture.width, &game.texture.height);
-	res.img_door = mlx_xpm_file_to_image(game.gui.mlx, "./texture/Group-2.xpm", &game.texture.width, &game.texture.height);
-	res.addr_wall = mlx_get_data_addr(game.texture.img_wall, &game.texture.bits_per_pixel, &game.texture.line_length, &game.texture.endian);
-	res.addr_door = mlx_get_data_addr(game.texture.img_door, &game.texture.bits_per_pixel, &game.texture.line_length, &game.texture.endian);
+	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall.xpm", &size_info[0], &size_info[1]);
+	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Group-2.xpm", &size_info[0], &size_info[1];
+	res.wall_n.addr = mlx_get_data_addr(res.wall_n.img, &res.wall_n.bits_per_pixel, &res.wall_n.line_length, &res.wall_n.endian);
+	res.door.addr = mlx_get_data_addr(res.door.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
 	return (res);
 }
 
@@ -28,7 +33,7 @@ unsigned int	get_data_color(int x, int y, void *addr, t_texture *p)
 	return (*(unsigned int *)dst);
 }
 
-bool	is_door(t_point *door, int x, int y, int nb)
+static bool	is_door(t_point *door, int x, int y, int nb)
 {
 	int	i;
 
@@ -39,21 +44,18 @@ bool	is_door(t_point *door, int x, int y, int nb)
 	return (false);
 }
 
-void	draw_text(t_game *game, int h, t_raycast ray, int ray_n, t_texture t)
+void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture)
 {
 	float	y;
 	float	i;
-	// (void)game;
 	int		start;
 	int     tmp = h;
 	void	*img_addr;
 
-	if (game->mapi[(int) ray.wall.y + ray.side[1]][(int) ray.wall.x + ray.side[0]] == '2')
-		img_addr = t.addr_door;
-	else if (is_door(game->map.doors, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], game->map.doors_nb))
-		img_addr = t.addr_door;
+	if (is_door(map.doors, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], map.doors_nb))
+		img_addr = texture.addr_door;
 	else
-		img_addr = game->t->addr_wall;
+		img_addr = texture.addr_wall;
 	if (game->height > 600)
 		h = h / ray.dist;
 	start = 0;
@@ -82,8 +84,8 @@ void	draw_text(t_game *game, int h, t_raycast ray, int ray_n, t_texture t)
 	{
 		texy = (int) texPos & (64 - 1);
 		texPos += step;
-		color = get_data_color((int) texx, texy, img_addr, t);
-		my_mlx_pixel_put(&game->gui, ray_x, start + j , color);
+		color = get_data_color((int) texx, texy, img_addr, &texture);
+		my_mlx_pixel_put(&game->gui, ray_n, start + j , color);
 	}
 }
 

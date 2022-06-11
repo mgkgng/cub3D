@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 16:40:38 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:07:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static bool	**get_boolmap(char **charmap, int map_width, int map_height)
 				boolmap[i][j] = true;
 		}
 	}
-	free(charmap);
 	return (boolmap);
 }
 
@@ -87,7 +86,6 @@ static t_point *get_doors(char **charmap, int map_width, int map_height)
 	res = NULL;
 	count = 0;
 	i = -1;
-	j = -1;
 	while (++i < map_height)
 	{
 		j = -1;
@@ -95,7 +93,10 @@ static t_point *get_doors(char **charmap, int map_width, int map_height)
 		{
 			if (charmap[i][j] == 'D')
 			{
-				ft_realloc(res, ++count);
+				if (!res)
+					res = malloc(sizeof(t_point));
+				else
+					ft_realloc(res, ++count * sizeof(t_point));
 				res[count - 1].x = j;
 				res[count - 1].y = i;
 			}

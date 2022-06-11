@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/17 15:59:30 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:29:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_fileformat(char *mapstr, char **map)
 	char	*set;
 
 	// check n.1 : is there any other character than one of the ones needed to be
-	set = ft_strdup(" 210NSWE");
+	set = ft_strdup(" 210NSWED");
 	i = -1;
 	while (map[++i])
 	{

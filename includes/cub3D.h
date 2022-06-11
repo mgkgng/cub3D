@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 16:50:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:29:16 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "libft.h"
 #include "hook.h"
 #include "raycast.h"
+#include "texture.h"
 
 #define	PI 3.141592
 #define DEG	0.017453
@@ -95,20 +96,6 @@ typedef struct s_hook {
 	bool	m_re;
 }	t_hook;
 
-typedef struct s_texture
-{
-	void	*img_wall;
-	void	*img_door;
-	char	*addr_wall;
-	char	*addr_door;
-	void	*mlx;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}	t_texture;
-
 typedef struct	s_raycast {
 	t_point	wall;
 	float	dist;
@@ -177,9 +164,8 @@ void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 void	turn(t_map *map, int dir);
 /*draw*/
-void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t);
-t_text	*t_init(void);
-int		is_door(t_point *door, int x, int y, t_game *game);
+void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture);
+
 float	perpendicular_dist(float *from, float *to, float angle);
 
 #endif

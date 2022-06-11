@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/11 16:34:24 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:09:41 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	draw_raycast(t_game *game, int h, int ray_x)
 		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, 0x00FFFF00);
 }
 
-void	raycast(t_game *game, float angle, int rayN, t_text *t)
+void	raycast(t_game *game, float angle, int rayN, t_texture texture)
 {
 	t_raycast	ray;
 	float tmp;
@@ -55,7 +55,7 @@ void	raycast(t_game *game, float angle, int rayN, t_text *t)
 			game->pos[1] = (int)ray.wall.y;// - side_y;
 		}	
 	}*/
-	draw_text(game, get_height(ray.dist, game), ray, rayN, t);
+	draw_text(game, game->map, get_height(ray.dist, game), ray, rayN, texture);
 }
 
 void	draw_cub3D(t_game *game)
@@ -73,6 +73,6 @@ void	draw_cub3D(t_game *game)
 			angle += M_PI * 2;
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
-		raycast(game, angle, ray, game->t);
+		raycast(game, angle, ray, game->texture);
 	}
 }
