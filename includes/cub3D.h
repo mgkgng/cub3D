@@ -36,8 +36,8 @@
 #define SCREEN_Y 600
 
 typedef struct s_point {
-	double	x;
-	double	y;
+	float	x;
+	float	y;
 }	t_point;
 
 typedef enum e_move {
@@ -60,7 +60,7 @@ typedef struct s_map {
 	bool	**map2d;
 	t_point	pos;
 	t_point pixel_pos;
-	double	theta;
+	float	theta;
 }	t_map;
 
 typedef struct s_gui {
@@ -109,7 +109,7 @@ typedef struct s_text
 
 typedef struct	s_raycast {
 	t_point	wall;
-	double	dist;
+	float	dist;
 	int		verif;
 }	t_raycast;
 
@@ -137,7 +137,7 @@ typedef struct s_game {
 	t_text		*t;
 	t_point		*door;
 	int			nb_count;
-	double		min_door;
+	float		min_door;
 	int			pos[2];
 	char		**mapi;
 	int			lock;
@@ -161,8 +161,8 @@ void	draw_cub3D(t_game *game);
 int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
-// t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game);
+// t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);
@@ -180,6 +180,6 @@ void	turn(t_map *map, int dir);
 void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t);
 t_text	*t_init(void);
 int		is_door(t_point *door, int x, int y, t_game *game);
-double	perpendicular_dist(double *from, double *to, double angle);
+float	perpendicular_dist(float *from, float *to, float angle);
 
 #endif

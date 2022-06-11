@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/10 18:44:15 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:26:46 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-double	get_angle(double old, double change)
+float	get_angle(float old, float change)
 {
-	double	res;
+	float	res;
 	res = old + change;
 	if (res > M_PI * 2)
 		return (res - M_PI * 2);
@@ -23,10 +23,10 @@ double	get_angle(double old, double change)
 	return (res);
 }
 
-void	translate(t_map *map, double theta)
+void	translate(t_map *map, float theta)
 {
-	double	new_x;
-	double	new_y;
+	float	new_x;
+	float	new_y;
 
 	new_x = map->pos.x + cos(theta) * 0.2;
 	new_y = map->pos.y + sin(theta) * 0.2;

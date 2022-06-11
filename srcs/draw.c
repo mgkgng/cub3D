@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/10 18:38:57 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:26:39 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-double	get_height(double dist, t_game *game)
+float	get_height(float dist, t_game *game)
 {
 	int		h;
 
@@ -44,10 +44,10 @@ void	draw_raycast(t_game *game, int h, int ray_x)
 	
 // }
 
-void	raycast(t_game *game, double angle, int rayN, t_text *t)
+void	raycast(t_game *game, float angle, int rayN, t_text *t)
 {
 	t_raycast	ray;
-	double tmp;
+	float tmp;
 	// int side_x = 0;
 	// int side_y = 0;
 
@@ -63,11 +63,11 @@ void	raycast(t_game *game, double angle, int rayN, t_text *t)
 	// 	printf("1\n");
 	if (is_door(game->door, (int) ray.wall.x, (int) ray.wall.y, game))
 	{
-		tmp = perpendicular_dist((double [2]) {game->map.pos.x, game->map.pos.y}, (double [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
+		tmp = perpendicular_dist((float [2]) {game->map.pos.x, game->map.pos.y}, (float [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
 		// printf("TMP : %f\n", tmp);
 		if (tmp < game->min_door)
 		{
-			game->min_door = perpendicular_dist((double [2]) {game->map.pos.x, game->map.pos.y}, (double [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
+			game->min_door = perpendicular_dist((float [2]) {game->map.pos.x, game->map.pos.y}, (float [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
 			game->pos[0] = (int)ray.wall.x;// - side_x;
 			game->pos[1] = (int)ray.wall.y;// - side_y;
 		}	
@@ -78,8 +78,8 @@ void	raycast(t_game *game, double angle, int rayN, t_text *t)
 
 void	draw_cub3D(t_game *game)
 {
-	double	start_angle;
-	double	angle;
+	float	start_angle;
+	float	angle;
 	int		ray;
 	// t_text	*t;
 

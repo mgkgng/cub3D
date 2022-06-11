@@ -85,7 +85,7 @@ void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
 		start = (int)((SCREEN_Y - h) / 2);
 	int j = 0;
 	unsigned int color = 0;
-	double	step = (double) 64 / (double) h;
+	float	step = (float) 64 / (float) h;
 	int drawStart = -h / 2 + 600 / 2;
     if (drawStart < 0)
 	  	drawStart = 0;
@@ -93,9 +93,9 @@ void	draw_text(t_game *game, int h, t_raycast ray, int ray_x, t_text *t)
     if(drawEnd >= h)
 		drawEnd = h - 1;
 	int	texx;
-	texx = (int)(y * (double)64);
-	double texPos = (drawStart - 600 / 2 + h / 2) * step;
-	double texy = 0;
+	texx = (int)(y * (float)64);
+	float texPos = (drawStart - 600 / 2 + h / 2) * step;
+	float texy = 0;
 	while (j++ < tmp)
 	{
 		texy = (int)texPos & (64 - 1);

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/10 14:05:53 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/11 13:26:32 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-double	perpendicular_dist(double *from, double *to, double angle)
+float	perpendicular_dist(float *from, float *to, float angle)
 {
-	double	sin_v;
-	double	cos_v;
+	float	sin_v;
+	float	cos_v;
 
 	sin_v = sin(angle);
 	cos_v = cos(angle);
@@ -23,11 +23,11 @@ double	perpendicular_dist(double *from, double *to, double angle)
 		/ sqrt(pow(sin_v, 2) + pow(cos_v, 2)));
 }
 
-static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta, t_game *game)
+static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta, t_game *game)
 {
 	t_raycast	res;
-	double		deltaX;
-	double		increY;
+	float		deltaX;
+	float		increY;
 	int			side;
 	(void)game;
 
@@ -56,21 +56,21 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, double theta, t_g
 		res.wall.y += increY;
 		// if (is_door(game->door, (int) res.wall.x, (int) res.wall.y, game))
 		// {
-		// 	game->min_door = perpendicular_dist((double [2]) {pos.x, pos.y}, (double [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
+		// 	game->min_door = perpendicular_dist((float [2]) {pos.x, pos.y}, (float [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
 		// 	game->pos[0] = res.wall.x;
 		// 	game->pos[1] = res.wall.y;
 		// 	res.verif = 1;
 		// }
 	}
-	res.dist = perpendicular_dist((double [2]) {pos.x, pos.y}, (double [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
+	res.dist = perpendicular_dist((float [2]) {pos.x, pos.y}, (float [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
 	return (res);
 }
 
-static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta, t_game *game)
+static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta, t_game *game)
 {
 	t_raycast	res;
-	double		deltaY;
-	double		increX;
+	float		deltaY;
+	float		increX;
 	int			side;
 	(void)game;
 	
@@ -99,17 +99,17 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, double theta, t_g
 		res.wall.y += deltaY;
 		// if (is_door(game->door, (int) res.wall.x, (int) res.wall.y, game))
 		// {
-		// 	game->min_door = perpendicular_dist((double [2]) {pos.x, pos.y}, (double [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
+		// 	game->min_door = perpendicular_dist((float [2]) {pos.x, pos.y}, (float [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
 		// 	game->pos[0] = res.wall.x;
 		// 	game->pos[1] = res.wall.y;
 		// 	res.verif = 1;
 		// }
 	}
-	res.dist = perpendicular_dist((double [2]) {pos.x, pos.y}, (double [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
+	res.dist = perpendicular_dist((float [2]) {pos.x, pos.y}, (float [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
 	return (res);
 }
 
-t_raycast	digital_differential_analyzer(t_map map, double theta, t_game *game)
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
 {
 	t_raycast	res_x;
 	t_raycast	res_y;
