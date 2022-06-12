@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 20:39:47 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/12 19:13:25 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ typedef struct s_sprite {
 	struct s_sprite *next;
 }	t_sprite;
 
-
 typedef struct s_game {
 	t_map		map;
 	t_gui		gui;
@@ -127,17 +126,13 @@ typedef struct s_game {
 	t_sprite	*spr;
 	int			height;
 	t_texture	texture;
-	int			nb_count;
-	float		min_door;
 	int			pos[2];
-	char		**mapi;
 	int			lock;
 	int			sprite;
 	int 		count;
 }	t_game;
 
 int	cub3D(t_game game);
-//int	cub3D(void);
 
 /* parse */
 t_game	parse(char *file);
@@ -171,5 +166,8 @@ void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_textu
 
 float	perpendicular_dist(float *from, float *to, float angle);
 void	init_sprite(t_game *game);
+
+bool	is_door(t_point *door, int x, int y, int nb);
+void	open_door(t_game *game);
 
 #endif

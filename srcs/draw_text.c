@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 19:36:31 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/12 18:51:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,6 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 
 	dst = addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
-}
-
-static bool	is_door(t_point *door, int x, int y, int nb)
-{
-	int	i;
-
-	i = -1;
-	while (++i <= nb)
-		if (door[i].x == x && door[i].y == y)
-			return (true);
-	return (false);
 }
 
 void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture)

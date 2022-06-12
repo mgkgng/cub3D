@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 20:07:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/12 19:12:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	translate(t_map *map, float theta)
 	new_x = map->pos.x + cos(theta) * 0.2;
 	new_y = map->pos.y + sin(theta) * 0.2;
 	if (new_x < 0 || new_x > map->width || new_y < 0 || new_y > map->height
-		|| !map->map_raycast[(int) new_y][(int) new_x])
+		|| !map->map_move[(int) new_y][(int) new_x])
 		return ;
 	map->pos.x = new_x;
 	map->pos.y = new_y;
@@ -44,15 +44,6 @@ void	turn(t_map *map, int dir)
 		map->theta -= M_PI * 2;
 	if (map->theta < 0)
 		map->theta += M_PI * 2;
-}
-
-void	open_door(t_game *game)
-{
-	
-	if (game->map.map_raycast[game->pos[1]][game->pos[0]] == true && game->min_door > 1)
-		game->map.map_raycast[game->pos[1]][game->pos[0]] = false;
-	else if (game->min_door < 2)
-		game->map.map_raycast[game->pos[1]][game->pos[0]] = true;
 }
 
 int	key_hook(int key, t_game *game)

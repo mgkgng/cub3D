@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 20:48:40 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/12 19:17:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ static void put_maps(t_map *map, char **charmap, int map_width, int map_height)
 	map->map_door = ft_calloc(map_height, sizeof(bool *));
 	i = -1;
 	while (++i < map_height)
-		boolmap[i] = ft_calloc(map_width, sizeof(bool));
+	{
+		map->map_move[i] = ft_calloc(map_width, sizeof(bool));
+		map->map_raycast[i] = ft_calloc(map_width, sizeof(bool));
+		map->map_door[i] = ft_calloc(map_height, sizeof(bool));
+	}
 	i = -1;
 	while (++i < map_height)
 	{
@@ -70,11 +74,21 @@ static void put_maps(t_map *map, char **charmap, int map_width, int map_height)
 		{
 			if (!charmap[i][j])
 				break;
-			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmp[i][j] == 'D')
-				map->map_raycast = true;
+			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1')) 
+			{
+				if (charmap[i][j] == 'D')
+				{
+					map->map_raycast[i][j] = true;
+					map->map_door[i][j] = true;
+				}
+				else
+				{
+					map->map_raycast[i][j] = true;
+					map->map_move[i][j] = true;
+				}
+			}
 		}
 	}
-	return (boolmap);
 }
 
 static t_point *get_doors(char **charmap, int map_width, int map_height)
@@ -126,7 +140,7 @@ t_map	get_map(int fd)
 	if (!check_fileformat(mapstr, map_data))
 		error(4);
 	put_info(&map, map_data);
-	map.map_raycast = get_boolmap(map_data, map.width, map.height);
+	put_maps(&map, map_data, map.width, map.height);
 	map.doors = get_doors(map_data, map.width, map.height);
 	free(map_data);
 	return (map);
