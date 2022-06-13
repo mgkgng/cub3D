@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 20:57:22 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 21:08:31 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,9 @@ t_raycast	digital_differential_analyzer(t_map map, float theta)
 	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	if (res_x.dist < res_y.dist)
+	{
+		res_x.height = get_height(res_x)
+	}
 		return (res_x);
 	return (res_y);
 }

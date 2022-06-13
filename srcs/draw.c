@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/12 18:50:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 21:09:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,14 @@ void	draw_raycast(t_game *game, int h, int ray_x)
 		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, 0x00FFFF00);
 }
 
-void	raycast(t_game *game, float angle, int rayN, t_texture texture)
+void	raycast(t_game *game, float angle, int rayN)
 {
 	t_raycast	ray;
 	float tmp;
 
 	tmp = 0;
 	ray = digital_differential_analyzer(game->map, angle);
-	/*if (is_door(game->door, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], game))
-	{
-		tmp = perpendicular_dist((float [2]) {game->map.pos.x, game->map.pos.y}, (float [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
-		if (tmp < game->min_door)
-		{
-			game->min_door = perpendicular_dist((float [2]) {game->map.pos.x, game->map.pos.y}, (float [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);
-			game->pos[0] = (int)ray.wall.x;// - side_x;
-			game->pos[1] = (int)ray.wall.y;// - side_y;
-		}	
-	}*/
-	draw_text(game, game->map, get_height(ray.dist, game), ray, rayN, texture);
+	draw_text(game, get_height(ray.dist, game), ray, rayN);
 }
 
 void	draw_cub3D(t_game *game)
