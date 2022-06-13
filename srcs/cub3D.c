@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 16:53:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 18:31:50 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_gui	initialize_window(char *game_name)
 
 int	terminate(t_game *game)
 {
-	free(game->map.map_raycast);
+	free(game->map.map_wall);
 	exit(0);
 }
 

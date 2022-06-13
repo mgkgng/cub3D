@@ -6,22 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:48:28 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 18:13:13 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 18:25:41 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-bool	is_door(t_point *door, int x, int y, int nb)
-{
-	int	i;
-
-	i = -1;
-	while (++i <= nb)
-		if (door[i].x == x && door[i].y == y)
-			return (true);
-	return (false);
-}
 
 void	put_door_pos(t_point *pos, float theta)
 {
@@ -42,7 +31,7 @@ void	open_door(t_game *game)
 	door_pos.x = game->map.pos.x;
 	door_pos.y = game->map.pos.y;
 	put_door_pos(&door_pos, game->map.theta);
-	if (game->map.map_door[(int) door_pos.y][(int) door_pos.x] == false)
+	if (game->map.map_wall[(int) door_pos.y][(int) door_pos.x] != 'D')
 		return ;
 	if (game->map.map_move[(int) door_pos.y][(int) door_pos.x] == false)
 	{

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/12 19:13:25 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 20:44:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ typedef struct s_point {
 	float	y;
 }	t_point;
 
+typedef struct s_door {
+	t_point	*pos;
+	float	*dist;
+	int		nb;
+}	t_door;
+
 typedef enum e_move {
 	STOP,
 	W,
@@ -60,8 +66,7 @@ typedef struct s_map {
 	int		width;
 	int		height;
 	bool	**map_move;
-	bool	**map_raycast;
-	bool	**map_door;
+	char	**map_wall;
 	t_point	pos;
 	t_point *doors;
 	int		doors_nb;
@@ -103,6 +108,7 @@ typedef struct	s_raycast {
 	t_point	wall;
 	float	dist;
 	int		side[2];
+	t_door	door;
 }	t_raycast;
 
 typedef struct s_sprite {

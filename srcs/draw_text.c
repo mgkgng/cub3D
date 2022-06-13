@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 17:39:44 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 18:51:07 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_textu
 	int     tmp = h;
 	t_img	img;
 
-	if (is_door(map.doors, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], map.doors_nb))
-		img = texture.door;
-	else
-		img = texture.wall_n;
+	(void) map;
+	//if (map.map_wall[(int) ray.wall.x + ray.side[0]][(int) ray.wall.y + ray.side[1]] == 'D')
+	//	img = texture.door;
+	//else
+	img = texture.wall_n;
 	if (game->height > 600)
 		h = h / ray.dist;
 	start = 0;
@@ -77,4 +78,3 @@ void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_textu
 		my_mlx_pixel_put(&game->gui, ray_n, start + j , color);
 	}
 }
-
