@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 20:05:33 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:53:01 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	paint_background(t_game *game)
 
 void	redraw(t_game *game)
 {
-	game->min_door = INT32_MAX;
+	//game->min_door = INT32_MAX;
 	paint_background(game);
 	draw_cub3D(game);
 	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
