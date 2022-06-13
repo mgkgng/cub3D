@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 14:11:48 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/11 19:27:39 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	translate(t_map *map, float theta)
 	float	new_x;
 	float	new_y;
 
-	new_x = map->pos.x + cos(theta) * 0.2;
-	new_y = map->pos.y + sin(theta) * 0.2;
+	new_x = map->pos.x + cos(theta) * 0.1;
+	new_y = map->pos.y + sin(theta) * 0.1;
 	if (new_x < 0 || new_x > map->width || new_y < 0 || new_y > map->height
 		|| !map->map2d[(int) new_y][(int) new_x])
 		return ;

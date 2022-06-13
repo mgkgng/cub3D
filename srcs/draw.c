@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/11 17:09:41 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 18:09:29 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	raycast(t_game *game, float angle, int rayN, t_texture texture)
 	float tmp;
 
 	tmp = 0;
-	ray = digital_differential_analyzer(game->map, angle);
+	ray = digital_differential_analyzer(game->map, angle, game);
 	/*if (is_door(game->door, (int) ray.wall.x + ray.side[0], (int) ray.wall.y + ray.side[1], game))
 	{
 		tmp = perpendicular_dist((float [2]) {game->map.pos.x, game->map.pos.y}, (float [2]) {ray.wall.x, ray.wall.y}, game->map.theta + PI / 2);

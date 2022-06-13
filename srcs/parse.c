@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 18:07:00 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 17:26:28 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,12 +174,13 @@ t_game	parse(char *file)
 {
 	int		fd;
 	t_game	game;
-
+	
 	if (!check_filename(file))
 		error(2);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error(3);
+	// game.info = parser(file);
 	//game.draw = get_draw(fd);
 	game.map = get_map(fd);
 	close(fd);

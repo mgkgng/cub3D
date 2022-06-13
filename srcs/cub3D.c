@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 18:41:22 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/13 17:34:11 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	draw(t_game *game)
 
 	// movement(game);
 	// printf("%d\n", game->key.w);
+	movement(game);
 	if (game->hook.re)
 	{
 		redraw(game);
@@ -199,12 +200,13 @@ int	cub3D(t_game game)
 	init_sprite(&game);
 	game.lock = 0;
 	game.count = 0;
-	// game.key = malloc(sizeof(t_key));
+	game.key = malloc(sizeof(t_key));
 	mouse_hook_control(&game, &game.hook);
-	key_hook_control(&game, &game.hook);
+	// key_hook_control(&game, &game.hook);
 	// // draw(&game);
-	// mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
-	// mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
+	mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
+	mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
+	// printf("%i\n", i_i++);
 	mlx_loop_hook(game.gui.mlx, draw, &game);
 	mlx_loop(game.gui.mlx); // BOUCLER SUR DRAW
 	return (terminate(&game));

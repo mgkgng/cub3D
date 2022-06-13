@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 18:29:16 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/13 18:14:23 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,23 @@ typedef struct	s_key {
 	int	a;
 	int	s;
 	int	d;
+	int	turn_l;
+	int	turn_r;
 }	t_key;
+
+typedef struct s_info
+{
+	int		**rgb;
+	char	*path1;
+	char	*path2;
+	char	*path3;
+	char	*path4;
+	char	**file;
+	char	**text;
+	int		i;
+	char	**map;
+}	t_info;
+
 
 typedef struct s_game {
 	t_map		map;
@@ -129,6 +145,7 @@ typedef struct s_game {
 	t_raycast	ray;
 	t_sprite	*spr;
 	t_key		*key;
+	t_info		info;
 	int			height;
 	t_texture	texture;
 	int			nb_count;
@@ -138,6 +155,7 @@ typedef struct s_game {
 	int			lock;
 	int			sprite;
 	int 		count;
+	int			side;
 }	t_game;
 
 int	cub3D(t_game game);
@@ -145,6 +163,15 @@ int	cub3D(t_game game);
 
 /* parse */
 t_game	parse(char *file);
+char	**get_char_map(char **file, t_info info);
+int		**grep_rgb(char **file, t_info info);
+char	**grep_texture(char **file, t_info info);
+char	**file_to_tab(int fd);
+t_info 	parser(char *file);
+void	aff_tab(char **map);
+int		tab_len(char **map);
+void	error_quit(char * msg);
+int		verif_texture(char *dir);
 
 /* error */
 void	error(int c);
@@ -153,7 +180,7 @@ void	error(int c);
 int	key_pressed(int key, t_game *game);
 int	key_released(int key, t_game *game);
 void	movement(t_game *game);
-void	translate(t_map *map, double theta);
+void	translate(t_map *map, float theta);
 
 
 
@@ -165,7 +192,7 @@ int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
 // t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, float theta);
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);
