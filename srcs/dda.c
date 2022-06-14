@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 21:08:31 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:45:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	{
 		res.wall.x += increX;
 		res.wall.y += deltaY;
-		if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D')
+		if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
 			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
 	}
+	printf("hello\n");
 	res.dist = perpendicular_dist(pos, res.wall, map.theta + PI / 2);
 	res.side[0] = side;
 	res.side[1] = 0;
@@ -120,9 +121,6 @@ t_raycast	digital_differential_analyzer(t_map map, float theta)
 	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	if (res_x.dist < res_y.dist)
-	{
-		res_x.height = get_height(res_x)
-	}
 		return (res_x);
 	return (res_y);
 }

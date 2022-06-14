@@ -6,26 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/13 21:09:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:27:10 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-float	get_height(float dist, t_game *game)
-{
-	int		h;
-
-	h = (int)(SCREEN_Y / dist);
-	if (h > SCREEN_Y)
-	{
-		game->height = h;
-		h = SCREEN_Y;
-	}
-	else
-		game->height = h;
-	return (h);
-}
 
 void	draw_raycast(t_game *game, int h, int ray_x)
 {
@@ -45,7 +30,7 @@ void	raycast(t_game *game, float angle, int rayN)
 
 	tmp = 0;
 	ray = digital_differential_analyzer(game->map, angle);
-	draw_text(game, get_height(ray.dist, game), ray, rayN);
+	draw_img(game, ray, rayN);
 }
 
 void	draw_cub3D(t_game *game)
@@ -63,6 +48,6 @@ void	draw_cub3D(t_game *game)
 			angle += M_PI * 2;
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
-		raycast(game, angle, ray, game->texture);
+		raycast(game, angle, ray);
 	}
 }

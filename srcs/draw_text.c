@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 21:32:22 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:43:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,56 +33,54 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 	return (*(unsigned int *)dst);
 }
 
-void	draw_text(t_game *game, int h, t_raycast ray, int x)
+/*unsigned int	get_data_color(t_point p, t_img img, void *addr)
 {
-	float	fract;
-	float	i;
-	int		start;
-	int     tmp = h;
-	t_img	img;
+	char	*dst;
 
-	img = game->texture.wall_n;
-	if (game->height > 600)
-		h = h / ray.dist;
-	i = 0;
-	double lol;
-	if (modf(ray.wall.x, &lol) == 0)
-		fract = modf(ray.wall.y, &lol);
+	dst = addr + (p.y * img.line_length + p.x * (img.bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+}*/
+
+t_tex_info	get_tex_info(t_point touch, int h, int start_y)
+{
+	t_tex_info	res;
+
+	if (touch.x - (int) touch.x == 0)
+		res.fract = touch.y - (int) touch.y;
 	else
-		fract = modf(ray.wall.x, &lol);
-	
-	start = 0;
-	if (game->height < SCREEN_Y)
-		start = (SCREEN_Y - h) / 2;
-
+		res.fract = touch.x - (int) touch.x;
+	res.step = 64.0f / (float) h;
+	res.tex.x = res.fract * 64;
+	res.tex_pos = (start_y - (600 + h) / 2) * res.step;
+	return (res);
 }
 
-	unsigned int	color;
-	float			step;
-	int				y;
-	
-	
-void	draw_text(t_game *game, t_img img)
-{	
-	step = 64.0f / (float) h;
-	y = (600 - h) / 2;
-    if (y < 0)
-	  	y = 0;
+void	draw_text(t_game *game, t_img img, float dist, t_point touch, int ray_x)
+{
+	int	h;
+	int	start_y;
+	int	i;
+	t_tex_info	tex_info;
 
-	t_point			tex;
-	float			tex_pos;
-	unsigned int	color;
-	int				i;
-
-	tex.x = fract * 64;
-	tex.y = 0;
-	tex_pos = (draw_start - (600 + h) / 2) * step;
+	h = SCREEN_Y / dist;
+	start_y = (SCREEN_Y - h) / 2;
+	if (start_y < 0)
+		start_y = 0;
+	if (h > SCREEN_Y)
+		h = h / dist;
+	tex_info = get_tex_info(touch, h, start_y);
 	i = 0;
-	while (i++ < tmp)
+	while (i++ < h)
 	{
-		tex.y = (int) tex_pos & (64 - 1);
-		tex_pos += step;
-		color = get_data_color(tex.x, tex.y, img.addr, img);
-		my_mlx_pixel_put(&game->gui, x, start + i, color);
+		tex_info.tex.y = (int) tex_info.tex_pos & (64 - 1);
+		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, get_data_color(tex_info.tex.x, tex_info.tex.y, img.addr, img));
+		tex_info.tex_pos += tex_info.step;
 	}
+}
+
+void	draw_img(t_game *game, t_raycast ray, int ray_x)
+{
+	draw_text(game, game->texture.wall_n, ray.dist, ray.wall, ray_x);
+	/*while (ray.door.nb--)
+		draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);*/
 }

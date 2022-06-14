@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 18:31:50 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:24:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ int	cub3D(t_game game)
 	game.hook.m_sensibility = 20;
 	game.hook.minimap_on = 0;
 	game.hook.minimap_size = 7;
-	game.hook.move_re = STOP;
 	game.texture = get_texture(game.gui.mlx);
 	game.lock = 0;
 	game.count = 0;

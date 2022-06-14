@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 21:07:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:33:43 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,6 @@ typedef struct s_door {
 	int		nb;
 }	t_door;
 
-typedef enum e_move {
-	STOP,
-	W,
-	S,
-	A,
-	D
-}	t_move;
-
 typedef struct s_draw {
 	char	*nswe[4];
 	int		col_floor;
@@ -93,7 +85,6 @@ typedef struct s_gui {
 
 typedef struct s_hook {
 	bool	re;
-	t_move	move_re;
 	//*bonus
 	unsigned int	minimap_on;
 	unsigned int	minimap_size;
@@ -139,6 +130,13 @@ typedef struct s_game {
 	int 		count;
 }	t_game;
 
+typedef struct s_tex_info {
+	t_point	tex;
+	float	tex_pos;
+	float	fract;
+	float	step;
+}	t_tex_info;
+
 int	cub3D(t_game game);
 
 /* parse */
@@ -168,11 +166,12 @@ void	draw_minimap(t_game *game);
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 void	turn(t_map *map, int dir);
-/*draw*/
-void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture);
 
-float	perpendicular_dist(float *from, float *to, float angle);
+/*draw*/
+void	draw_img(t_game *game, t_raycast ray, int ray_x);
+
 void	init_sprite(t_game *game);
+float	get_height(float dist);
 
 bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
