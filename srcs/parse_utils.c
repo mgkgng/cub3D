@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 17:29:00 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:26:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_filename(char *file)
 	return (0);
 }
 
-int	check_fileformat(char *mapstr, char **map)
+int	check_fileformat(char *mapstr, char **map, int map_width, int map_height)
 {
 	int	i;
 	int	j;
@@ -41,10 +41,10 @@ int	check_fileformat(char *mapstr, char **map)
 	// check n.1 : is there any other character than one of the ones needed to be
 	set = ft_strdup(" 210NSWED");
 	i = -1;
-	while (map[++i])
+	while (++i < map_height)
 	{
 		j = -1;
-		while (map[i][++j]) {
+		while (++j < map_width) {
 			//printf("%d---%d---\n", i ,j);
 			if (!ft_strchr(set, map[i][j]))
 				return (terminate_parse(mapstr, map, set));

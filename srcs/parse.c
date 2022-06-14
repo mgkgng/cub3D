@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 18:25:14 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:27:45 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
 	*set_dir = NULL;
 }
 
-static void	put_info(t_map *map, char **map_data)
+static void	put_info(t_map *map, char **map_data, int map_width, int map_height)
 {
 	int	max_width;
 	int	i;
@@ -38,10 +38,10 @@ static void	put_info(t_map *map, char **map_data)
 	i = -1;
 	max_width = 0;
 	set_dir = ft_strdup("NSWE");
-	while (map_data[++i])
+	while (++i < map_height)
 	{
 		j = -1;
-		while (map_data[i][++j])
+		while (++j < map_width)
 			if (set_dir && ft_strchr(set_dir, map_data[i][j]))
 				put_player_info(map, (int [2]) {i, j}, map_data[i][j], &set_dir);
 		if (j > max_width)
@@ -56,19 +56,28 @@ static void put_maps(t_map *map, char **charmap, int map_width, int map_height)
 	int		i;
 	int		j;
 
+	map->map_wall = ft_calloc(map_height, sizeof(char *));
 	map->map_move = ft_calloc(map_height, sizeof(bool *));
 	i = -1;
 	while (++i < map_height)
+	{
 		map->map_move[i] = ft_calloc(map_width, sizeof(bool));
+		map->map_wall[i] = ft_calloc(map_width, sizeof(char));
+	}
 	i = -1;
 	while (++i < map_height)
 	{
 		j = -1;
-		while (++j < map_width && charmap[i][j])
-			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == 'D')) 
+		while (++j < map_width)
+		{
+			if (!charmap[i][j])
+				while (j < map_width)
+					map->map_wall[i][j] = '1';
+			else if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == 'D'))
 				map->map_move[i][j] = true;
+			map->map_wall[i][j] = charmap[i][j];
+		}
 	}
-	map->map_wall = charmap;
 }
 
 t_map	get_map(int fd)
@@ -87,10 +96,10 @@ t_map	get_map(int fd)
 		line = get_next_line(fd);
 	}
 	map_data = ft_split(mapstr, '\n');
-	is_surrounded(map_data);
-	if (!check_fileformat(mapstr, map_data))
+	is_surrounded(map_data, map.width, map.height);
+	if (!check_fileformat(mapstr, map_data, map.width, map.height))
 		error(4);
-	put_info(&map, map_data);
+	put_info(&map, map_data, map.width, map.height);
 	put_maps(&map, map_data, map.width, map.height);
 	return (map);
 }

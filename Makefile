@@ -10,7 +10,7 @@ OBJS = ${SRCS:.c=.o}
 
 INCLUDES = ./includes/
 
-CFLAG = -Wextra -Wall -Werror
+CFLAG = -Wextra -Wall -Werror -fsanitize=address -g
 
 MLX = -lmlx -framework OpenGL -framework Appkit
 

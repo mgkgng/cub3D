@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/14 16:33:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:46:17 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ t_game	parse(char *file);
 /* error */
 void	error(int c);
 
-void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
+void	my_mlx_pixel_put(t_gui *gui, int x, int y, unsigned int color);
 
 void	draw_cub3D(t_game *game);
 
@@ -156,9 +156,8 @@ int		terminate(t_game *game);
 t_raycast	digital_differential_analyzer(t_map map, float theta);
 /*parse utils*/
 int		check_filename(char *file);
-int		check_fileformat(char *mapstr, char **map);
+int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
 int		get_color(char *colstr);
-int		is_surrounded(char **map);
 
 //*bonus
 
@@ -171,9 +170,9 @@ void	turn(t_map *map, int dir);
 void	draw_img(t_game *game, t_raycast ray, int ray_x);
 
 void	init_sprite(t_game *game);
-float	get_height(float dist);
 
 bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
+int	is_surrounded(char **map, int map_width, int map_height);
 
 #endif

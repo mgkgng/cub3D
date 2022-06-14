@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/14 16:45:24 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 20:56:20 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 		if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
 			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
 	}
-	printf("hello\n");
 	res.dist = perpendicular_dist(pos, res.wall, map.theta + PI / 2);
 	res.side[0] = side;
 	res.side[1] = 0;

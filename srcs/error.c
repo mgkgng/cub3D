@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 17:42:20 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:48:39 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_tablen(char **tab)
 }
 
 // Check if a 0 is not next to a 1 in all the direction
-int	zero_near_space(char **map, int i, int j)
+int	zero_near_space(char **map, int j, int i)
 {
 	if (i - 1 < 0)
 		end_program("Wall");
@@ -83,24 +83,18 @@ void	border_line(char *str)
 		end_program("Border of map is not a wall");
 }
 
-int	is_surrounded(char **map)
+int	is_surrounded(char **map, int map_width, int map_height)
 {
 	int		i;
 	int		j;
 	bool	open;
 
-	//** tricky: there can be a line only with space. Should deal with those cases before coming into this function scope.
-	//** maybe space value should be TRUE as a bool value.
-	//** it's trickier... (because of the space character)
-	//** i could just use charmap for this func
-	i = 0;
-	while (map[i])
+	i = -1;
+	while (++i < map_height)
 	{
 		j = -1;
-		open = false;
-		// Check if the first and the last char of the ligne is a 1
-		// right_format(map[i]);																																															end_program("Error");
-		while (map[i][++j])
+		open = false;																																										end_program("Error");
+		while (++j < map_width)
 		{
 			if (!open && !(map[i][j] == ' ' || map[i][j] == '1'))
 				open = true;
@@ -108,12 +102,10 @@ int	is_surrounded(char **map)
 				zero_near_space(map, i, j);
 			if (open && map[i][j] == '1')
 				open = false;
-			border_line(map[i]);	
+			border_line(map[i]);
 		}
-		i++;
 		if (open == true)
 			return (0);
 	}
-	//** found an error. should be able to check not only horizontally but also vertically.
 	return (1);
 }

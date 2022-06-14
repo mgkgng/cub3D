@@ -6,11 +6,27 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/14 16:43:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:53:25 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+float	get_height(float dist, t_game *game)
+{
+	int		h;
+
+	h = SCREEN_Y / dist;
+	if (h > SCREEN_Y)
+	{
+		game->height = h;
+		h = SCREEN_Y;
+	}
+	else
+		game->height = h;
+	return (h);
+}
+
 
 t_texture	get_texture(void *mlx_ptr) // it should be developped as we start to want to put more images
 // there will be another parameter later, the path infos for each texture
@@ -55,32 +71,74 @@ t_tex_info	get_tex_info(t_point touch, int h, int start_y)
 	return (res);
 }
 
-void	draw_text(t_game *game, t_img img, float dist, t_point touch, int ray_x)
+/*void	draw_text(t_game *game, t_img img, float dist, t_point touch, int ray_x)
 {
 	int	h;
 	int	start_y;
 	int	i;
+	int	tmp;
 	t_tex_info	tex_info;
 
-	h = SCREEN_Y / dist;
+	h = get_height(dist, game);
+	tmp = h;
 	start_y = (SCREEN_Y - h) / 2;
 	if (start_y < 0)
 		start_y = 0;
 	if (h > SCREEN_Y)
 		h = h / dist;
 	tex_info = get_tex_info(touch, h, start_y);
-	i = 0;
-	while (i++ < h)
+	i = -1;
+	while (++i < tmp)
 	{
 		tex_info.tex.y = (int) tex_info.tex_pos & (64 - 1);
 		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, get_data_color(tex_info.tex.x, tex_info.tex.y, img.addr, img));
 		tex_info.tex_pos += tex_info.step;
 	}
+}*/
+
+void	draw_text(t_game *game, t_img img, int h, t_raycast ray, int ray_n)
+{
+	float	y;
+	float	i;
+	int		start;
+	int     tmp = h;
+
+	if (game->height > 600)
+		h = h / ray.dist;
+	start = 0;
+	i = 0;
+	double lol;
+	if (modf(ray.wall.x, &lol) == 0)
+		y = modf(ray.wall.y, &lol);
+	else
+		y = modf(ray.wall.x, &lol); // On recuperer le bon endroit ou ca a frappe;
+	if (game->height < SCREEN_Y)
+		start = (SCREEN_Y - h) / 2;
+	int j = 0;
+	unsigned int color = 0;
+	float	step = 64.0f / (float) h;
+	int drawStart = (600 - h) / 2;
+    if (drawStart < 0)
+	  	drawStart = 0;
+    int drawEnd = (600 + h) / 2;
+    if(drawEnd >= h)
+		drawEnd = h - 1;
+	int	texx;
+	texx = y * 64;
+	float texPos = (drawStart - (600 + h) / 2) * step;
+	float texy = 0;
+	while (j++ < tmp)
+	{
+		texy = (int) texPos & (64 - 1);
+		texPos += step;
+		color = get_data_color((int) texx, texy, img.addr, img);
+		my_mlx_pixel_put(&game->gui, ray_n, start + j , color);
+	}
 }
 
 void	draw_img(t_game *game, t_raycast ray, int ray_x)
 {
-	draw_text(game, game->texture.wall_n, ray.dist, ray.wall, ray_x);
+	draw_text(game, game->texture.wall_n, get_height(ray.dist, game), ray, ray_x);
 	/*while (ray.door.nb--)
 		draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);*/
 }
