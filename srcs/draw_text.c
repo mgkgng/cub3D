@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:55:54 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:33:33 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,52 +58,19 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 	return (*(unsigned int *)dst);
 }
 
-/*unsigned int	get_data_color(t_point p, t_img img, void *addr)
+t_tex_info	get_tex_info(t_point wall, int h, int start)
 {
-	char	*dst;
+	t_tex_info	info;
 
-	dst = addr + (p.y * img.line_length + p.x * (img.bits_per_pixel / 8));
-	return (*(unsigned int *)dst);
-}*/
-
-t_tex_info	get_tex_info(t_point touch, int h, int start_y)
-{
-	t_tex_info	res;
-
-	if (touch.x - (int) touch.x == 0)
-		res.fract = touch.y - (int) touch.y;
+	if (wall.x - (int) wall.x == 0)
+		info.fract = wall.y - (int) wall.y;
 	else
-		res.fract = touch.x - (int) touch.x;
-	res.step = 64.0f / (float) h;
-	res.tex.x = res.fract * 64;
-	res.tex_pos = (start_y - (600 + h) / 2) * res.step;
-	return (res);
+		info.fract = wall.x - (int) wall.x; 
+	info.step = 64.0f / (float) h;
+	info.x = info.fract * 64;
+	info.tex_pos = (start - (600 + h) / 2) * info.step;
+	return (info);
 }
-
-/*void	draw_text(t_game *game, t_img img, float dist, t_point touch, int ray_x)
-{
-	int	h;
-	int	start_y;
-	int	i;
-	int	tmp;
-	t_tex_info	tex_info;
-
-	h = get_height(dist, game);
-	tmp = h;
-	start_y = (SCREEN_Y - h) / 2;
-	if (start_y < 0)
-		start_y = 0;
-	if (h > SCREEN_Y)
-		h = h / dist;
-	tex_info = get_tex_info(touch, h, start_y);
-	i = -1;
-	while (++i < tmp)
-	{
-		tex_info.tex.y = (int) tex_info.tex_pos & (64 - 1);
-		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, get_data_color(tex_info.tex.x, tex_info.tex.y, img.addr, img));
-		tex_info.tex_pos += tex_info.step;
-	}
-}*/
 
 t_img which_texture(t_game *game, t_texture text)
 {
@@ -117,55 +84,34 @@ t_img which_texture(t_game *game, t_texture text)
 		return (text.wall_w);
 }
 
-void	draw_text(t_game *game, t_img img, int h, t_raycast ray, int ray_n)
+void	draw_text(t_game *game, t_img img, float dist, t_point wall, int ray_n)
 {
-	float	y;
-	float	i;
 	int		start;
-	int	 tmp = h;
+	int		h;
+	unsigned int color;
+	t_tex_info info;
+	int	i;
 	
-	// img = game->texture.wall_n;
-	//img = which_texture(game, game->texture);
+	h = get_height(dist, game);
 	if (game->height > 600)
-		h = h / ray.dist;
+		h = h / dist;
 	start = 0;
-	i = 0;
-	double lol;
-	if (modf(ray.wall.x, &lol) == 0)
-		y = modf(ray.wall.y, &lol);
-	else
-		y = modf(ray.wall.x, &lol); // On recuperer le bon endroit ou ca a frappe;
-	if (game->height < SCREEN_Y)
+	if (h < SCREEN_Y)
 		start = (SCREEN_Y - h) / 2;
-	int j = 0;
-	unsigned int color = 0;
-	float	step = 64.0f / (float) h;
-	int drawStart = (600 - h) / 2;
-	if (drawStart < 0)
-	  	drawStart = 0;
-	int drawEnd = (600 + h) / 2;
-	if(drawEnd >= h)
-		drawEnd = h - 1;
-	int	texx;
-	texx = y * 64;
-	float texPos;
-	if (game->height > 600)
-		texPos = (drawStart - (600 + h) / 2) * step;
-	else
-		texPos = 0;
-	float texy = 0;
-	while (j++ < tmp)
+	info = get_tex_info(wall, h, start);
+	i = -1;
+	while (++i < h && i < SCREEN_Y)
 	{
-		texy = (int) texPos & (64 - 1);
-		texPos += step;
-		color = get_data_color((int) texx, texy, img.addr, img);
-		my_mlx_pixel_put(&game->gui, ray_n, start + j , color);
+		info.y = (int) info.tex_pos & (64 - 1);
+		info.tex_pos += info.step;
+		color = get_data_color(info.x, info.y, img.addr, img);
+		my_mlx_pixel_put(&game->gui, ray_n, start + i, color);
 	}
 }
 
 void	draw_img(t_game *game, t_raycast ray, int ray_x)
 {
-	draw_text(game, which_texture(game, game->texture), get_height(ray.dist, game), ray, ray_x);
-	/*while (ray.door.nb--)
-		draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);*/
+	draw_text(game, which_texture(game, game->texture), ray.dist, ray.wall, ray_x);
+	//while (ray.door.nb--)
+		//draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);
 }

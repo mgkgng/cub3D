@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:51:28 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:25:37 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,8 @@ typedef struct s_game {
 }	t_game;
 
 typedef struct s_tex_info {
-	t_point	tex;
+	int		x;
+	int		y;
 	float	tex_pos;
 	float	fract;
 	float	step;
@@ -218,7 +219,7 @@ void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 void	turn(t_game *game, t_map *map, int dir);
 /*draw*/
-void	draw_text(t_game *game, t_img img, int h, t_raycast ray, int ray_n);
+//void	draw_text(t_game *game, t_img img, int h, t_raycast ray, int ray_n);
 
 bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
