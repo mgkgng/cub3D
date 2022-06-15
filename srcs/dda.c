@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:41:16 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:44:59 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 		increY = -1;
 		side--;
 	}
+
 	deltaX = 1 / tan(theta) * increY;
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
+
 	while (res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map_wall[(int) res.wall.y + side][(int) res.wall.x] != '1')
 	{
@@ -114,7 +116,7 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	return (res);
 }
 
-t_raycast	digital_differential_analyzer(t_map map, float theta)
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
 {
 	t_raycast	res_x;
 	t_raycast	res_y;
@@ -122,6 +124,10 @@ t_raycast	digital_differential_analyzer(t_map map, float theta)
 	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	if (res_x.dist < res_y.dist)
+	{
+		game->side = 0;
 		return (res_x);
+	}
+	game->side = 1;
 	return (res_y);
 }

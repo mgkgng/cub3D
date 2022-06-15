@@ -3,6 +3,8 @@ SRCS =	srcs/cub3D.c srcs/key.c srcs/main.c srcs/parse.c \
 		srcs/draw.c srcs/dda.c srcs/parse_utils.c \
 		bonus/minimap.c bonus/mouse.c bonus/sprite.c bonus/door.c\
 		srcs/error.c srcs/draw_text.c \
+		srcs/key_management.c srcs/movement.c \
+		srcs/error_management.c \
 
 NAME = cub3D
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:44:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:05:40 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_gui	initialize_window(char *game_name)
 
 int	terminate(t_game *game)
 {
-	free(game->map.map_wall);
+	free(game->map.map2d);
 	exit(0);
 }
 
@@ -56,7 +56,9 @@ void	paint_background(t_game *game)
 
 int	redraw(t_game *game)
 {
-	//game->min_door = INT32_MAX;
+	game->min_door = INT32_MAX;
+	// movement(game);
+	// redraw(game);
 	paint_background(game);
 	draw_cub3D(game);
 	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
@@ -113,7 +115,7 @@ int	draw(t_game *game)
 		i = -1;
 		while (++i * game->hook.m_sensibility < game->hook.m_turn)
 		{
-			turn(game, &game->map, game->hook.m_dir);
+			turn(&game->map, game->hook.m_dir);
 			redraw(game);
 		}
 		game->hook.m_re = false;
@@ -131,18 +133,60 @@ void	mouse_hook_control(t_game *game, t_hook *hook)
 	// mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
-/*
 void	key_hook_control(t_game *game, t_hook *hook)
 {
 	hook->re = true;
 	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
 	// mlx_loop_hook(game->gui.mlx, draw, game);
-}*/
+}
 
+t_sprite	*ft_lstnew(char *name, t_game *game)
+{
+	t_sprite	*new;
+
+	new = malloc(sizeof(t_sprite));
+	if (new == NULL)
+		return (NULL);
+	new->h = 64;
+	new->w = 64;
+	new->img = mlx_xpm_file_to_image(game->gui.mlx, name, &new->w, &new->h);
+	new->addr = mlx_get_data_addr(new->img, &new->bits_per_pixel, &new->line_length, &new->endian);
+	new->next = NULL;
+	return (new);
+}
+
+void	ft_lstadd_back(t_sprite **alst, t_sprite *new)
+{
+	t_sprite	*temp;
+
+	if (!new)
+		return ;
+	if (!*alst)
+	{
+		*alst = new;
+		return ;
+	}
+	else
+	{
+		temp = *alst;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
+	}
+}
+
+void	init_sprite(t_game *game)
+{
+	game->spr = ft_lstnew("./sprite/Couche-1.xpm", game);
+	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-2.xpm", game));
+	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-3.xpm", game));
+	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-4.xpm", game));
+	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-5.xpm", game));
+}
 
 int	cub3D(t_game game)
 {
-	printf("---------%f-----\n", game.map.theta);
+	game.map.theta = M_PI / 2;
 	game.draw.col_ceil = 0x00DA1FE9;
 	game.draw.col_floor = 0x00000088;
 	game.gui = initialize_window("cub3d_launching_test");
@@ -151,6 +195,7 @@ int	cub3D(t_game game)
 	game.hook.m_sensibility = 20;
 	game.hook.minimap_on = 0;
 	game.hook.minimap_size = 7;
+	game.hook.move_re = STOP;
 	game.texture = get_texture(game.gui.mlx);
 	// init_sprite(&game);
 	// init_dir(&game);

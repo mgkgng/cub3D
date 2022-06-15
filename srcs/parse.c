@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:38:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:48:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,12 +171,13 @@ t_game	parse(char *file)
 {
 	int		fd;
 	t_game	game;
-
+	
 	if (!check_filename(file))
 		error(2);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error(3);
+	// game.info = parser(file);
 	//game.draw = get_draw(fd);
 	game.map = get_map(fd);
 	close(fd);

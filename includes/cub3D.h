@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 15:55:13 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:51:28 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,53 @@ typedef struct s_sprite {
 	struct s_sprite *next;
 }	t_sprite;
 
+typedef struct	s_key {
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	turn_l;
+	int	turn_r;
+}	t_key;
+
+typedef struct s_info {
+	int		**rgb;
+	char	*path1;
+	char	*path2;
+	char	*path3;
+	char	*path4;
+	char	**file;
+	char	**text;
+	int		i;
+	char	**map;
+}	t_info;
+
+typedef struct s_dir {
+	float	dir_x;
+	float	dir_y;
+	float	plane_x;
+	float	plane_y;
+	float	raydirx;
+	float	raydiry;
+}	t_dir;
+
 typedef struct s_game {
+	t_dir		dir;
 	t_map		map;
 	t_gui		gui;
 	t_hook		hook;
 	t_draw		draw;
 	t_raycast	ray;
 	t_sprite	*spr;
+	t_key		*key;
+	t_info		info;
 	int			height;
 	t_texture	texture;
 	int			pos[2];
 	int			lock;
 	int			sprite;
 	int 		count;
+	int			side;
 }	t_game;
 
 typedef struct s_tex_info {
@@ -142,18 +176,36 @@ int	cub3D(t_game game);
 
 /* parse */
 t_game	parse(char *file);
+char	**get_char_map(char **file, t_info info);
+int		**grep_rgb(char **file, t_info info);
+char	**grep_texture(char **file, t_info info);
+char	**file_to_tab(int fd);
+t_info 	parser(char *file);
+void	aff_tab(char **map);
+int		tab_len(char **map);
+void	error_quit(char * msg);
+int		verif_texture(char *dir);
 
 /* error */
 void	error(int c);
 
-void	my_mlx_pixel_put(t_gui *gui, int x, int y, unsigned int color);
+/* key */
+int	key_pressed(int key, t_game *game);
+int	key_released(int key, t_game *game);
+void	movement(t_game *game);
+void	translate(t_map *map, float theta);
+
+
+
+void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 
 void	draw_cub3D(t_game *game);
 
 int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, float theta);
+// t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
@@ -164,15 +216,12 @@ int		get_color(char *colstr);
 void	draw_minimap(t_game *game);
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
-void	turn(t_map *map, int dir);
-
+void	turn(t_game *game, t_map *map, int dir);
 /*draw*/
-void	draw_img(t_game *game, t_raycast ray, int ray_x);
-
-void	init_sprite(t_game *game);
+void	draw_text(t_game *game, t_img img, int h, t_raycast ray, int ray_n);
 
 bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
 int	is_surrounded(char **map, int map_width, int map_height);
-
+void	draw_img(t_game *game, t_raycast ray, int ray_x);
 #endif
