@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:44:59 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 19:15:50 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static float	perpendicular_dist(t_point from, t_point to, float angle)
 		/ sqrt(pow(sin_v, 2) + pow(cos_v, 2)));
 }
 
-/*static void	put_door(t_door *door, t_point from, t_point to, float angle)
+static void	put_door(t_door *door, t_point from, t_point to, float angle)
 {
 	if (!door->nb)
 	{
@@ -33,12 +33,12 @@ static float	perpendicular_dist(t_point from, t_point to, float angle)
 	else
 	{
 		door->pos = ft_realloc(door->pos, sizeof(t_point) * (door->nb + 1));
-		door->dist = ft_realloc(door->pos, sizeof(float) * (door->nb + 1));
+		door->dist = ft_realloc(door->dist, sizeof(float) * (door->nb + 1));
 	}
 	door->pos[door->nb].x = to.x;
 	door->pos[door->nb].y = to.y;
 	door->dist[door->nb++] = perpendicular_dist(from, to, angle);
-}*/
+}
 
 static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 {
@@ -47,6 +47,7 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	float		increY;
 	int			side;
 
+	ft_bzero(&res.door, sizeof(t_door));
 	res.dist = INT32_MAX;
 	if (!theta || theta == PI)
 		return (res);
@@ -67,11 +68,11 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	while (res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map_wall[(int) res.wall.y + side][(int) res.wall.x] != '1')
 	{
-		/*if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D')
-			put_door(&res.door, pos, res.wall, map.theta + PI / 2);*/
-
+		if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D') 
+			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
 		res.wall.x += deltaX;
 		res.wall.y += increY;
+
 	}
 	res.dist = perpendicular_dist(pos, res.wall, map.theta + PI / 2);
 	res.side[1] = side;
@@ -86,6 +87,7 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	float		increX;
 	int			side;
 	
+	ft_bzero(&res.door, sizeof(t_door));
 	res.dist = INT32_MAX;
 	if (theta == PI / 2 || theta == PI / 2 * 3)
 		return (res);
@@ -104,9 +106,8 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	while (res.wall.y >= 0 && res.wall.y < map.height
 		&& map.map_wall[(int) res.wall.y][(int) res.wall.x + side] != '1')
 	{
-		/*if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
-			put_door(&res.door, pos, res.wall, map.theta + PI / 2);*/
-
+		if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
+			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
 		res.wall.x += increX;
 		res.wall.y += deltaY;
 	}

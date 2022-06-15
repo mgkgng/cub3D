@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 18:33:33 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 19:32:12 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ float	get_height(float dist, t_game *game)
 	return (h);
 }
 
-
-t_texture	get_texture(void *mlx_ptr) // it should be developped as we start to want to put more images
-// there will be another parameter later, the path infos for each texture
+t_texture	get_texture(void *mlx_ptr)
 {
 	t_texture	res;
 	int			size_info[2];
@@ -38,15 +36,12 @@ t_texture	get_texture(void *mlx_ptr) // it should be developped as we start to w
 	res.wall_s.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/France.xpm", &size_info[0], &size_info[1]);
 	res.wall_w.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Italie.xpm", &size_info[0], &size_info[1]);
 	res.wall_e.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Suisse.xpm", &size_info[0], &size_info[1]);
-	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Group-2.xpm", &size_info[0], &size_info[1]);
-	
+	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/The_Doors.xpm", &size_info[0], &size_info[1]);
 	res.wall_n.addr = mlx_get_data_addr(res.wall_n.img, &res.wall_n.bits_per_pixel, &res.wall_n.line_length, &res.wall_n.endian);
 	res.wall_s.addr = mlx_get_data_addr(res.wall_s.img, &res.wall_s.bits_per_pixel, &res.wall_s.line_length, &res.wall_s.endian);
 	res.wall_w.addr = mlx_get_data_addr(res.wall_w.img, &res.wall_w.bits_per_pixel, &res.wall_w.line_length, &res.wall_w.endian);
 	res.wall_e.addr = mlx_get_data_addr(res.wall_e.img, &res.wall_e.bits_per_pixel, &res.wall_e.line_length, &res.wall_e.endian);
 	res.door.addr = mlx_get_data_addr(res.door.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
-
-	
 	return (res);
 }
 
@@ -112,6 +107,8 @@ void	draw_text(t_game *game, t_img img, float dist, t_point wall, int ray_n)
 void	draw_img(t_game *game, t_raycast ray, int ray_x)
 {
 	draw_text(game, which_texture(game, game->texture), ray.dist, ray.wall, ray_x);
-	//while (ray.door.nb--)
-		//draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);
+	if (ray.door.nb)
+		printf("%f.....%f......%f.....\n", ray.door.pos[0].x, ray.door.pos[0].y, ray.door.dist[0]);
+	while (ray.door.nb--)
+		draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);
 }
