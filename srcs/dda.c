@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/14 20:56:20 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:41:16 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static float	perpendicular_dist(t_point from, t_point to, float angle)
 		/ sqrt(pow(sin_v, 2) + pow(cos_v, 2)));
 }
 
-static void	put_door(t_door *door, t_point from, t_point to, float angle)
+/*static void	put_door(t_door *door, t_point from, t_point to, float angle)
 {
 	if (!door->nb)
 	{
@@ -38,7 +38,7 @@ static void	put_door(t_door *door, t_point from, t_point to, float angle)
 	door->pos[door->nb].x = to.x;
 	door->pos[door->nb].y = to.y;
 	door->dist[door->nb++] = perpendicular_dist(from, to, angle);
-}
+}*/
 
 static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 {
@@ -65,10 +65,11 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	while (res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map_wall[(int) res.wall.y + side][(int) res.wall.x] != '1')
 	{
+		/*if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D')
+			put_door(&res.door, pos, res.wall, map.theta + PI / 2);*/
+
 		res.wall.x += deltaX;
 		res.wall.y += increY;
-		if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D')
-			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
 	}
 	res.dist = perpendicular_dist(pos, res.wall, map.theta + PI / 2);
 	res.side[1] = side;
@@ -101,10 +102,11 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	while (res.wall.y >= 0 && res.wall.y < map.height
 		&& map.map_wall[(int) res.wall.y][(int) res.wall.x + side] != '1')
 	{
+		/*if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
+			put_door(&res.door, pos, res.wall, map.theta + PI / 2);*/
+
 		res.wall.x += increX;
 		res.wall.y += deltaY;
-		if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
-			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
 	}
 	res.dist = perpendicular_dist(pos, res.wall, map.theta + PI / 2);
 	res.side[0] = side;

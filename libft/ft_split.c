@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:33:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 19:57:05 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:13:38 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	res = malloc(sizeof(char *) * (count_size(s, c) + 1));
+	res = malloc(sizeof(char *) * (count_size(s, c) + 2));
 	if (!res)
 		return (NULL);
 	start = 0;

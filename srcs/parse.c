@@ -6,44 +6,44 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/14 22:27:45 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:38:43 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "cub3D.h"
 
-static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
+static void	put_player_info(t_map *map, int *pos, char dir)
 {
 	map->pos.x = pos[0];
 	map->pos.y = pos[1];
 	if (dir == 'N')
-		map->theta = 3 * M_PI_2;
+		map->theta = 3 * PI / 2;
 	else if (dir == 'S')
-		map->theta = M_PI_2;
+		map->theta = M_PI / 2;
 	else if (dir == 'W')
-		map->theta = M_PI;
+		map->theta = PI;
 	else
 		map->theta = 0;
-	free(*set_dir);
-	*set_dir = NULL;
 }
 
-static void	put_info(t_map *map, char **map_data, int map_width, int map_height)
+static void	put_info(t_map *map, char **map_data)
 {
 	int	max_width;
 	int	i;
 	int	j;
 	char	*set_dir;
 	
-	i = -1;
 	max_width = 0;
-	set_dir = ft_strdup("NSWE");
-	while (++i < map_height)
+	set_dir = "NSWE";
+	i = -1;
+	while (map_data[++i])
 	{
 		j = -1;
-		while (++j < map_width)
-			if (set_dir && ft_strchr(set_dir, map_data[i][j]))
-				put_player_info(map, (int [2]) {i, j}, map_data[i][j], &set_dir);
+		while (map_data[i][++j])
+		{
+			if (ft_strchr(set_dir, map_data[i][j]))
+				put_player_info(map, (int [2]) {i, j}, map_data[i][j]);
+		}
 		if (j > max_width)
 			max_width = j;
 	}
@@ -51,33 +51,56 @@ static void	put_info(t_map *map, char **map_data, int map_width, int map_height)
 	map->width = max_width;
 }
 
-static void put_maps(t_map *map, char **charmap, int map_width, int map_height)
+static bool **get_map_move(t_map map, char **charmap)
 {
 	int		i;
 	int		j;
+	bool	**res;
 
-	map->map_wall = ft_calloc(map_height, sizeof(char *));
-	map->map_move = ft_calloc(map_height, sizeof(bool *));
+	res = ft_calloc(map.height, sizeof(bool *));
 	i = -1;
-	while (++i < map_height)
-	{
-		map->map_move[i] = ft_calloc(map_width, sizeof(bool));
-		map->map_wall[i] = ft_calloc(map_width, sizeof(char));
-	}
+	while (++i < map.height)
+		res[i] = ft_calloc(map.width, sizeof(bool));
 	i = -1;
-	while (++i < map_height)
+	while (++i < map.height)
 	{
 		j = -1;
-		while (++j < map_width)
+		while (++j < map.width)
+			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == 'D'))
+				res[i][j] = true;
+	}
+	return (res);
+}
+
+
+static char	**get_map_wall(t_map map, char **charmap)
+{
+	int		i;
+	int		j;
+	char	*set = "NSWE";
+	char	**res;
+	
+
+	res = ft_calloc(map.height, sizeof(char *));
+	i = -1;
+	while (++i < map.height)
+		res[i] = ft_calloc(map.width, sizeof(char));
+	i = -1;
+	while (++i < map.height)
+	{
+		j = -1;
+		while (++j < map.width)
 		{
 			if (!charmap[i][j])
-				while (j < map_width)
-					map->map_wall[i][j] = '1';
-			else if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == 'D'))
-				map->map_move[i][j] = true;
-			map->map_wall[i][j] = charmap[i][j];
+				while (j < map.width)
+					res[i][j++] = '1';
+			else if (ft_strchr(set, charmap[i][j]))
+				res[i][j] = '0';
+			else
+				res[i][j] = charmap[i][j];
 		}
 	}
+	return (res);
 }
 
 t_map	get_map(int fd)
@@ -99,8 +122,9 @@ t_map	get_map(int fd)
 	is_surrounded(map_data, map.width, map.height);
 	if (!check_fileformat(mapstr, map_data, map.width, map.height))
 		error(4);
-	put_info(&map, map_data, map.width, map.height);
-	put_maps(&map, map_data, map.width, map.height);
+	put_info(&map, map_data);
+	map.map_move = get_map_move(map, map_data);
+	map.map_wall = get_map_wall(map, map_data);
 	return (map);
 }
 
@@ -158,7 +182,3 @@ t_game	parse(char *file)
 	close(fd);
 	return (game);
 }
-
-// only thing to think about is whether it's more efficient to put the character's coordinates as
-// (0, 0) or something else. (then it must be the first element of the map should have (0,0) as its coordinates
-// and character's position should be changed as soon as it moves.)

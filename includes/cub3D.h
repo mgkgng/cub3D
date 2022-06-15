@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/14 22:46:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/15 15:55:13 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_point {
 typedef struct s_door {
 	t_point	*pos;
 	float	*dist;
+	bool	*open;
 	int		nb;
 }	t_door;
 
@@ -152,7 +153,6 @@ void	draw_cub3D(t_game *game);
 int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
-// t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
 t_raycast	digital_differential_analyzer(t_map map, float theta);
 /*parse utils*/
 int		check_filename(char *file);
