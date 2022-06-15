@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 19:27:39 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:29:06 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,29 @@ void	translate(t_map *map, float theta)
 	map->pos.y = new_y;
 }
 
-void	turn(t_map *map, int dir)
+void	turn(t_game *g, t_map *map, int dir)
 {
+	float	old;
+
 	map->theta += dir * (M_PI_4 / 18);
+	if (dir == -1) // left
+	{
+		old = g->dir.dir_x;
+		g->dir.dir_x = old * cos(0.1) - g->dir.dir_y * sin(0.1);
+		g->dir.dir_y = old * sin(0.1) + g->dir.dir_y * cos(0.1);
+		old = g->dir.plane_x;
+		g->dir.plane_x = old * cos(0.1) - g->dir.plane_y * sin(0.1);
+		g->dir.plane_y = old * sin(0.1) + g->dir.plane_y * cos(0.1);
+	}
+	else if (dir == 1) // right
+	{
+		old = g->dir.dir_x;
+		g->dir.dir_x = old * cos(-0.1) - g->dir.dir_y * sin(-0.1);
+		g->dir.dir_y = old * sin(-0.1) - g->dir.dir_y * cos(-0.1);
+		old = g->dir.plane_x;
+		g->dir.plane_x = old * cos(-0.1) - g->dir.plane_y * sin(-0.1);
+		g->dir.plane_y = old * sin(-0.1) + g->dir.plane_y * cos(-0.1);
+	}
 	if (map->theta > M_PI * 2)
 		map->theta -= M_PI * 2;
 	if (map->theta < 0)
@@ -54,7 +74,7 @@ void	open_door(t_game *game)
 	else if (game->min_door < 2)
 		game->map.map2d[game->pos[1]][game->pos[0]] = true;
 }
-
+/*
 int	key_hook(int key, t_game *game)
 {
 	printf("%d--\n", key);
@@ -83,3 +103,4 @@ int	key_hook(int key, t_game *game)
 	game->hook.re = true;
 	return (0);
 }
+*/

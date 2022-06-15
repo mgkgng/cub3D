@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 17:36:02 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/11 19:31:48 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:08:19 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	movement(t_game *game)
 	if (game->key->d == 1) // RIGHT
 		translate(&game->map, game->map.theta + M_PI / 2);
 	if (game->key->turn_l == 1)
-		turn(&game->map, -1);
+		turn(game, &game->map, -1);
 	if (game->key->turn_r == 1)
-		turn(&game->map, 1);
+		turn(game, &game->map, 1);
 	game->hook.re = true;
 }

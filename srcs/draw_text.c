@@ -1,33 +1,35 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_text.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: mlecherb <mlecherb@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/06/11 16:57:02 by min-kang		  #+#	#+#			 */
-/*   Updated: 2022/06/13 18:25:28 by mlecherb		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_text.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/13 18:58:07 by mlecherb          #+#    #+#             */
+/*   Updated: 2022/06/15 14:33:38 by mlecherb         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-t_texture	get_texture(void *mlx_ptr) // it should be developped as we start to want to put more images
-// there will be another parameter later, the path infos for each texture
+t_texture	get_texture(void *mlx_ptr)
 {
 	t_texture	res;
-	int			size_info[5];
+	int			size_info[2];
 
 	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall.xpm", &size_info[0], &size_info[1]);
+	res.wall_s.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/France.xpm", &size_info[0], &size_info[1]);
+	res.wall_w.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Italie.xpm", &size_info[0], &size_info[1]);
+	res.wall_e.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Suisse.xpm", &size_info[0], &size_info[1]);
 	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Group-2.xpm", &size_info[0], &size_info[1]);
+	
 	res.wall_n.addr = mlx_get_data_addr(res.wall_n.img, &res.wall_n.bits_per_pixel, &res.wall_n.line_length, &res.wall_n.endian);
+	res.wall_s.addr = mlx_get_data_addr(res.wall_s.img, &res.wall_s.bits_per_pixel, &res.wall_s.line_length, &res.wall_s.endian);
+	res.wall_w.addr = mlx_get_data_addr(res.wall_w.img, &res.wall_w.bits_per_pixel, &res.wall_w.line_length, &res.wall_w.endian);
+	res.wall_e.addr = mlx_get_data_addr(res.wall_e.img, &res.wall_e.bits_per_pixel, &res.wall_e.line_length, &res.wall_e.endian);
 	res.door.addr = mlx_get_data_addr(res.door.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
-	res.wall_s.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall2.xpm", &size_info[0], &size_info[1]);
-	res.wall_s.addr = mlx_get_data_addr(res.wall_s.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
-	res.wall_w.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall3.xpm", &size_info[0], &size_info[1]);
-	res.wall_w.addr = mlx_get_data_addr(res.wall_w.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
-	res.wall_e.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall4.xpm", &size_info[0], &size_info[1]);
-	res.wall_e.addr = mlx_get_data_addr(res.wall_e.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
+
+	
 	return (res);
 }
 
@@ -62,7 +64,7 @@ t_img which_texture(t_game *game, t_texture text)
 		return (text.wall_w);
 }
 
-void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture)
+void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n)
 {
 	float	y;
 	float	i;
@@ -71,8 +73,8 @@ void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_textu
 	t_img	img;
 	(void)map;
 	
-	img = texture.wall_n;
-	// img = which_texture(game, texture);
+	// img = game->texture.wall_n;
+	img = which_texture(game, game->texture);
 	if (game->height > 600)
 		h = h / ray.dist;
 	start = 0;

@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 18:14:24 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 14:32:44 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 		increY = -1;
 		side--;
 	}
+
 	deltaX = 1 / tan(theta) * increY;
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
+
 	while (res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map2d[(int) res.wall.y + side][(int) res.wall.x])
 	{

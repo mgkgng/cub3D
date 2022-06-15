@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:39:54 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:05:40 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	draw(t_game *game)
 		i = -1;
 		while (++i * game->hook.m_sensibility < game->hook.m_turn)
 		{
-			turn(game, &game->map, game->hook.m_dir);
+			turn(&game->map, game->hook.m_dir);
 			redraw(game);
 		}
 		game->hook.m_re = false;
@@ -133,13 +133,12 @@ void	mouse_hook_control(t_game *game, t_hook *hook)
 	// mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
-/*
 void	key_hook_control(t_game *game, t_hook *hook)
 {
 	hook->re = true;
 	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
 	// mlx_loop_hook(game->gui.mlx, draw, game);
-}*/
+}
 
 t_sprite	*ft_lstnew(char *name, t_game *game)
 {

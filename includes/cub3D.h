@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 18:14:23 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:16:13 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ typedef struct	s_key {
 	int	turn_r;
 }	t_key;
 
-typedef struct s_info
-{
+typedef struct s_info {
 	int		**rgb;
 	char	*path1;
 	char	*path2;
@@ -136,8 +135,17 @@ typedef struct s_info
 	char	**map;
 }	t_info;
 
+typedef struct s_dir {
+	float	dir_x;
+	float	dir_y;
+	float	plane_x;
+	float	plane_y;
+	float	raydirx;
+	float	raydiry;
+}	t_dir;
 
 typedef struct s_game {
+	t_dir		dir;
 	t_map		map;
 	t_gui		gui;
 	t_hook		hook;
@@ -204,9 +212,9 @@ int		is_surrounded(char **map);
 void	draw_minimap(t_game *game);
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
-void	turn(t_map *map, int dir);
+void	turn(t_game *game, t_map *map, int dir);
 /*draw*/
-void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, t_texture texture);
+void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n);
 
 float	perpendicular_dist(float *from, float *to, float angle);
 
