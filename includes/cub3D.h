@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:16:13 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 19:41:03 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_dir {
 	float	dir_y;
 	float	plane_x;
 	float	plane_y;
+	float	camera_x;
 	float	raydirx;
 	float	raydiry;
 }	t_dir;
@@ -200,7 +201,7 @@ int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
 // t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game, int rayn);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map);
@@ -216,6 +217,7 @@ void	turn(t_game *game, t_map *map, int dir);
 /*draw*/
 void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n);
 
+void	init_dir(t_game *game);
 float	perpendicular_dist(float *from, float *to, float angle);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:39:54 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 19:40:45 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,6 @@ void	init_sprite(t_game *game)
 
 int	cub3D(t_game game)
 {
-	game.map.theta = M_PI / 2;
 	game.draw.col_ceil = 0x00DA1FE9;
 	game.draw.col_floor = 0x00000088;
 	game.gui = initialize_window("cub3d_launching_test");
@@ -199,7 +198,7 @@ int	cub3D(t_game game)
 	game.hook.move_re = STOP;
 	game.texture = get_texture(game.gui.mlx);
 	// init_sprite(&game);
-	// init_dir(&game);
+	init_dir(&game);
 	game.lock = 0;
 	game.count = 0;
 	game.key = malloc(sizeof(t_key));
@@ -208,7 +207,6 @@ int	cub3D(t_game game)
 	// // draw(&game);
 	mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
-	// printf("%i\n", i_i++);
 	mlx_loop_hook(game.gui.mlx, draw, &game);
 	mlx_loop(game.gui.mlx); // BOUCLER SUR DRAW
 	return (terminate(&game));

@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 14:14:24 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:58:00 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
 {
-	map->pos.x = pos[0];
-	map->pos.y = pos[1];
+	map->pos.x = pos[1];
+	map->pos.y = pos[0];
 	if (dir == 'N')
-		map->theta = 3 * M_PI_2;
+		map->theta = 3 * PI / 2;
 	else if (dir == 'S')
-		map->theta = M_PI_2;
+		map->theta = M_PI / 2;
 	else if (dir == 'W')
 		map->theta = M_PI;
 	else

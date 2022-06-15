@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:58:07 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/15 14:33:38 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 00:15:28 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,24 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 // 	return (false);
 // }
 
-t_img which_texture(t_game *game, t_texture text)
+t_img which_texture(t_game *g, t_texture text)
 {
-	if (game->side == 0 && (game->map.theta >= 0 && game->map.theta < PI))
-		return (text.wall_n);
-	else if(game->side == 0 && (game->map.theta >= PI / 2 && game->map.theta < PI * 3 / 2))
-		return (text.wall_e);
-	else if(game->side == 1 && (game->map.theta >= PI && game->map.theta < PI * 2))
-		return (text.wall_s);
+	printf("%f\n", g->map.theta);
+	if (g->side == 1) {
+		if (g->map.theta <= 3 * M_PI_2 && g->map.theta >= M_PI)
+			return (text.wall_w);
+		else if (g->map.theta <= M_PI && g->map.theta >= M_PI_2)
+			return (text.wall_w);
+		else
+			return (text.wall_e);
+	}
 	else
-		return (text.wall_w);
+	{
+		// if (g->map.theta > M_PI && g->map.theta < 2 * M_PI)
+		// 	return (text.wall_n);
+		// else
+			return (text.wall_s);
+	}
 }
 
 void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n)

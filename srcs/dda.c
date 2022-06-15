@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 14:32:44 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/15 20:49:00 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 		increY = -1;
 		side--;
 	}
-
 	deltaX = 1 / tan(theta) * increY;
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
-
 	while (res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map2d[(int) res.wall.y + side][(int) res.wall.x])
 	{
@@ -93,13 +91,20 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	return (res);
 }
 
-t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game, int rayn)
 {
 	t_raycast	res_x;
 	t_raycast	res_y;
 
 	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
+	game->dir.camera_x = 2 * rayn / (double) SCREEN_X - 1;
+	game->dir.camera_x = 1;
+	// printf("%f\n", game->dir.dir_x);
+	game->dir.raydirx = game->dir.dir_x + game->dir.plane_x * game->dir.camera_x;
+	// printf("%f.....%f\n", game->dir.dir_x, game->dir.plane_x * game->dir.camera_x);
+	// printf("%f\n", game->dir.raydirx);
+	game->dir.raydirx = game->dir.dir_y + game->dir.plane_y * game->dir.camera_x;
 	if (res_x.dist < res_y.dist)
 	{
 		game->side = 0;
