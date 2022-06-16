@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:22:00 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:32:19 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_texture	get_texture(void *mlx_ptr)
 	t_texture	res;
 	int			size_info[2];
 
-	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Coree.xpm", &size_info[0], &size_info[1]);
+	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall.xpm", &size_info[0], &size_info[1]);
 	res.wall_s.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/France.xpm", &size_info[0], &size_info[1]);
 	res.wall_w.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Italie.xpm", &size_info[0], &size_info[1]);
 	res.wall_e.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Suisse.xpm", &size_info[0], &size_info[1]);
@@ -49,9 +49,9 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 {
 	char	*dst;
 
-	// printf("%d...%d...%d...\n", )
+	printf("%zu...%d...%d...\n", ft_strlen((char *)addr), y * img.line_length, x * (img.bits_per_pixel / 8));
 	dst = addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
-	// printf("%p\n", dst);
+	printf("%p.....\n", dst);
 	return (*(unsigned int *)dst);
 }
 
@@ -96,7 +96,7 @@ void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle)
 	
 	// ft_bzero(&info, sizeof(t_tex_info));
 	// printf("%s\n", info.img.addr);
-	h = SCREEN_Y / ray.dist;
+    h = get_height(ray.dist, game);
 	if (game->height > 600)
 		h = h / ray.dist;
 	start = 0;
@@ -104,7 +104,7 @@ void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle)
 		start = (SCREEN_Y - h) / 2;
 	info = get_tex_info(ray.wall, h, start);
 	info.img = which_texture(game, game->texture, angle);
-
+	// printf("%s\n", info.img.addr);
 	i = -1;
 	while (++i < h && i < SCREEN_Y)
 	{
@@ -117,7 +117,7 @@ void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle)
 
 void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle)
 {
-	
+	printf("A\n");
 	draw_text(game, ray, ray_x, angle);
 	// draw_text(game, which_texture(game, game->texture), ray.dist, ray.wall, ray_x);
 	//while (ray.door.nb--)
