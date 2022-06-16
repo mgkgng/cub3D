@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 12:59:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/05/10 20:21:47 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:59:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color)
 	char	*dst;
 
 	dst = gui->addr + (y * gui->line_len + x * (gui->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
+	if (y < 600)
+		*(unsigned int *) dst = color;
 }

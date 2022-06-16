@@ -6,13 +6,32 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 18:58:00 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:11:15 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "cub3D.h"
 
-static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
+char	**get_lines(int fd)
+{
+	int		ret;
+	char	buf[2];
+	char	*line;
+
+	ret = read(fd, buf, 1);
+	buf[ret] = '\0';
+	line = ft_strdup(buf);
+	while (ret > 0)
+	{
+		ret = read(fd, buf, 1);
+		buf[ret] = '\0';
+		line = ft_strjoin(line, buf);
+	}
+	close(fd);
+	return (ft_split(line, '\n'));
+}
+
+static void	put_player_info(t_map *map, int *pos, char dir)
 {
 	map->pos.x = pos[1];
 	map->pos.y = pos[0];
@@ -21,11 +40,9 @@ static void	put_player_info(t_map *map, int *pos, char dir, char **set_dir)
 	else if (dir == 'S')
 		map->theta = M_PI / 2;
 	else if (dir == 'W')
-		map->theta = M_PI;
+		map->theta = PI;
 	else
 		map->theta = 0;
-	free(*set_dir);
-	*set_dir = NULL;
 }
 
 static void	put_info(t_map *map, char **map_data)
@@ -35,15 +52,17 @@ static void	put_info(t_map *map, char **map_data)
 	int	j;
 	char	*set_dir;
 	
-	i = -1;
 	max_width = 0;
-	set_dir = ft_strdup("NSWE");
+	set_dir = "NSWE";
+	i = -1;
 	while (map_data[++i])
 	{
 		j = -1;
 		while (map_data[i][++j])
-			if (set_dir && ft_strchr(set_dir, map_data[i][j]))
-				put_player_info(map, (int [2]) {i, j}, map_data[i][j], &set_dir);
+		{
+			if (ft_strchr(set_dir, map_data[i][j]))
+				put_player_info(map, (int [2]) {i, j}, map_data[i][j]);
+		}
 		if (j > max_width)
 			max_width = j;
 	}
@@ -51,142 +70,110 @@ static void	put_info(t_map *map, char **map_data)
 	map->width = max_width;
 }
 
-static bool	**get_boolmap(char **charmap, int map_width, int map_height)
+static bool **get_map_move(t_map map, char **charmap)
 {
-	bool	**boolmap;
 	int		i;
 	int		j;
+	bool	**res;
 
-	boolmap = ft_calloc(map_height, sizeof(bool *));
+	res = ft_calloc(map.height, sizeof(bool *));
 	i = -1;
-	while (++i < map_height)
-		boolmap[i] = ft_calloc(map_width, sizeof(bool));
+	while (charmap[++i])
+		res[i] = ft_calloc(map.width, sizeof(bool));
 	i = -1;
-	while (++i < map_height)
+	while (charmap[++i])
 	{
 		j = -1;
-		while (++j < map_width)
-		{
-			if (!charmap[i][j])
-				break;
+		while (charmap[i][++j])
 			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == 'D'))
-				boolmap[i][j] = true;
-		}
+				res[i][j] = true;
 	}
-	return (boolmap);
+	return (res);
 }
 
-static t_point *get_doors(char **charmap, int map_width, int map_height)
+
+static char	**get_map_wall(t_map map, char **charmap)
 {
-	int		count;
 	int		i;
 	int		j;
-	t_point	*res;
+	char	*set = "NSWE";
+	char	**res;
+	
 
-	res = NULL;
-	count = 0;
+	res = ft_calloc(map.height, sizeof(char *));
 	i = -1;
-	while (++i < map_height)
+	while (++i < map.height)
+		res[i] = ft_calloc(map.width, sizeof(char));
+	i = -1;
+	while (++i < map.height)
 	{
 		j = -1;
-		while (++j < map_width)
+		while (++j < map.width)
 		{
-			if (charmap[i][j] == 'D')
-			{
-				if (!res)
-					res = malloc(sizeof(t_point));
-				else
-					ft_realloc(res, ++count * sizeof(t_point));
-				res[count - 1].x = j;
-				res[count - 1].y = i;
-			}
+			if (!charmap[i][j])
+				while (j < map.width)
+					res[i][j++] = '1';
+			else if (ft_strchr(set, charmap[i][j]))
+				res[i][j] = '0';
+			else
+				res[i][j] = charmap[i][j];
 		}
 	}
 	return (res);
 }
 
-t_map	get_map(int fd)
+t_map	get_map(char **lines)
 {
 	t_map	map;
-	char	*line;
-	char	*mapstr;
-	char	**map_data;
 
-	line = get_next_line(fd);
-	mapstr = NULL;
-	while (line)
-	{
-		mapstr = ft_strcat(mapstr, line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	map_data = ft_split(mapstr, '\n');
-	is_surrounded(map_data);
-	if (!check_fileformat(mapstr, map_data))
-		error(4);
-	put_info(&map, map_data);
-	map.map2d = get_boolmap(map_data, map.width, map.height);
-	map.doors = get_doors(map_data, map.width, map.height);
-	free(map_data);
+	is_surrounded(lines + 6);
+	put_info(&map, lines + 6);
+	map.map_move = get_map_move(map, lines + 6);
+	map.map_wall = get_map_wall(map, lines + 6);
 	return (map);
 }
 
-t_draw	put_draw(char **info)
+char	**put_texture(char **file)
+{
+	int 	i;
+	char	**tmp;
+
+	tmp = malloc(sizeof(char *) * 5);
+	i = -1;
+	while (++i < 4)
+		if (i != verif_texture(file[i]) - 1)
+			end_program("Wrong format for texture information.", 0);
+	i = -1;
+	while (++i < 4)
+	{
+		get_fd(file[i] + 3);
+		tmp[i]= ft_strdup(file[i] + 3);
+	}
+	tmp[i] = NULL;
+	return (tmp);
+}
+
+t_draw	get_draw(char **lines)
 {
 	t_draw	draw;
 	int		i;
 	
 	i = -1;
-	while (++i < 4)
-		draw.nswe[i] = ft_strtrim(info[i] + 2, " \n");
-	draw.col_floor = get_color(ft_strtrim(info[4] + 1, " \n"));
-	draw.col_ceil = get_color(ft_strtrim(info[5] + 1, " \n"));
-	free(info);
+	draw.nswe = put_texture(lines);
+	draw.col_floor = get_color(lines[4] + 2);
+	draw.col_ceil = get_color(lines[5]);
 	return (draw);
 }
 
-t_draw	get_draw(int fd)
+t_game	parse(char *filename)
 {
-	char	**info;
-	char	*line;
-	int		i;
-
-	info = ft_calloc(6, sizeof(char *));
-	line = get_next_line(fd);
-	i = 0;
-	while (line)
-	{
-		if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "WE", 2)
-			|| !ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
-			info[i++] = line;
-		else
-			free(line);
-		if (i == 6)
-			break;
-		line = get_next_line(fd);
-	}
-	if (i < 6)
-		error(5);
-	return (put_draw(info));
-}
-
-t_game	parse(char *file)
-{
-	int		fd;
+	char	**lines;
 	t_game	game;
 	
-	if (!check_filename(file))
-		error(2);
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		error(3);
-	// game.info = parser(file);
-	//game.draw = get_draw(fd);
-	game.map = get_map(fd);
-	close(fd);
+	if (!check_filename(filename))
+		end_program("Wrong file format", 0);
+	lines = get_lines(get_fd(filename));
+	game.draw = get_draw(lines);
+	game.map = get_map(lines);
 	return (game);
 }
-
-// only thing to think about is whether it's more efficient to put the character's coordinates as
-// (0, 0) or something else. (then it must be the first element of the map should have (0,0) as its coordinates
-// and character's position should be changed as soon as it moves.)

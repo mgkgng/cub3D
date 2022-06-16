@@ -6,21 +6,38 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 20:49:00 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:13:34 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-float	perpendicular_dist(float *from, float *to, float angle)
+float	perpendicular_dist(t_point from, t_point to, float angle)
 {
 	float	sin_v;
 	float	cos_v;
 
 	sin_v = sin(angle);
 	cos_v = cos(angle);
-	return (fabs(sin_v * (to[0] - from[0]) - cos_v * (to[1] - from[1]))
+	return (fabs(sin_v * (to.x - from.x) - cos_v * (to.y - from.y))
 		/ sqrt(pow(sin_v, 2) + pow(cos_v, 2)));
+}
+
+static void	put_door(t_door *door, t_point from, t_point to, float angle)
+{
+	if (!door->nb)
+	{
+		door->pos = malloc(sizeof(t_point));
+		door->dist = malloc(sizeof(float));
+	}
+	else
+	{
+		door->pos = ft_realloc(door->pos, sizeof(t_point) * (door->nb + 1));
+		door->dist = ft_realloc(door->dist, sizeof(float) * (door->nb + 1));
+	}
+	door->pos[door->nb].x = to.x;
+	door->pos[door->nb].y = to.y;
+	door->dist[door->nb++] = perpendicular_dist(from, to, angle);
 }
 
 static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
@@ -30,6 +47,7 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	float		increY;
 	int			side;
 
+	ft_bzero(&res.door, sizeof(t_door));
 	res.dist = INT32_MAX;
 	if (!theta || theta == PI)
 		return (res);
@@ -46,12 +64,15 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
 	while (res.wall.x >= 0 && res.wall.x < map.width
-		&& map.map2d[(int) res.wall.y + side][(int) res.wall.x])
+		&& map.map_wall[(int) res.wall.y + side][(int) res.wall.x] != '1')
 	{
+		if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D') 
+			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
 		res.wall.x += deltaX;
 		res.wall.y += increY;
+
 	}
-	res.dist = perpendicular_dist((float [2]) {pos.x, pos.y}, (float [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
+	res.dist = perpendicular_dist(pos, res.wall, map.theta + PI / 2);
 	res.side[1] = side;
 	res.side[0] = 0;
 	return (res);
@@ -64,6 +85,7 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	float		increX;
 	int			side;
 	
+	ft_bzero(&res.door, sizeof(t_door));
 	res.dist = INT32_MAX;
 	if (theta == PI / 2 || theta == PI / 2 * 3)
 		return (res);
@@ -80,31 +102,26 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	res.wall.x = where[0];
 	res.wall.y = pos.y + (where[0] - pos.x) * tan(theta);
 	while (res.wall.y >= 0 && res.wall.y < map.height
-		&& map.map2d[(int) res.wall.y][(int) res.wall.x + side])
+		&& map.map_wall[(int) res.wall.y][(int) res.wall.x + side] != '1')
 	{
+		if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
+			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
 		res.wall.x += increX;
 		res.wall.y += deltaY;
 	}
-	res.dist = perpendicular_dist((float [2]) {pos.x, pos.y}, (float [2]) {res.wall.x, res.wall.y}, map.theta + PI / 2);
+	res.dist = perpendicular_dist(pos, res.wall, map.theta + PI / 2);
 	res.side[0] = side;
 	res.side[1] = 0;
 	return (res);
 }
 
-t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game, int rayn)
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
 {
 	t_raycast	res_x;
 	t_raycast	res_y;
 
 	res_x = get_distX(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
 	res_y = get_distY(map, map.pos, (int [2]) {(int) map.pos.x, (int) map.pos.y}, theta);
-	game->dir.camera_x = 2 * rayn / (double) SCREEN_X - 1;
-	game->dir.camera_x = 1;
-	// printf("%f\n", game->dir.dir_x);
-	game->dir.raydirx = game->dir.dir_x + game->dir.plane_x * game->dir.camera_x;
-	// printf("%f.....%f\n", game->dir.dir_x, game->dir.plane_x * game->dir.camera_x);
-	// printf("%f\n", game->dir.raydirx);
-	game->dir.raydirx = game->dir.dir_y + game->dir.plane_y * game->dir.camera_x;
 	if (res_x.dist < res_y.dist)
 	{
 		game->side = 0;

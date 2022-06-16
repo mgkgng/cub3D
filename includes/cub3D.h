@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 16:47:52 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:55:11 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "hook.h"
 #include "raycast.h"
 #include "texture.h"
+#include "sprite.h"
 
 #define	PI 3.141592
 #define DEG	0.017453
@@ -41,16 +42,15 @@ typedef struct s_point {
 	float	y;
 }	t_point;
 
-typedef enum e_move {
-	STOP,
-	W,
-	S,
-	A,
-	D
-}	t_move;
+typedef struct s_door {
+	t_point	*pos;
+	float	*dist;
+	bool	*open;
+	int		nb;
+}	t_door;
 
 typedef struct s_draw {
-	char	*nswe[4];
+	char	**nswe;
 	int		col_floor;
 	int		col_ceil;
 }	t_draw;
@@ -58,7 +58,8 @@ typedef struct s_draw {
 typedef struct s_map {
 	int		width;
 	int		height;
-	bool	**map2d;
+	bool	**map_move;
+	char	**map_wall;
 	t_point	pos;
 	t_point *doors;
 	int		doors_nb;
@@ -85,7 +86,6 @@ typedef struct s_gui {
 
 typedef struct s_hook {
 	bool	re;
-	t_move	move_re;
 	//*bonus
 	unsigned int	minimap_on;
 	unsigned int	minimap_size;
@@ -100,6 +100,8 @@ typedef struct	s_raycast {
 	t_point	wall;
 	float	dist;
 	int		side[2];
+	t_door	door;
+	int		height;
 }	t_raycast;
 
 typedef struct s_sprite {
@@ -123,18 +125,6 @@ typedef struct	s_key {
 	int	turn_r;
 }	t_key;
 
-typedef struct s_info {
-	int		**rgb;
-	char	*path1;
-	char	*path2;
-	char	*path3;
-	char	*path4;
-	char	**file;
-	char	**text;
-	int		i;
-	char	**map;
-}	t_info;
-
 typedef struct s_game 
 {
 	t_map		map;
@@ -144,36 +134,41 @@ typedef struct s_game
 	t_raycast	ray;
 	t_sprite	*spr;
 	t_key		*key;
-	t_info		info;
 	int			height;
 	t_texture	texture;
-	int			nb_count;
-	float		min_door;
 	int			pos[2];
-	char		**mapi;
 	int			lock;
 	int			sprite;
 	int 		count;
 	int			side;
 }	t_game;
 
+typedef struct s_tex_info {
+	int		x;
+	int		y;
+	float	tex_pos;
+	float	fract;
+	float	step;
+	t_img	img;
+}	t_tex_info;
+
 int	cub3D(t_game game);
-//int	cub3D(void);
 
 /* parse */
-t_game	parse(char *file);
-char	**get_char_map(char **file, t_info info);
-int		**grep_rgb(char **file, t_info info);
-char	**grep_texture(char **file, t_info info);
-char	**file_to_tab(int fd);
-t_info 	parser(char *file);
-void	aff_tab(char **map);
-int		tab_len(char **map);
-void	error_quit(char * msg);
-int		verif_texture(char *dir);
+t_game	parse(char *filename);
+
+/* parse_utils */
+int	get_fd(char *filename);
+int	ft_tablen(char **map);
+int	verif_texture(char *dir);
+int	get_color(char *colstr);
+int	is_surrounded(char **lines);
+
 
 /* error */
 void	error(int c);
+void	end_program(char *str, int tag);
+
 
 /* key */
 int	key_pressed(int key, t_game *game);
@@ -191,12 +186,11 @@ int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
 // t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game, int rayn);
+t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
-int		check_fileformat(char *mapstr, char **map);
+int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
 int		get_color(char *colstr);
-int		is_surrounded(char **map);
 
 //*bonus
 
@@ -205,9 +199,15 @@ void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 void	turn(t_map *map, int dir);
 /*draw*/
-void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, float angle);
+void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle);
 
-void	init_dir(t_game *game);
-float	perpendicular_dist(float *from, float *to, float angle);
+float	perpendicular_dist(t_point from, t_point to, float angle);
+//void	draw_text(t_game *game, t_img img, int h, t_raycast ray, int ray_n);
+
+bool	is_door(t_point *door, int x, int y, int nb);
+void	open_door(t_game *game);
+void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle);
+
+/* error */
 
 #endif

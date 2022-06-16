@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 16:46:28 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:00:17 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_gui	initialize_window(char *game_name)
 
 int	terminate(t_game *game)
 {
-	free(game->map.map2d);
+	free(game->map.map_wall);
 	exit(0);
 }
 
@@ -56,9 +56,7 @@ void	paint_background(t_game *game)
 
 int	redraw(t_game *game)
 {
-	game->min_door = INT32_MAX;
-	// movement(game);
-	// redraw(game);
+	//game->min_door = INT32_MAX;
 	paint_background(game);
 	draw_cub3D(game);
 	mlx_put_image_to_window(game->gui.mlx, game->gui.win, game->gui.img, 0, 0);
@@ -66,16 +64,6 @@ int	redraw(t_game *game)
 		draw_minimap(game);
 	return (0);
 }
-
-/*void	put_image_to_image(t_game *game, t_sprite tmp, int x, int y)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	
-}*/
 
 void	sprite(t_game *game)
 {
@@ -115,7 +103,7 @@ int	draw(t_game *game)
 		i = -1;
 		while (++i * game->hook.m_sensibility < game->hook.m_turn)
 		{
-			turn(game, &game->map, game->hook.m_dir);
+			turn(&game->map, game->hook.m_dir);
 			redraw(game);
 		}
 		game->hook.m_re = false;
@@ -141,49 +129,6 @@ void	key_hook_control(t_game *game, t_hook *hook)
 	// mlx_loop_hook(game->gui.mlx, draw, game);
 }*/
 
-t_sprite	*ft_lstnew(char *name, t_game *game)
-{
-	t_sprite	*new;
-
-	new = malloc(sizeof(t_sprite));
-	if (new == NULL)
-		return (NULL);
-	new->h = 64;
-	new->w = 64;
-	new->img = mlx_xpm_file_to_image(game->gui.mlx, name, &new->w, &new->h);
-	new->addr = mlx_get_data_addr(new->img, &new->bits_per_pixel, &new->line_length, &new->endian);
-	new->next = NULL;
-	return (new);
-}
-
-void	ft_lstadd_back(t_sprite **alst, t_sprite *new)
-{
-	t_sprite	*temp;
-
-	if (!new)
-		return ;
-	if (!*alst)
-	{
-		*alst = new;
-		return ;
-	}
-	else
-	{
-		temp = *alst;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
-	}
-}
-
-void	init_sprite(t_game *game)
-{
-	game->spr = ft_lstnew("./sprite/Couche-1.xpm", game);
-	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-2.xpm", game));
-	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-3.xpm", game));
-	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-4.xpm", game));
-	ft_lstadd_back(&game->spr, ft_lstnew("./sprite/Couche-5.xpm", game));
-}
 
 int	cub3D(t_game game)
 {
@@ -195,7 +140,6 @@ int	cub3D(t_game game)
 	game.hook.m_sensibility = 20;
 	game.hook.minimap_on = 0;
 	game.hook.minimap_size = 7;
-	game.hook.move_re = STOP;
 	game.texture = get_texture(game.gui.mlx);
 	// init_sprite(&game);
 	game.lock = 0;
@@ -203,7 +147,6 @@ int	cub3D(t_game game)
 	game.key = malloc(sizeof(t_key));
 	mouse_hook_control(&game, &game.hook);
 	// key_hook_control(&game, &game.hook);
-	// // draw(&game);
 	mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
 	mlx_loop_hook(game.gui.mlx, draw, &game);

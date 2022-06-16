@@ -1,10 +1,9 @@
 SRCS =	srcs/cub3D.c srcs/key.c srcs/main.c srcs/parse.c \
 		srcs/utils.c srcs/pixel_put.c \
 		srcs/draw.c srcs/dda.c srcs/parse_utils.c \
-		bonus/minimap.c bonus/mouse.c \
+		bonus/minimap.c bonus/mouse.c bonus/sprite.c bonus/door.c\
 		srcs/error.c srcs/draw_text.c \
 		srcs/key_management.c srcs/movement.c \
-		srcs/error_management.c srcs/texture.c\
 
 NAME = cub3D
 
@@ -12,7 +11,7 @@ OBJS = ${SRCS:.c=.o}
 
 INCLUDES = ./includes/
 
-CFLAG = -Wextra -Wall -Werror
+CFLAG = -Wextra -Wall -Werror -fsanitize=address -g
 
 MLX = -lmlx -framework OpenGL -framework Appkit
 

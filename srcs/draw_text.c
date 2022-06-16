@@ -5,12 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 18:58:07 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/16 16:44:47 by mlecherb         ###   ########.fr       */
+/*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/16 18:22:00 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+float	get_height(float dist, t_game *game)
+{
+	int		h;
+
+	h = SCREEN_Y / dist;
+	if (h > SCREEN_Y)
+	{
+		game->height = h;
+		h = SCREEN_Y;
+	}
+	else
+		game->height = h;
+	return (h);
+}
 
 t_texture	get_texture(void *mlx_ptr)
 {
@@ -21,15 +36,12 @@ t_texture	get_texture(void *mlx_ptr)
 	res.wall_s.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/France.xpm", &size_info[0], &size_info[1]);
 	res.wall_w.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Italie.xpm", &size_info[0], &size_info[1]);
 	res.wall_e.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Suisse.xpm", &size_info[0], &size_info[1]);
-	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Group-2.xpm", &size_info[0], &size_info[1]);
-	
+	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/The_Doors.xpm", &size_info[0], &size_info[1]);
 	res.wall_n.addr = mlx_get_data_addr(res.wall_n.img, &res.wall_n.bits_per_pixel, &res.wall_n.line_length, &res.wall_n.endian);
 	res.wall_s.addr = mlx_get_data_addr(res.wall_s.img, &res.wall_s.bits_per_pixel, &res.wall_s.line_length, &res.wall_s.endian);
 	res.wall_w.addr = mlx_get_data_addr(res.wall_w.img, &res.wall_w.bits_per_pixel, &res.wall_w.line_length, &res.wall_w.endian);
 	res.wall_e.addr = mlx_get_data_addr(res.wall_e.img, &res.wall_e.bits_per_pixel, &res.wall_e.line_length, &res.wall_e.endian);
 	res.door.addr = mlx_get_data_addr(res.door.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
-
-	
 	return (res);
 }
 
@@ -37,20 +49,25 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 {
 	char	*dst;
 
+	// printf("%d...%d...%d...\n", )
 	dst = addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
+	// printf("%p\n", dst);
 	return (*(unsigned int *)dst);
 }
 
-// static bool	is_door(t_point *door, int x, int y, int nb)
-// {
-// 	int	i;
+t_tex_info	get_tex_info(t_point wall, int h, int start)
+{
+	t_tex_info	info;
 
-// 	i = -1;
-// 	while (++i <= nb)
-// 		if (door[i].x == x && door[i].y == y)
-// 			return (true);
-// 	return (false);
-// }
+	if (wall.x - (int) wall.x == 0)
+		info.fract = wall.y - (int) wall.y;
+	else
+		info.fract = wall.x - (int) wall.x; 
+	info.step = 64.0f / (float) h;
+	info.x = info.fract * 64;
+	info.tex_pos = (start - (600 + h) / 2) * info.step;
+	return (info);
+}
 
 t_img which_texture(t_game *g, t_texture text, float angle)
 {
@@ -69,51 +86,40 @@ t_img which_texture(t_game *g, t_texture text, float angle)
 	}
 }
 
-void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, float angle)
+void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle)
 {
-	float	y;
-	float	i;
 	int		start;
-	int	 tmp = h;
-	t_img	img;
-	(void)map;
+	int		h;
+	unsigned int color;
+	t_tex_info info;
+	int	i;
 	
-	// img = game->texture.wall_n;
-	img = which_texture(game, game->texture, angle);
+	// ft_bzero(&info, sizeof(t_tex_info));
+	// printf("%s\n", info.img.addr);
+	h = SCREEN_Y / ray.dist;
 	if (game->height > 600)
 		h = h / ray.dist;
 	start = 0;
-	i = 0;
-	double lol;
-	if (modf(ray.wall.x, &lol) == 0)
-		y = modf(ray.wall.y, &lol);
-	else
-		y = modf(ray.wall.x, &lol); // On recuperer le bon endroit ou ca a frappe;
-	if (game->height < SCREEN_Y)
+	if (h < SCREEN_Y)
 		start = (SCREEN_Y - h) / 2;
-	int j = 0;
-	unsigned int color = 0;
-	float	step = 64.0f / (float) h;
-	int drawStart = (600 - h) / 2;
-	if (drawStart < 0)
-	  	drawStart = 0;
-	int drawEnd = (600 + h) / 2;
-	if(drawEnd >= h)
-		drawEnd = h - 1;
-	int	texx;
-	texx = y * 64;
-	float texPos;
-	if (game->height > 600)
-		texPos = (drawStart - (600 + h) / 2) * step;
-	else
-		texPos = 0;
-	float texy = 0;
-	while (j++ < tmp)
+	info = get_tex_info(ray.wall, h, start);
+	info.img = which_texture(game, game->texture, angle);
+
+	i = -1;
+	while (++i < h && i < SCREEN_Y)
 	{
-		texy = (int) texPos & (64 - 1);
-		texPos += step;
-		color = get_data_color((int) texx, texy, img.addr, img);
-		my_mlx_pixel_put(&game->gui, ray_n, start + j , color);
+		info.y = (int) info.tex_pos & (64 - 1);
+		info.tex_pos += info.step;
+		color = get_data_color(info.x, info.y, info.img.addr, info.img);
+		my_mlx_pixel_put(&game->gui, ray_n, start + i, color);
 	}
 }
 
+void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle)
+{
+	
+	draw_text(game, ray, ray_x, angle);
+	// draw_text(game, which_texture(game, game->texture), ray.dist, ray.wall, ray_x);
+	//while (ray.door.nb--)
+	//	draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);
+}
