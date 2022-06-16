@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
 /*   Updated: 2022/06/17 00:44:35 by min-kang         ###   ########.fr       */
@@ -17,7 +17,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <math.h>
-#include <mlx.h>
+// #include <mlx.h>
+#include "../minilibx_opengl_20191021/mlx.h"
 
 #include "libft.h"
 #include "hook.h"
@@ -172,8 +173,12 @@ int	key_released(int key, t_game *game);
 void	movement(t_game *game);
 void	translate(t_map *map, float theta);
 
-void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
+/* key */
+int	key_pressed(int key, t_game game);
+int	key_released(int key, t_game game);
 
+void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
+// int     mlx_mouse_move(mlx_win_list_t *win, int x, int y);
 void	draw_cub3D(t_game *game);
 
 int		key_hook(int key, t_game *game);
