@@ -12,6 +12,27 @@
 
 #include "cub3D.h"
 
+void	paint_background(t_game *game)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (++j < SCREEN_Y / 2)
+	{
+		i = -1;
+		while (++i < SCREEN_X)
+			my_mlx_pixel_put(&game->gui, i, j, game->draw.col_ceil);
+	}
+	j--;
+	while (++j < SCREEN_Y)
+	{
+		i = -1;
+		while (++i < SCREEN_X)
+			my_mlx_pixel_put(&game->gui, i, j, game->draw.col_floor);
+	}	
+}
+
 void	draw_raycast(t_game *game, int h, int ray_x)
 {
 	int	start_y;

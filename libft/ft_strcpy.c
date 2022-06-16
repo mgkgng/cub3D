@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 18:46:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 22:41:39 by min-kang         ###   ########.fr       */
+/*   Created: 2022/06/17 00:50:20 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/17 00:50:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strcpy(char *dest, char *src)
 {
-	if (argc != 2)
-		end_program("Error: Invalid number of arguments", 0);
-	return (cub3D(parse(argv[1])));
-} 
+	return (ft_memcpy(dest, src, ft_strlen(src) + 1));
+}

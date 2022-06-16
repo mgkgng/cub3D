@@ -1,53 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 22:14:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 23:16:26 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	end_program(char *str, int tag)
+int	check_filename(char *file)
 {
-	if (tag == 1)
-		ft_putstr_fd("Error: cannot read file ", 2);
-	ft_putendl_fd(str, 2);
-	exit(1);
+	int	len;
+
+	len = ft_strlen(file);
+	if (len > 4 && !ft_strcmp(file + len - 4, ".cub"))
+		return (1);
+	return (0);
 }
 
-int	ft_skip(char *str)
+int	verif_texture(char *dir)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != ' ')
-		i++;
-	return (i);
-}
-
-int	right_format(char *str)
-{
-	int	i;
-
-	i = 0;
-	i = ft_skip(str);
-	if (str[i] != '1')
-		end_program("Error 1", 0);
-	i = ft_strlen(str) - 1;
-	while (str[i] && str[i] == ' ')
-		i--;
-	if (str[i] != '1')
-		end_program("Error 2", 0);
+	if (!ft_strncmp("NO", dir, 2))
+		return (1);
+	else if (!ft_strncmp("SO", dir, 2))
+		return (2);
+	else if (!ft_strncmp("WE", dir, 2))
+		return (3);
+	else if (!ft_strncmp("EA", dir, 2))
+		return (4);
 	return (0);
 }
 
 // Check if a 0 is not next to a 1 in all the direction
-int	zero_near_space(char **map, int i, int j)
+static int	zero_near_space(char **map, int i, int j)
 {
 	if (i - 1 < 0)
 		end_program("Wall", 0);
@@ -64,7 +53,7 @@ int	zero_near_space(char **map, int i, int j)
 	return (0);
 }
 
-void	border_line(char *str)
+static void	border_line(char *str)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 19:04:44 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 00:44:19 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ float	get_height(float dist, t_game *game)
 	return (h);
 }
 
-t_texture	get_texture(t_draw draw, void *mlx_ptr)
+t_texture	get_texture_img(t_draw draw, void *mlx_ptr)
 {
 	t_texture	res;
 	int			size_info[2];

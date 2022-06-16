@@ -6,27 +6,22 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 21:00:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/10 18:01:29 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 00:49:10 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcat(char *dest, const char *src)
+char	*ft_strcat(char *dest, char *src)
 {
 	size_t	dlen;
 	size_t	slen;
-	size_t	i;
 
 	if (!dest)
 		return (ft_strdup(src));
 	dlen = ft_strlen(dest);
 	slen = ft_strlen(src);
 	dest = (char *) ft_realloc(dest, dlen + slen + 1);
-	/* how to do memcpy from the middle of a string ? */
-	i = -1;
-	while (++i < slen)
-		dest[dlen + i] = src[i];
-	dest[dlen + i] = '\0';
+	ft_strcpy(dest + dlen, src);
 	return (dest);
 }
