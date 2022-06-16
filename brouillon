@@ -1,0 +1,28 @@
+// if (keyDown(SDLK_RIGHT))
+//     {
+//       //both camera direction and camera plane must be rotated
+//       double oldDirX = dirX;
+//       dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
+//       dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
+//       double oldPlaneX = planeX;
+//       planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
+//       planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+//     }
+
+
+// if (keyDown(SDLK_LEFT))
+//     {
+//       //both camera direction and camera plane must be rotated
+//       double oldDirX = dirX;
+//       dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
+//       dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
+//       double oldPlaneX = planeX;
+//       planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+//       planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+//     }
+	
+
+	SOUTH = M_PI / 2;
+	NORTH = 3 * PI / 2;
+	WEST  = M_PI;
+	EAST  = 0;
