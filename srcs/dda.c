@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 17:13:34 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:45:34 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
 	while (res.wall.x >= 0 && res.wall.x < map.width
-		&& map.map_wall[(int) res.wall.y + side][(int) res.wall.x] != '1')
+		&& res.wall.y + side >= 0 && res.wall.y + side < map.height &&  
+			map.map_wall[(int) res.wall.y + side][(int) res.wall.x] != '1')
 	{
 		if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D') 
 			put_door(&res.door, pos, res.wall, map.theta + PI / 2);

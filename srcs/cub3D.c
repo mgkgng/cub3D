@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 17:00:17 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:42:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,6 @@ void	key_hook_control(t_game *game, t_hook *hook)
 
 int	cub3D(t_game game)
 {
-	game.draw.col_ceil = 0x00DA1FE9;
-	game.draw.col_floor = 0x00000088;
 	game.gui = initialize_window("cub3d_launching_test");
 	game.hook.m_turn = 0;
 	game.hook.x_prev = SCREEN_X / 2;

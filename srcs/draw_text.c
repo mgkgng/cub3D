@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:38:53 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:40:13 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 {
 	char	*dst;
 
-	printf("%zu...%d...%d...\n", ft_strlen((char *)addr), y * img.line_length, x * (img.bits_per_pixel / 8));
+	//printf("%zu...%d...%d...\n", ft_strlen((char *)addr), y * img.line_length, x * (img.bits_per_pixel / 8));
 	dst = addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
-	printf("%p.....\n", dst);
+	//printf("%p.....\n", dst);
 	return (*(unsigned int *)dst);
 }
 
@@ -144,7 +144,6 @@ void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
 
 void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle)
 {
-	printf("A\n");
 	draw_text(game, ray, ray_x, angle);
 	// draw_text(game, which_texture(game, game->texture), ray.dist, ray.wall, ray_x);
 	//while (ray.door.nb--)
