@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/15 19:05:39 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:24:56 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	raycast(t_game *game, float angle, int rayN)
 	// game->dir.camera_x = 2 * rayN / (double) 920 - 1;
 	// printf("%f......\n", game->dir.camera_x);
 	// ft_calcul(game);
-	draw_text(game, game->map, get_height(ray.dist, game), ray, rayN);
+	draw_text(game, game->map, get_height(ray.dist, game), ray, rayN, angle);
 }
 
 void	draw_cub3D(t_game *game)

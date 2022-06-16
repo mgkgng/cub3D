@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 17:29:00 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:44:33 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	get_color(char *colstr)
 	char	**rgb;
 
 	rgb = ft_split(colstr, ',');
+	// il manque gestion d'erreur
 	col = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | (ft_atoi(rgb[2]));
 	free(rgb);
-	free(colstr);
 	return (col);
 }

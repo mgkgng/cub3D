@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 19:41:03 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:25:15 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 void	turn(t_game *game, t_map *map, int dir);
 /*draw*/
-void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n);
+void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, float angle);
 
 void	init_dir(t_game *game);
 float	perpendicular_dist(float *from, float *to, float angle);

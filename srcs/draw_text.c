@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:58:07 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/16 00:15:28 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:44:47 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_texture	get_texture(void *mlx_ptr)
 	t_texture	res;
 	int			size_info[2];
 
-	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/wall.xpm", &size_info[0], &size_info[1]);
+	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Coree.xpm", &size_info[0], &size_info[1]);
 	res.wall_s.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/France.xpm", &size_info[0], &size_info[1]);
 	res.wall_w.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Italie.xpm", &size_info[0], &size_info[1]);
 	res.wall_e.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Suisse.xpm", &size_info[0], &size_info[1]);
@@ -52,27 +52,24 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 // 	return (false);
 // }
 
-t_img which_texture(t_game *g, t_texture text)
+t_img which_texture(t_game *g, t_texture text, float angle)
 {
-	printf("%f\n", g->map.theta);
-	if (g->side == 1) {
-		if (g->map.theta <= 3 * M_PI_2 && g->map.theta >= M_PI)
+	// printf("%f\n", g->map.theta);
+	if (g->side == 1)
+	{
+		if (angle <= 3 * PI / 2 && angle >= PI / 2)
 			return (text.wall_w);
-		else if (g->map.theta <= M_PI && g->map.theta >= M_PI_2)
-			return (text.wall_w);
-		else
-			return (text.wall_e);
+		return (text.wall_e);
 	}
 	else
 	{
-		// if (g->map.theta > M_PI && g->map.theta < 2 * M_PI)
-		// 	return (text.wall_n);
-		// else
-			return (text.wall_s);
+		if (angle > PI && angle < 2 * PI)
+			return (text.wall_n);
+		return (text.wall_s);
 	}
 }
 
-void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n)
+void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n, float angle)
 {
 	float	y;
 	float	i;
@@ -82,7 +79,7 @@ void	draw_text(t_game *game, t_map map, int h, t_raycast ray, int ray_n)
 	(void)map;
 	
 	// img = game->texture.wall_n;
-	img = which_texture(game, game->texture);
+	img = which_texture(game, game->texture, angle);
 	if (game->height > 600)
 		h = h / ray.dist;
 	start = 0;
