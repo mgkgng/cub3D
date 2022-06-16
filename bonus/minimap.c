@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/12 19:15:33 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:03:49 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	put_character(t_game *game, int border)
 
 	img = NULL;
 	img = mlx_xpm_file_to_image(game->gui.mlx,
-			"./texture/virus_48x48.xpm", &pos[0], &pos[1]);
+			"./texture/Suisse.xpm", &pos[0], &pos[1]);
 	mlx_put_image_to_window(game->gui.mlx, game->gui.win,
 		img, MINI_W / 2, MINI_H / 2 - border);
 }	

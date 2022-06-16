@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:54:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:14:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,6 @@ void	mouse_hook_control(t_game *game, t_hook *hook)
 	// mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
-/*
-void	key_hook_control(t_game *game, t_hook *hook)
-{
-	hook->re = true;
-	mlx_hook(game->gui.win, 2, 1L << 0, key_hook, game);
-	// mlx_loop_hook(game->gui.mlx, draw, game);
-}*/
-
-
 int	cub3D(t_game game)
 {
 	game.gui = initialize_window("cub3d_launching_test");
@@ -139,15 +130,13 @@ int	cub3D(t_game game)
 	game.hook.minimap_on = 0;
 	game.hook.minimap_size = 7;
 	game.texture = get_texture(game.draw, game.gui.mlx);
-	// init_sprite(&game);
 	game.lock = 0;
 	game.count = 0;
 	game.key = malloc(sizeof(t_key));
 	mouse_hook_control(&game, &game.hook);
-	// key_hook_control(&game, &game.hook);
 	mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
 	mlx_loop_hook(game.gui.mlx, draw, &game);
-	mlx_loop(game.gui.mlx); // BOUCLER SUR DRAW
+	mlx_loop(game.gui.mlx);
 	return (terminate(&game));
 }

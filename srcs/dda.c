@@ -6,11 +6,20 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:45:34 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 22:12:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+bool	is_through(t_map map, int x, int y)
+{
+	if (x >= 0 && x < map.width
+		&& y >= 0 && y < map.height &&  
+			map.map_wall[y][x] != '1')
+		return (true);
+	return (false);
+}
 
 float	perpendicular_dist(t_point from, t_point to, float angle)
 {
@@ -63,9 +72,7 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	deltaX = 1 / tan(theta) * increY;
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
-	while (res.wall.x >= 0 && res.wall.x < map.width
-		&& res.wall.y + side >= 0 && res.wall.y + side < map.height &&  
-			map.map_wall[(int) res.wall.y + side][(int) res.wall.x] != '1')
+	while (is_through(map, res.wall.x, res.wall.y + side))
 	{
 		if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D') 
 			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
@@ -102,8 +109,7 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	deltaY = tan(theta) * increX;
 	res.wall.x = where[0];
 	res.wall.y = pos.y + (where[0] - pos.x) * tan(theta);
-	while (res.wall.y >= 0 && res.wall.y < map.height
-		&& map.map_wall[(int) res.wall.y][(int) res.wall.x + side] != '1')
+	while (is_through(map, res.wall.x + side, res.wall.y))
 	{
 		if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
 			put_door(&res.door, pos, res.wall, map.theta + PI / 2);
