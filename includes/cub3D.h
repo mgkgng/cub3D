@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:57:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 23:19:58 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,8 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_gui {
-	void	*mlx;
-	void	*win;
 	void	*img;
 	char	*addr;
-	//* bonus
-	void	*mini_img;
-	char	*mini_addr;
-	int		mini_pixel;
-	int		mini_len;
-	int		mini_endian;
-	//* bonus
 	int		bits_per_pixel;
 	int		line_len;
 	int		endian;
@@ -127,8 +118,11 @@ typedef struct	s_key {
 
 typedef struct s_game 
 {
+	void	*mlx;
+	void	*win;
 	t_map		map;
 	t_gui		gui;
+	t_gui		minimap;
 	t_hook		hook;
 	t_draw		draw;
 	t_raycast	ray;
@@ -156,19 +150,21 @@ int	cub3D(t_game game);
 
 /* parse */
 t_game	parse(char *filename);
+t_map	get_map(char **lines);
+t_draw	get_draw(char **lines);
 
 /* parse_utils */
-int	get_fd(char *filename);
-int	ft_tablen(char **map);
-int	verif_texture(char *dir);
-int	get_color(char *colstr);
-int	is_surrounded(char **lines);
+char	**get_lines(int fd);
+int		get_fd(char *filename);
+int		ft_tablen(char **map);
 
+/* parse_error */
+int		check_filename(char *file)
+int		verif_texture(char *dir);
+int		is_surrounded(char **lines);
 
-/* error */
-void	error(int c);
+/* utils */
 void	end_program(char *str, int tag);
-
 
 /* key */
 int	key_pressed(int key, t_game *game);

@@ -6,11 +6,32 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/16 18:39:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 23:53:46 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	paint_background(t_game *game)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (++j < SCREEN_Y / 2)
+	{
+		i = -1;
+		while (++i < SCREEN_X)
+			my_mlx_pixel_put(&game->gui, i, j, game->draw.col_ceil);
+	}
+	j--;
+	while (++j < SCREEN_Y)
+	{
+		i = -1;
+		while (++i < SCREEN_X)
+			my_mlx_pixel_put(&game->gui, i, j, game->draw.col_floor);
+	}	
+}
 
 void	draw_raycast(t_game *game, int h, int ray_x)
 {

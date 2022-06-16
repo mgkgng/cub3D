@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 17:17:54 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 23:16:37 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+char	**get_lines(int fd)
+{
+	char	*line;
+	char	*r;
+	char	**res;
+
+	r = NULL;
+	line = get_next_line(fd);
+	while (line)
+	{
+		ft_strcat(r, line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	res = ft_split(r, '\n');
+	free(r);
+	return (res);
+}
 
 int	get_fd(char *filename)
 {
@@ -25,15 +45,6 @@ int	get_fd(char *filename)
 	return (fd);
 }
 
-/*int	terminate_parse(char *mapstr, char **map, char *set)
-{
-	free(mapstr);
-	free(map);
-	if (set)
-		free(set);
-	return (0);
-}*/
-
 int	ft_tablen(char **map)
 {
 	int	i;
@@ -42,40 +53,4 @@ int	ft_tablen(char **map)
 	while (map[i])
 		i++;
 	return (i);
-}
-
-int	check_filename(char *file)
-{
-	int	len;
-
-	len = ft_strlen(file);
-	if (len > 4 && !ft_strcmp(file + len - 4, ".cub"))
-		return (1);
-	// there would be some more tricky cases
-	return (0);
-}
-
-int	verif_texture(char *dir)
-{
-	if (!ft_strncmp("NO", dir, 2))
-		return (1);
-	else if (!ft_strncmp("SO", dir, 2))
-		return (2);
-	else if (!ft_strncmp("WE", dir, 2))
-		return (3);
-	else if (!ft_strncmp("EA", dir, 2))
-		return (4);
-	return (0);
-}
-
-int	get_color(char *colstr)
-{
-	int		col;
-	char	**rgb;
-
-	rgb = ft_split(colstr, ',');
-	// il manque gestion d'erreur
-	col = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | (ft_atoi(rgb[2]));
-	free(rgb);
-	return (col);
 }
