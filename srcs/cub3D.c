@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 19:40:45 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:46:28 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,6 @@ int	cub3D(t_game game)
 	game.hook.move_re = STOP;
 	game.texture = get_texture(game.gui.mlx);
 	// init_sprite(&game);
-	init_dir(&game);
 	game.lock = 0;
 	game.count = 0;
 	game.key = malloc(sizeof(t_key));
