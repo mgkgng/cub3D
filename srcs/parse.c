@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 16:48:58 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:11:15 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ char	**get_lines(int fd)
 
 static void	put_player_info(t_map *map, int *pos, char dir)
 {
-	map->pos.x = pos[0];
-	map->pos.y = pos[1];
+	map->pos.x = pos[1];
+	map->pos.y = pos[0];
 	if (dir == 'N')
 		map->theta = 3 * PI / 2;
 	else if (dir == 'S')
@@ -78,13 +78,13 @@ static bool **get_map_move(t_map map, char **charmap)
 
 	res = ft_calloc(map.height, sizeof(bool *));
 	i = -1;
-	while (++i < map.height)
+	while (charmap[++i])
 		res[i] = ft_calloc(map.width, sizeof(bool));
 	i = -1;
-	while (++i < map.height)
+	while (charmap[++i])
 	{
 		j = -1;
-		while (++j < map.width)
+		while (charmap[i][++j])
 			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == 'D'))
 				res[i][j] = true;
 	}
@@ -122,37 +122,23 @@ static char	**get_map_wall(t_map map, char **charmap)
 	return (res);
 }
 
-t_map	get_map(int fd)
+t_map	get_map(char **lines)
 {
 	t_map	map;
-	char	*line;
-	char	*mapstr;
-	char	**map_data;
 
-	line = get_next_line(fd);
-	mapstr = NULL;
-	while (line)
-	{
-		mapstr = ft_strcat(mapstr, line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	map_data = ft_split(mapstr, '\n');
-	is_surrounded(map_data, map.width, map.height);
-	if (!check_fileformat(mapstr, map_data, map.width, map.height))
-		error(4);
-	put_info(&map, map_data);
-	map.map_move = get_map_move(map, map_data);
-	map.map_wall = get_map_wall(map, map_data);
+	is_surrounded(lines + 6);
+	put_info(&map, lines + 6);
+	map.map_move = get_map_move(map, lines + 6);
+	map.map_wall = get_map_wall(map, lines + 6);
 	return (map);
 }
 
-void	put_texture(char ***nswe, char **file)
+char	**put_texture(char **file)
 {
-	char	*nswe[4];
 	int 	i;
-	int 	checkfile;
+	char	**tmp;
 
+	tmp = malloc(sizeof(char *) * 5);
 	i = -1;
 	while (++i < 4)
 		if (i != verif_texture(file[i]) - 1)
@@ -161,8 +147,10 @@ void	put_texture(char ***nswe, char **file)
 	while (++i < 4)
 	{
 		get_fd(file[i] + 3);
-		*nswe[i] = ft_strdup(file[i] + 3);
+		tmp[i]= ft_strdup(file[i] + 3);
 	}
+	tmp[i] = NULL;
+	return (tmp);
 }
 
 t_draw	get_draw(char **lines)
@@ -171,7 +159,7 @@ t_draw	get_draw(char **lines)
 	int		i;
 	
 	i = -1;
-	put_texture(&draw.nswe, lines);
+	draw.nswe = put_texture(lines);
 	draw.col_floor = get_color(lines[4] + 2);
 	draw.col_ceil = get_color(lines[5]);
 	return (draw);
@@ -180,7 +168,6 @@ t_draw	get_draw(char **lines)
 t_game	parse(char *filename)
 {
 	char	**lines;
-	int		fd;
 	t_game	game;
 	
 	if (!check_filename(filename))

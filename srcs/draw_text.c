@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:27:12 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:38:53 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 {
 	char	*dst;
 
+	printf("%zu...%d...%d...\n", ft_strlen((char *)addr), y * img.line_length, x * (img.bits_per_pixel / 8));
 	dst = addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
+	printf("%p.....\n", dst);
 	return (*(unsigned int *)dst);
 }
 
@@ -67,19 +69,24 @@ t_tex_info	get_tex_info(t_point wall, int h, int start)
 	return (info);
 }
 
-t_img which_texture(t_game *game, t_texture text)
+t_img which_texture(t_game *g, t_texture text, float angle)
 {
-	if (game->side == 0 && (game->map.theta >= 0 && game->map.theta < PI))
-		return (text.wall_n);
-	else if(game->side == 0 && (game->map.theta >= PI / 2 && game->map.theta < PI * 3 / 2))
+	// printf("%f\n", g->map.theta);
+	if (g->side == 1)
+	{
+		if (angle <= 3 * PI / 2 && angle >= PI / 2)
+			return (text.wall_w);
 		return (text.wall_e);
-	else if(game->side == 1 && (game->map.theta >= PI && game->map.theta < PI * 2))
-		return (text.wall_s);
+	}
 	else
-		return (text.wall_w);
+	{
+		if (angle > PI && angle < 2 * PI)
+			return (text.wall_n);
+		return (text.wall_s);
+	}
 }
 
-void	draw_text(t_game *game, t_img img, float dist, t_point wall, int ray_n)
+void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle)
 {
 	int		start;
 	int		h;
@@ -87,19 +94,23 @@ void	draw_text(t_game *game, t_img img, float dist, t_point wall, int ray_n)
 	t_tex_info info;
 	int	i;
 	
-	h = get_height(dist, game);
+	// ft_bzero(&info, sizeof(t_tex_info));
+	// printf("%s\n", info.img.addr);
+    h = get_height(ray.dist, game);
 	if (game->height > 600)
-		h = h / dist;
+		h = h / ray.dist;
 	start = 0;
 	if (h < SCREEN_Y)
 		start = (SCREEN_Y - h) / 2;
-	info = get_tex_info(wall, h, start);
+	info = get_tex_info(ray.wall, h, start);
+	info.img = which_texture(game, game->texture, angle);
+	// printf("%s\n", info.img.addr);
 	i = -1;
 	while (++i < h && i < SCREEN_Y)
 	{
 		info.y = (int) info.tex_pos & (64 - 1);
 		info.tex_pos += info.step;
-		color = get_data_color(info.x, info.y, img.addr, img);
+		color = get_data_color(info.x, info.y, info.img.addr, info.img);
 		my_mlx_pixel_put(&game->gui, ray_n, start + i, color);
 	}
 }
@@ -131,9 +142,11 @@ void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
 	}	
 }
 
-void	draw_img(t_game *game, t_raycast ray, int ray_x)
+void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle)
 {
-	draw_text(game, which_texture(game, game->texture), ray.dist, ray.wall, ray_x);
-	while (ray.door.nb--)
-		draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);
+	printf("A\n");
+	draw_text(game, ray, ray_x, angle);
+	// draw_text(game, which_texture(game, game->texture), ray.dist, ray.wall, ray_x);
+	//while (ray.door.nb--)
+	//	draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);
 }

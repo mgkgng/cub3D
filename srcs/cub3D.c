@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 14:55:34 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:00:17 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,6 @@ int	redraw(t_game *game)
 	return (0);
 }
 
-/*void	put_image_to_image(t_game *game, t_sprite tmp, int x, int y)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	
-}*/
-
 void	sprite(t_game *game)
 {
 	t_sprite *tmp;
@@ -113,7 +103,7 @@ int	draw(t_game *game)
 		i = -1;
 		while (++i * game->hook.m_sensibility < game->hook.m_turn)
 		{
-			turn(game, &game->map, game->hook.m_dir);
+			turn(&game->map, game->hook.m_dir);
 			redraw(game);
 		}
 		game->hook.m_re = false;
@@ -152,7 +142,6 @@ int	cub3D(t_game game)
 	game.hook.minimap_size = 7;
 	game.texture = get_texture(game.gui.mlx);
 	// init_sprite(&game);
-	// init_dir(&game);
 	game.lock = 0;
 	game.count = 0;
 	game.key = malloc(sizeof(t_key));
@@ -160,7 +149,6 @@ int	cub3D(t_game game)
 	// key_hook_control(&game, &game.hook);
 	mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
-	// printf("%i\n", i_i++);
 	mlx_loop_hook(game.gui.mlx, draw, &game);
 	mlx_loop(game.gui.mlx); // BOUCLER SUR DRAW
 	return (terminate(&game));

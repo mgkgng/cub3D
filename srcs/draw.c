@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 16:58:47 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/15 16:50:44 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:39:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	raycast(t_game *game, float angle, int rayN)
 	t_raycast	ray;
 	
 	ray = digital_differential_analyzer(game->map, angle, game);
-	draw_img(game, ray, rayN);
+	draw_img(game, ray, rayN, angle);
 }
 
 void	draw_cub3D(t_game *game)

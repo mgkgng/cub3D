@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:21:36 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:38:20 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_door {
 }	t_door;
 
 typedef struct s_draw {
-	char	*nswe[4];
+	char	**nswe;
 	int		col_floor;
 	int		col_ceil;
 }	t_draw;
@@ -125,29 +125,8 @@ typedef struct	s_key {
 	int	turn_r;
 }	t_key;
 
-typedef struct s_info {
-	int		**rgb;
-	char	*path1;
-	char	*path2;
-	char	*path3;
-	char	*path4;
-	char	**file;
-	char	**text;
-	int		i;
-	char	**map;
-}	t_info;
-
-typedef struct s_dir {
-	float	dir_x;
-	float	dir_y;
-	float	plane_x;
-	float	plane_y;
-	float	raydirx;
-	float	raydiry;
-}	t_dir;
-
-typedef struct s_game {
-	t_dir		dir;
+typedef struct s_game 
+{
 	t_map		map;
 	t_gui		gui;
 	t_hook		hook;
@@ -155,7 +134,6 @@ typedef struct s_game {
 	t_raycast	ray;
 	t_sprite	*spr;
 	t_key		*key;
-	t_info		info;
 	int			height;
 	t_texture	texture;
 	int			pos[2];
@@ -171,6 +149,7 @@ typedef struct s_tex_info {
 	float	tex_pos;
 	float	fract;
 	float	step;
+	t_img	img;
 }	t_tex_info;
 
 int	cub3D(t_game game);
@@ -183,6 +162,8 @@ int	get_fd(char *filename);
 int	ft_tablen(char **map);
 int	verif_texture(char *dir);
 int	get_color(char *colstr);
+int	is_surrounded(char **lines);
+
 
 /* error */
 void	error(int c);
@@ -194,8 +175,6 @@ int	key_pressed(int key, t_game *game);
 int	key_released(int key, t_game *game);
 void	movement(t_game *game);
 void	translate(t_map *map, float theta);
-
-
 
 void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 
@@ -216,14 +195,16 @@ int		get_color(char *colstr);
 void	draw_minimap(t_game *game);
 void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
-void	turn(t_game *game, t_map *map, int dir);
+void	turn(t_map *map, int dir);
 /*draw*/
+void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle);
+
+float	perpendicular_dist(t_point from, t_point to, float angle);
 //void	draw_text(t_game *game, t_img img, int h, t_raycast ray, int ray_n);
 
 bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
-int	is_surrounded(char **map, int map_width, int map_height);
-void	draw_img(t_game *game, t_raycast ray, int ray_x);
+void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle);
 
 /* error */
 

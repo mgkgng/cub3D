@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 19:15:50 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:13:34 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static float	perpendicular_dist(t_point from, t_point to, float angle)
+float	perpendicular_dist(t_point from, t_point to, float angle)
 {
 	float	sin_v;
 	float	cos_v;
@@ -60,11 +60,9 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 		increY = -1;
 		side--;
 	}
-
 	deltaX = 1 / tan(theta) * increY;
 	res.wall.x = pos.x + (where[1] - pos.y) / tan(theta);
 	res.wall.y = where[1];
-
 	while (res.wall.x >= 0 && res.wall.x < map.width
 		&& map.map_wall[(int) res.wall.y + side][(int) res.wall.x] != '1')
 	{
