@@ -6,11 +6,30 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:48:08 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:48:58 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+char	**get_lines(int fd)
+{
+	int		ret;
+	char	buf[2];
+	char	*line;
+
+	ret = read(fd, buf, 1);
+	buf[ret] = '\0';
+	line = ft_strdup(buf);
+	while (ret > 0)
+	{
+		ret = read(fd, buf, 1);
+		buf[ret] = '\0';
+		line = ft_strjoin(line, buf);
+	}
+	close(fd);
+	return (ft_split(line, '\n'));
+}
 
 static void	put_player_info(t_map *map, int *pos, char dir)
 {
@@ -128,58 +147,46 @@ t_map	get_map(int fd)
 	return (map);
 }
 
-t_draw	put_draw(char **info)
+void	put_texture(char ***nswe, char **file)
+{
+	char	*nswe[4];
+	int 	i;
+	int 	checkfile;
+
+	i = -1;
+	while (++i < 4)
+		if (i != verif_texture(file[i]) - 1)
+			end_program("Wrong format for texture information.", 0);
+	i = -1;
+	while (++i < 4)
+	{
+		get_fd(file[i] + 3);
+		*nswe[i] = ft_strdup(file[i] + 3);
+	}
+}
+
+t_draw	get_draw(char **lines)
 {
 	t_draw	draw;
 	int		i;
 	
 	i = -1;
-	while (++i < 4)
-		draw.nswe[i] = ft_strtrim(info[i] + 2, " \n");
-	draw.col_floor = get_color(ft_strtrim(info[4] + 1, " \n"));
-	draw.col_ceil = get_color(ft_strtrim(info[5] + 1, " \n"));
-	free(info);
+	put_texture(&draw.nswe, lines);
+	draw.col_floor = get_color(lines[4] + 2);
+	draw.col_ceil = get_color(lines[5]);
 	return (draw);
 }
 
-t_draw	get_draw(int fd)
+t_game	parse(char *filename)
 {
-	char	**info;
-	char	*line;
-	int		i;
-
-	info = ft_calloc(6, sizeof(char *));
-	line = get_next_line(fd);
-	i = 0;
-	while (line)
-	{
-		if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "WE", 2)
-			|| !ft_strncmp(line, "EA", 2) || !ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
-			info[i++] = line;
-		else
-			free(line);
-		if (i == 6)
-			break; // i should find a way more elegant
-		line = get_next_line(fd);
-	}
-	if (i < 6)
-		error(5);
-	return (put_draw(info));
-}
-
-t_game	parse(char *file)
-{
+	char	**lines;
 	int		fd;
 	t_game	game;
 	
-	if (!check_filename(file))
-		error(2);
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		error(3);
-	// game.info = parser(file);
-	//game.draw = get_draw(fd);
-	game.map = get_map(fd);
-	close(fd);
+	if (!check_filename(filename))
+		end_program("Wrong file format", 0);
+	lines = get_lines(get_fd(filename));
+	game.draw = get_draw(lines);
+	game.map = get_map(lines);
 	return (game);
 }

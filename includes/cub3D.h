@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 18:25:37 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 16:38:18 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,19 +176,17 @@ typedef struct s_tex_info {
 int	cub3D(t_game game);
 
 /* parse */
-t_game	parse(char *file);
-char	**get_char_map(char **file, t_info info);
-int		**grep_rgb(char **file, t_info info);
-char	**grep_texture(char **file, t_info info);
-char	**file_to_tab(int fd);
-t_info 	parser(char *file);
-void	aff_tab(char **map);
-int		tab_len(char **map);
-void	error_quit(char * msg);
-int		verif_texture(char *dir);
+
+/* parse_utils */
+int	get_fd(char *filename);
+int	ft_tablen(char **map);
+int	verif_texture(char *dir);
+int	get_color(char *colstr);
 
 /* error */
 void	error(int c);
+void	end_program(char *str, int case);
+
 
 /* key */
 int	key_pressed(int key, t_game *game);
@@ -225,4 +223,7 @@ bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
 int	is_surrounded(char **map, int map_width, int map_height);
 void	draw_img(t_game *game, t_raycast ray, int ray_x);
+
+/* error */
+
 #endif
