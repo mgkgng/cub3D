@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 18:16:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 18:29:04 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:57:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ typedef struct s_texture {
 	t_img	door;
 }	t_texture;
 
-t_texture	get_texture(void *mlx_ptr);
 
 #endif
