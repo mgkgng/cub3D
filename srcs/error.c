@@ -6,15 +6,15 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 16:10:18 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:21:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	end_program(char *str, int case)
+void	end_program(char *str, int tag)
 {
-	if (case == 1)
+	if (tag == 1)
 		ft_putstr_fd("Error: cannot read file ", 2);
 	ft_putendl_fd(str, 2);
 	exit(1);

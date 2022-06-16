@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 14:54:49 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:27:12 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,33 @@ void	draw_text(t_game *game, t_img img, float dist, t_point wall, int ray_n)
 		color = get_data_color(info.x, info.y, img.addr, img);
 		my_mlx_pixel_put(&game->gui, ray_n, start + i, color);
 	}
+}
+
+void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
+{
+	int		start;
+	int		h;
+	unsigned int color;
+	t_tex_info info;
+	int	i;
+	t_img	img;
+	
+	img = game->texture.door;
+	h = get_height(dist, game);
+	if (game->height > 600)
+		h = h / dist;
+	start = 0;
+	if (h < SCREEN_Y)
+		start = (SCREEN_Y - h) / 2;
+	info = get_tex_info(wall, h, start);
+	i = -1;
+	while (++i < h && i < SCREEN_Y)
+	{
+		info.y = (int) info.tex_pos & (64 - 1);
+		info.tex_pos += info.step;
+		color = get_data_color(info.x, info.y, img.addr, img);
+		my_mlx_pixel_put(&game->gui, ray_n, start + i, color);
+	}	
 }
 
 void	draw_img(t_game *game, t_raycast ray, int ray_x)

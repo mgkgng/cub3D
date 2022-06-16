@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 16:38:18 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 18:21:36 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ typedef struct s_tex_info {
 int	cub3D(t_game game);
 
 /* parse */
+t_game	parse(char *filename);
 
 /* parse_utils */
 int	get_fd(char *filename);
@@ -185,7 +186,7 @@ int	get_color(char *colstr);
 
 /* error */
 void	error(int c);
-void	end_program(char *str, int case);
+void	end_program(char *str, int tag);
 
 
 /* key */
