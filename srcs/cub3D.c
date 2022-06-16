@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:44:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:55:34 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ void	key_hook_control(t_game *game, t_hook *hook)
 
 int	cub3D(t_game game)
 {
-	printf("---------%f-----\n", game.map.theta);
 	game.draw.col_ceil = 0x00DA1FE9;
 	game.draw.col_floor = 0x00000088;
 	game.gui = initialize_window("cub3d_launching_test");
@@ -159,7 +158,6 @@ int	cub3D(t_game game)
 	game.key = malloc(sizeof(t_key));
 	mouse_hook_control(&game, &game.hook);
 	// key_hook_control(&game, &game.hook);
-	// // draw(&game);
 	mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
 	// printf("%i\n", i_i++);

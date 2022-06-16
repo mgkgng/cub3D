@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 19:32:12 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/16 14:54:49 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ void	draw_text(t_game *game, t_img img, float dist, t_point wall, int ray_n)
 void	draw_img(t_game *game, t_raycast ray, int ray_x)
 {
 	draw_text(game, which_texture(game, game->texture), ray.dist, ray.wall, ray_x);
-	if (ray.door.nb)
-		printf("%f.....%f......%f.....\n", ray.door.pos[0].x, ray.door.pos[0].y, ray.door.dist[0]);
 	while (ray.door.nb--)
 		draw_text(game, game->texture.door, ray.door.dist[ray.door.nb], ray.door.pos[ray.door.nb], ray_x);
 }
