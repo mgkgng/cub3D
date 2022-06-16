@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 19:27:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/11 19:28:19 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 00:37:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_sprite	*ft_lstnew(char *name, t_game *game)
 		return (NULL);
 	new->h = 64;
 	new->w = 64;
-	new->img = mlx_xpm_file_to_image(game->gui.mlx, name, &new->w, &new->h);
+	new->img = mlx_xpm_file_to_image(game->mlx, name, &new->w, &new->h);
 	new->addr = mlx_get_data_addr(new->img, &new->bits_per_pixel, &new->line_length, &new->endian);
 	new->next = NULL;
 	return (new);

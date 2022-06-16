@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 23:54:26 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 00:44:46 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,22 @@ int	draw(t_game *game)
 void	mouse_hook_control(t_game *game, t_hook *hook)
 {	
 	hook->m_re = true;
-	mlx_hook(game->gui.win, 6, 1L << 6, mouse_hook, hook);
+	mlx_hook(game->win, 6, 1L << 6, mouse_hook, hook);
 	// mlx_loop_hook(game->gui.mlx, draw, game);
 }
 
 int	cub3D(t_game game)
 {
-	initialize_window("cub3d_launching_test");
-
-	game.texture = get_texture(game.draw, game.gui.mlx);
+	initialize_window(&game);
+	initialize_hook(&game);
+	game.texture = get_texture_img(game.draw, game.mlx);
 	game.lock = 0;
 	game.count = 0;
 	game.key = malloc(sizeof(t_key));
 	mouse_hook_control(&game, &game.hook);
-	mlx_hook(game.gui.win, 2, 1L << 0, key_pressed, &game);
-	mlx_hook(game.gui.win, 3, 1L << 1, key_released, &game);
-	mlx_loop_hook(game.gui.mlx, draw, &game);
-	mlx_loop(game.gui.mlx);
+	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
+	mlx_hook(game.win, 3, 1L << 1, key_released, &game);
+	mlx_loop_hook(game.mlx, draw, &game);
+	mlx_loop(game.mlx);
 	return (terminate(&game));
 }

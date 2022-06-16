@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pixel_put.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/09 12:59:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 23:20:15 by min-kang         ###   ########.fr       */
+/*   Created: 2022/06/17 00:50:20 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/17 00:50:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "libft.h"
 
-
-
+char	*ft_strcpy(char *dest, char *src)
+{
+	return (ft_memcpy(dest, src, ft_strlen(src) + 1));
+}

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 23:16:37 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 00:52:13 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**get_lines(int fd)
 	line = get_next_line(fd);
 	while (line)
 	{
-		ft_strcat(r, line);
+		r = ft_strcat(r, line);
 		free(line);
 		line = get_next_line(fd);
 	}

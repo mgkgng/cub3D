@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 23:19:58 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 00:44:35 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int		get_fd(char *filename);
 int		ft_tablen(char **map);
 
 /* parse_error */
-int		check_filename(char *file)
+int		check_filename(char *file);
 int		verif_texture(char *dir);
 int		is_surrounded(char **lines);
 
@@ -184,7 +184,6 @@ t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
-int		get_color(char *colstr);
 
 //*bonus
 
@@ -193,6 +192,8 @@ void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 void	turn(t_map *map, int dir);
 /*draw*/
+void	paint_background(t_game *game);
+
 void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle);
 
 float	perpendicular_dist(t_point from, t_point to, float angle);
@@ -202,7 +203,7 @@ bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
 void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle);
 /* error */
+t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 
-t_texture	get_texture(t_draw draw, void *mlx_ptr);
 
 #endif
