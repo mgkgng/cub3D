@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:13:58 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 23:53:25 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 01:03:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,22 @@ int	terminate(t_game *game)
 	free(game->draw.nswe);
 	exit(0);
 }
+
+t_door	*ft_lstnew(t_point pos, float dist)
+{
+	t_door	*res;
+
+	res = ft_calloc(1, sizeof(t_door));
+	if (!res)
+		return (NULL);
+	res->pos = pos;
+	res->dist = dist;
+	return (res);
+}
+
+void	ft_lstadd_front(t_door **alst, t_door *new)
+{
+	new->next = *alst;
+	*alst = new;
+}
+
