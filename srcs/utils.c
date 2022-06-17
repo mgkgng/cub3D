@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:13:58 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 03:19:10 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 04:38:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ t_door	*ft_lstnew(t_point pos, float dist)
 	t_door	*res;
 
 	res = ft_calloc(1, sizeof(t_door));
-	if (!res)
-		return (NULL);
 	res->pos = pos;
 	res->dist = dist;
 	return (res);
@@ -80,4 +78,14 @@ void	free_lst(t_door *lst)
 		free(lst);
 		lst = tmp;
 	}
+}
+
+void	free_chartab(char **tab)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
 }

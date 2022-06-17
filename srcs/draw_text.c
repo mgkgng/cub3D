@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 03:23:15 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 04:54:14 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,12 @@ void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle)
 	draw_text(game, ray, ray_x, angle);
 
 	door_now = ray.door;
+	printf("-----%p----\n", &door_now);
 	while (door_now)
 	{
 		draw_door(game, door_now->dist, door_now->pos, ray_x);
 		door_now = door_now->next;
 	}
+	printf("-----%p----\n", &ray.door);
 	free_lst(ray.door);
 }

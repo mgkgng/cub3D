@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 03:20:54 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 04:54:32 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,10 @@ void	manip_list(t_door **one, t_door *other)
 	
 	if ((*one)->dist < other->dist)
 	{
-		ft_lstadd_front(one, ft_lstnew(other->pos, other->dist));
+		t_door *new = ft_lstnew(other->pos, other->dist);
+		new->next = *one;
+		*one = new;
+		//ft_lstadd_front(one, ft_lstnew(other->pos, other->dist));
 		return ;
 	}
 	tmp = (*one)->next;
@@ -146,7 +149,6 @@ void	get_door(float dist, t_door **origin, t_door *compare)
 			if (now_compare->dist < dist)
 			{				
 				*origin = copy_list(now_compare);
-				free_lst(compare);
 				return ;
 			}
 			now_compare = now_compare->next;
@@ -163,7 +165,6 @@ void	get_door(float dist, t_door **origin, t_door *compare)
 		now_compare = now_compare->next;
 	}
 	*origin = begin;
-	free_lst(compare);
 }
 
 t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
@@ -177,9 +178,13 @@ t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
 	{
 		game->side = 0;
 		get_door(res_x.dist, &res_x.door, res_y.door);
+		free_lst(res_y.door);
+		printf("%p..\n", &res_x.door);
 		return (res_x);
 	}
 	game->side = 1;
 	get_door(res_y.dist, &res_y.door, res_x.door);
+	free_lst(res_x.door);
+	printf("%p..\n", &res_y.door);
 	return (res_y);
 }

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 03:19:19 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 04:50:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,10 @@ typedef struct s_game
 	t_draw		draw;
 	t_raycast	ray;
 	t_sprite	*spr;
-	t_key		*key;
+	t_key		key;
 	int			height;
 	t_texture	texture;
+	t_raycast	tes;
 	int			pos[2];
 	int			lock;
 	int			sprite;
@@ -211,5 +212,6 @@ t_door	*ft_lstnew(t_point pos, float dist);
 void	ft_lstadd_front(t_door **alst, t_door *new);
 void	ft_lstadd_back(t_door **alst, t_door *new);
 void	free_lst(t_door *lst);
+void	free_chartab(char **tab);
 
 #endif

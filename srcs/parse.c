@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 00:47:14 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 03:55:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ t_game	parse(char *filename)
 	lines = get_lines(get_fd(filename));
 	game.draw = get_draw(lines);
 	game.map = get_map(lines);
+	free_chartab(lines);
 	return (game);
 }

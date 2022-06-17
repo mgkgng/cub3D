@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 17:36:02 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/16 17:16:28 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/17 04:21:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	movement(t_game *game)
 {
-	if (game->key->w == 1) // UP
+	if (game->key.w == 1) // UP
 		translate(&game->map, game->map.theta);
-	if (game->key->a == 1) // LEFT
+	if (game->key.a == 1) // LEFT
 		translate(&game->map, game->map.theta - M_PI / 2);
-	if (game->key->s == 1) // DOWN
+	if (game->key.s == 1) // DOWN
 		translate(&game->map, game->map.theta + M_PI);
-	if (game->key->d == 1) // RIGHT
+	if (game->key.d == 1) // RIGHT
 		translate(&game->map, game->map.theta + M_PI / 2);
-	if (game->key->turn_l == 1)
+	if (game->key.turn_l == 1)
 		turn(&game->map, -1);
-	if (game->key->turn_r == 1)
+	if (game->key.turn_r == 1)
 		turn(&game->map, 1);
 	game->hook.re = true;
 }
