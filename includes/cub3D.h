@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 04:50:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:25:35 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ float	perpendicular_dist(t_point from, t_point to, float angle);
 
 bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
-void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle);
+void	draw_img(t_game *game, t_raycast *ray, int ray_x, float angle);
 /* error */
 t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 

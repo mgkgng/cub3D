@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:13:58 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 04:38:11 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:16:28 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_door	*ft_lstnew(t_point pos, float dist)
 	res = ft_calloc(1, sizeof(t_door));
 	res->pos = pos;
 	res->dist = dist;
+	//printf("....test....%p\n", &res->next);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 04:54:14 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:35:30 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img)
 {
 	char	*dst;
 
-	//printf("%zu...%d...%d...\n", ft_strlen((char *)addr), y * img.line_length, x * (img.bits_per_pixel / 8));
 	dst = addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
-	//printf("%p.....\n", dst);
 	return (*(unsigned int *)dst);
 }
 
@@ -72,7 +70,6 @@ t_tex_info	get_tex_info(t_point wall, int h, int start)
 
 t_img which_texture(t_game *g, t_texture text, float angle)
 {
-	// printf("%f\n", g->map.theta);
 	if (g->side == 1)
 	{
 		if (angle <= 3 * PI / 2 && angle >= PI / 2)
@@ -103,7 +100,6 @@ void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle)
 		start = (SCREEN_Y - h) / 2;
 	info = get_tex_info(ray.wall, h, start);
 	info.img = which_texture(game, game->texture, angle);
-	// printf("%s\n", info.img.addr);
 	i = -1;
 	while (++i < h && i < SCREEN_Y)
 	{
@@ -141,18 +137,17 @@ void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
 	}	
 }
 
-void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle)
+void	draw_img(t_game *game, t_raycast *ray, int ray_x, float angle)
 {
 	t_door	*door_now;
-	draw_text(game, ray, ray_x, angle);
-
-	door_now = ray.door;
-	printf("-----%p----\n", &door_now);
+	
+	draw_text(game, *ray, ray_x, angle);
+	door_now = ray->door;
 	while (door_now)
 	{
+		printf("%p.....there\n", ray->door);
 		draw_door(game, door_now->dist, door_now->pos, ray_x);
 		door_now = door_now->next;
 	}
-	printf("-----%p----\n", &ray.door);
-	free_lst(ray.door);
+	free_lst(ray->door);
 }

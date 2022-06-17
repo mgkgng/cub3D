@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 04:54:58 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:31:26 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,24 @@ void	draw_raycast(t_game *game, int h, int ray_x)
 		my_mlx_pixel_put(&game->gui, ray_x, start_y + i, 0x00FFFF00);
 }
 
-void	raycast(t_game *game, float angle, int rayN)
-{
-	// t_raycast	ray;
-	
-	game->tes = digital_differential_analyzer(game->map, angle, game);
-	// ray = digital_differential_analyzer(game->map, angle, game);
-	// draw_img(game, ray, rayN, angle);
-	draw_img(game, game->tes, rayN, angle);
-}
-
 void	draw_cub3D(t_game *game)
 {
-	float	start_angle;
-	float	angle;
-	int		ray;
+	float		start_angle;
+	float		angle;
+	int			ray_n;
+	t_raycast	ray;
+
 
 	start_angle = game->map.theta - ANGLE / 2;
-	ray = -1;
-	while (++ray < SCREEN_X)
+	ray_n = -1;
+	while (++ray_n < SCREEN_X)
 	{
-		angle = start_angle + (ray + 1) * ANGLE / SCREEN_X;
+		angle = start_angle + (ray_n + 1) * ANGLE / SCREEN_X;
 		if (angle < 0)
 			angle += M_PI * 2;
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
-		raycast(game, angle, ray);
+		ray = digital_differential_analyzer(game->map, angle, game);
+		draw_img(game, &ray, ray_n, angle);
 	}
 }
