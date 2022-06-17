@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 18:35:30 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:37:49 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_texture	get_texture_img(t_draw draw, void *mlx_ptr)
 	t_texture	res;
 	int			size_info[2];
 
-	
 	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, draw.nswe[0], &size_info[0], &size_info[1]);
 	res.wall_s.img = mlx_xpm_file_to_image(mlx_ptr, draw.nswe[1], &size_info[0], &size_info[1]);
 	res.wall_w.img = mlx_xpm_file_to_image(mlx_ptr, draw.nswe[2], &size_info[0], &size_info[1]);
@@ -145,7 +144,6 @@ void	draw_img(t_game *game, t_raycast *ray, int ray_x, float angle)
 	door_now = ray->door;
 	while (door_now)
 	{
-		printf("%p.....there\n", ray->door);
 		draw_door(game, door_now->dist, door_now->pos, ray_x);
 		door_now = door_now->next;
 	}

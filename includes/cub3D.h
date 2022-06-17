@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 18:25:35 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 19:02:53 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 #include "../minilibx_opengl_20191021/mlx.h"
 
 #include "libft.h"
-#include "hook.h"
 #include "raycast.h"
 #include "texture.h"
 #include "sprite.h"
+#include "key.h"
 
 #define	PI 3.141592
 #define DEG	0.017453
@@ -85,6 +85,7 @@ typedef struct s_hook {
 	int		m_dir;
 	int		m_sensibility;
 	bool	m_re;
+	int			key_flag;
 }	t_hook;
 
 typedef struct	s_raycast {
@@ -107,15 +108,6 @@ typedef struct s_sprite {
 	struct s_sprite *next;
 }	t_sprite;
 
-typedef struct	s_key {
-	int	w;
-	int	a;
-	int	s;
-	int	d;
-	int	turn_l;
-	int	turn_r;
-}	t_key;
-
 typedef struct s_game 
 {
 	void	*mlx;
@@ -127,7 +119,6 @@ typedef struct s_game
 	t_draw		draw;
 	t_raycast	ray;
 	t_sprite	*spr;
-	t_key		key;
 	int			height;
 	t_texture	texture;
 	t_raycast	tes;

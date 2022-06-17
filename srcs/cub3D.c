@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 04:19:14 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 19:01:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	cub3D(t_game game)
 	game.texture = get_texture_img(game.draw, game.mlx);
 	game.lock = 0;
 	game.count = 0;
-	ft_bzero(&game.key, sizeof(t_key));	
 	mouse_hook_control(&game, &game.hook);
 	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_released, &game);
