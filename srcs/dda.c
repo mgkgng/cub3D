@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 01:27:53 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 02:11:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,12 @@ void	manip_list(t_door **one, t_door *other)
 {
 	t_door	*tmp;
 	
+	if ((*one)->dist < other->dist)
+	{
+		other->next = *one;
+		*one = other;
+		return ;
+	}
 	tmp = (*one)->next;
 	(*one)->next = other;
 	(*one)->next->next = tmp;
@@ -135,7 +141,7 @@ void	get_door(float dist, t_door **origin, t_door *compare)
 	{
 		if (compare->dist < dist)
 		{
-			while ((*origin)->dist > compare->dist)
+			while ((*origin)->next && (*origin)->next->dist > compare->dist)
 				*origin = (*origin)->next;
 			manip_list(origin, compare);
 		}

@@ -10,7 +10,7 @@ OBJS = ${SRCS:.c=.o}
 
 INCLUDES = ./includes/
 
-CFLAG = -Wextra -Wall -Werror -fsanitize=address -g
+CFLAG = -Wextra -Wall -Werror
 
 MLX = -lmlx -framework OpenGL -framework Appkit
 
@@ -23,7 +23,7 @@ all:		${NAME}
 ${NAME}:	${OBJS}
 			make all -C ${LIB_PATH}
 			make all -C ${MLX_PATH}
-			gcc ${CFLAGS} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} minilibx/libmlx.a ./libft/libft.a -fsanitize=address
+			gcc ${CFLAGS} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} minilibx/libmlx.a ./libft/libft.a
 			
 .c.o:
 			gcc ${CFLAG} -I${INCLUDES} -c $< -o ${<:.c=.o}

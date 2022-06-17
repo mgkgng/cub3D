@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:04:09 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 00:45:45 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 02:02:57 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,22 @@ static int	get_color(char *colstr)
 	char	**rgb;
 
 	rgb = ft_split(colstr, ',');
-	// il manque gestion d'erreur
+	/*while (rgb[i])
+    {
+		if (i > 2)
+			end_program("Error: rgb");
+        j = 0;
+        while (rgb[i][j])
+        {
+            if (ft_isdigit(rgb[i][j]) == 0)
+                end_program("RGB MUST BE NUMERIC", 0);
+            j++;
+        }
+        if (ft_atoi(rgb[i]) > 255 && ft_atoi(rgb[i]) < 0)
+            end_program("RDB MUST BE INFERIOR TO 255", 0);
+        i++;
+    }*/
+	
 	col = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | (ft_atoi(rgb[2]));
 	free(rgb);
 	return (col);
