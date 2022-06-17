@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 00:44:35 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 01:18:13 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ typedef struct s_point {
 }	t_point;
 
 typedef struct s_door {
-	t_point	*pos;
-	float	*dist;
-	bool	*open;
-	int		nb;
+	t_point			pos;
+	float			dist;
+	struct s_door	*next;
 }	t_door;
 
 typedef struct s_draw {
@@ -92,7 +91,7 @@ typedef struct	s_raycast {
 	t_point	wall;
 	float	dist;
 	int		side[2];
-	t_door	door;
+	t_door	*door;
 	int		height;
 }	t_raycast;
 
@@ -173,9 +172,6 @@ int	key_released(int key, t_game *game);
 void	movement(t_game *game);
 void	translate(t_map *map, float theta);
 
-/* key */
-int	key_pressed(int key, t_game game);
-int	key_released(int key, t_game game);
 
 void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
 // int     mlx_mouse_move(mlx_win_list_t *win, int x, int y);
@@ -210,5 +206,8 @@ void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle);
 /* error */
 t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 
+/* utils */
+t_door	*ft_lstnew(t_point pos, float dist);
+void	ft_lstadd_front(t_door **alst, t_door *new);
 
 #endif
