@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 18:32:32 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:14:46 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ bool	is_through(t_map map, int x, int y)
 	return (false);
 }
 
+void	is_object(t_raycast *ray, int c, t_map *map)
+{
+	if (c == 'D')
+		ft_lstadd_front(&ray->door, ft_lstnew(ray->wall, 
+			perpendicular_dist(map->pos, ray->wall, map->theta + PI / 2)));
+	else if (c == 'Z')
+		ft_lstadd_front(&ray->sprite, ft_lstnew(ray->wall, 
+			perpendicular_dist(map->pos, res->wall, map->theta + PI / 2)));
+
+}
+
 float	perpendicular_dist(t_point from, t_point to, float angle)
 {
 	float	sin_v;
@@ -32,7 +43,7 @@ float	perpendicular_dist(t_point from, t_point to, float angle)
 		/ sqrt(pow(sin_v, 2) + pow(cos_v, 2)));
 }
 
-static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
+static t_raycast	get_distX(t_map *map, t_point pos, int *where, float theta)
 {
 	t_raycast	res;
 	float		deltaX;
@@ -57,8 +68,7 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	res.wall.y = where[1];
 	while (is_through(map, res.wall.x, res.wall.y + side))
 	{
-		if (map.map_wall[(int) res.wall.y + side][(int) res.wall.x] == 'D') 
-			ft_lstadd_front(&res.door, ft_lstnew(res.wall, perpendicular_dist(map.pos, res.wall, map.theta + PI / 2)));
+		is_object(&res, map[(int) res.wall.y + side][(int) res.wall.x], map);
 		res.wall.x += deltaX;
 		res.wall.y += increY;
 
@@ -69,7 +79,7 @@ static t_raycast	get_distX(t_map map, t_point pos, int *where, float theta)
 	return (res);
 }
 
-static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
+static t_raycast	get_distY(t_map *map, t_point pos, int *where, float theta)
 {
 	t_raycast	res;
 	float		deltaY;
@@ -94,8 +104,7 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	res.wall.y = pos.y + (where[0] - pos.x) * tan(theta);
 	while (is_through(map, res.wall.x + side, res.wall.y))
 	{
-		if (map.map_wall[(int) res.wall.y][(int) res.wall.x + side] == 'D')
-			ft_lstadd_front(&res.door, ft_lstnew(res.wall, perpendicular_dist(map.pos, res.wall, map.theta + PI / 2)));
+		is_object(&res, map[(int) res.wall.y][(int) res.wall.x + side], map);
 		res.wall.x += increX;
 		res.wall.y += deltaY;
 	}
@@ -105,63 +114,9 @@ static t_raycast	get_distY(t_map map, t_point pos, int *where, float theta)
 	return (res);
 }
 
-void	manip_list(t_door **one, t_door *other)
-{
-	t_door	*tmp;
-	
-	if ((*one)->dist < other->dist)
-	{
-		ft_lstadd_front(one, ft_lstnew(other->pos, other->dist));
-		return ;
-	}
-	tmp = (*one)->next;
-	ft_lstadd_back(one, ft_lstnew(other->pos, other->dist));
-	(*one)->next->next = tmp;
-}
 
-t_door	*copy_list(t_door *lst)
-{	
-	t_door	*res;
 
-	res = NULL;
-	while (lst)
-	{
-		ft_lstadd_back(&res, ft_lstnew(lst->pos, lst->dist));
-		lst = lst->next;
-	}
-	return (res);
-}
 
-void	get_door(float dist, t_door **origin, t_door *compare)
-{
-	t_door	*begin;
-	t_door	*now_compare;
-
-	begin = *origin;
-	now_compare = compare;
-	if (!*origin)
-	{
-		while (now_compare)
-		{
-			if (now_compare->dist < dist)
-			{				
-				*origin = copy_list(now_compare);
-				return ;
-			}
-			now_compare = now_compare->next;
-		}
-	}
-	while (now_compare)
-	{
-		if (now_compare->dist < dist)
-		{
-			while ((*origin)->next && (*origin)->next->dist > now_compare->dist)
-				*origin = (*origin)->next;
-			manip_list(origin, now_compare);
-		}
-		now_compare = now_compare->next;
-	}
-}
 
 t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
 {
@@ -173,12 +128,12 @@ t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
 	if (res_x.dist < res_y.dist)
 	{
 		game->side = 0;
-		get_door(res_x.dist, &res_x.door, res_y.door);
+		get_list(res_x.dist, &res_x.door, res_y.door);
 		free_lst(res_y.door);
 		return (res_x);
 	}
 	game->side = 1;
-	get_door(res_y.dist, &res_y.door, res_x.door);
+	get_list(res_y.dist, &res_y.door, res_x.door);
 	free_lst(res_x.door);
 	return (res_y);
 }

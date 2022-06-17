@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 19:01:29 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:22:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ void	initialize_hook(t_game *game)
 	game->hook.m_sensibility = 20;
 	game->hook.minimap_on = 0;
 	game->hook.minimap_size = 7;
+}
+
+void	initialize_texture(t_game *game)
+{
+	int			size_info[2];
+
+	game->texture.wall_n.img = mlx_xpm_file_to_image(game->mlx, game->draw.nswe[0], &size_info[0], &size_info[1]);
+	game->texture.wall_s.img = mlx_xpm_file_to_image(game->mlx, game->draw.nswe[1], &size_info[0], &size_info[1]);
+	game->texture.wall_w.img = mlx_xpm_file_to_image(game->mlx, game->draw.nswe[2], &size_info[0], &size_info[1]);
+	game->texture.wall_e.img = mlx_xpm_file_to_image(game->mlx, game->draw.nswe[3], &size_info[0], &size_info[1]);
+	game->texture.door.img = mlx_xpm_file_to_image(game->mlx, "./texture/Door_final.xpm", &size_info[0], &size_info[1]);
+	game->texture.wall_n.addr = mlx_get_data_addr(game->texture.wall_n.img, &game->texture.wall_n.bits_per_pixel, &game->texture.wall_n.line_length, &game->texture.wall_n.endian);
+	game->texture.wall_s.addr = mlx_get_data_addr(game->texture.wall_s.img, &game->texture.wall_s.bits_per_pixel, &game->texture.wall_s.line_length, &game->texture.wall_s.endian);
+	game->texture.wall_w.addr = mlx_get_data_addr(game->texture.wall_w.img, &game->texture.wall_w.bits_per_pixel, &game->texture.wall_w.line_length, &game->texture.wall_w.endian);
+	game->texture.wall_e.addr = mlx_get_data_addr(game->texture.wall_e.img, &game->texture.wall_e.bits_per_pixel, &game->texture.wall_e.line_length, &game->texture.wall_e.endian);
+	game->texture.door.addr = mlx_get_data_addr(game->texture.door.img, &game->texture.door.bits_per_pixel, &game->texture.door.line_length, &game->texture.door.endian);
 }
 
 int	redraw(t_game *game)
@@ -101,9 +117,7 @@ int	cub3D(t_game game)
 {
 	initialize_window(&game);
 	initialize_hook(&game);
-	game.texture = get_texture_img(game.draw, game.mlx);
-	game.lock = 0;
-	game.count = 0;
+	initialize_texture(&game);
 	mouse_hook_control(&game, &game.hook);
 	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_released, &game);

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 19:02:53 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:07:39 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ typedef struct s_point {
 	float	y;
 }	t_point;
 
-typedef struct s_door {
+typedef struct s_list {
 	t_point			pos;
 	float			dist;
-	struct s_door	*next;
-}	t_door;
+	struct s_list	*next;
+}	t_list;
 
 typedef struct s_draw {
 	char	**nswe;
@@ -92,7 +92,8 @@ typedef struct	s_raycast {
 	t_point	wall;
 	float	dist;
 	int		side[2];
-	t_door	*door;
+	t_list	*door;
+	t_list	*sprite;
 	int		height;
 }	t_raycast;
 
@@ -199,6 +200,10 @@ void	draw_img(t_game *game, t_raycast *ray, int ray_x, float angle);
 t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 
 /* utils */
+
+float	get_angle(float old, float change);
+
+
 t_door	*ft_lstnew(t_point pos, float dist);
 void	ft_lstadd_front(t_door **alst, t_door *new);
 void	ft_lstadd_back(t_door **alst, t_door *new);

@@ -6,22 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 19:13:31 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:48:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-float	get_angle(float old, float change)
-{
-	float	res;
-	res = old + change;
-	if (res > M_PI * 2)
-		return (res - M_PI * 2);
-	else if (res < 0)
-		return (res + M_PI * 2);
-	return (res);
-}
 
 void	translate(t_map *map, float theta)
 {

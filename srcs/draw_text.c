@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 18:37:49 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:04:41 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,6 @@ float	get_height(float dist, t_game *game)
 	else
 		game->height = h;
 	return (h);
-}
-
-t_texture	get_texture_img(t_draw draw, void *mlx_ptr)
-{
-	t_texture	res;
-	int			size_info[2];
-
-	res.wall_n.img = mlx_xpm_file_to_image(mlx_ptr, draw.nswe[0], &size_info[0], &size_info[1]);
-	res.wall_s.img = mlx_xpm_file_to_image(mlx_ptr, draw.nswe[1], &size_info[0], &size_info[1]);
-	res.wall_w.img = mlx_xpm_file_to_image(mlx_ptr, draw.nswe[2], &size_info[0], &size_info[1]);
-	res.wall_e.img = mlx_xpm_file_to_image(mlx_ptr, draw.nswe[3], &size_info[0], &size_info[1]);
-	res.door.img = mlx_xpm_file_to_image(mlx_ptr, "./texture/Door_final.xpm", &size_info[0], &size_info[1]);
-	res.wall_n.addr = mlx_get_data_addr(res.wall_n.img, &res.wall_n.bits_per_pixel, &res.wall_n.line_length, &res.wall_n.endian);
-	res.wall_s.addr = mlx_get_data_addr(res.wall_s.img, &res.wall_s.bits_per_pixel, &res.wall_s.line_length, &res.wall_s.endian);
-	res.wall_w.addr = mlx_get_data_addr(res.wall_w.img, &res.wall_w.bits_per_pixel, &res.wall_w.line_length, &res.wall_w.endian);
-	res.wall_e.addr = mlx_get_data_addr(res.wall_e.img, &res.wall_e.bits_per_pixel, &res.wall_e.line_length, &res.wall_e.endian);
-	res.door.addr = mlx_get_data_addr(res.door.img, &res.door.bits_per_pixel, &res.door.line_length, &res.door.endian);
-	return (res);
 }
 
 unsigned int	get_data_color(int x, int y, void *addr, t_img img)
@@ -138,14 +120,14 @@ void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
 
 void	draw_img(t_game *game, t_raycast *ray, int ray_x, float angle)
 {
-	t_door	*door_now;
+	t_list	*current_door;
 	
 	draw_text(game, *ray, ray_x, angle);
-	door_now = ray->door;
-	while (door_now)
+	current_door = ray->door;
+	while (current_door)
 	{
-		draw_door(game, door_now->dist, door_now->pos, ray_x);
-		door_now = door_now->next;
+		draw_door(game, current_door->dist, current_door->pos, ray_x);
+		current_door = current_door->next;
 	}
 	free_lst(ray->door);
 }

@@ -1,4 +1,12 @@
-SRCS =	srcs/cub3D.c srcs/key.c srcs/main.c srcs/parse.c \
+SRCS =	srcs/main.c
+		srcs/cub3D.c 
+		srcs/key.c
+		srcs/parse.c
+		srcs/parse_draw.c
+		srcs/parse_map.c 
+		srcs/parse_utils.c 
+		srcs/parse_error.c 
+		
 		srcs/utils.c srcs/draw.c srcs/dda.c srcs/parse_utils.c \
 		bonus/minimap.c bonus/mouse.c bonus/door.c\
 		srcs/draw_text.c srcs/parse_draw.c srcs/parse_error.c srcs/parse_map.c\
