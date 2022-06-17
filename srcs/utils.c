@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:13:58 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 01:39:48 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 03:19:10 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,31 @@ void	ft_lstadd_front(t_door **alst, t_door *new)
 {
 	new->next = *alst;
 	*alst = new;
+}
+
+void	ft_lstadd_back(t_door **alst, t_door *new)
+{
+	t_door	*begin;
+
+	if (!*alst)
+	{
+		*alst = new;
+		return ;
+	}
+	begin = *alst;
+	while (begin->next)
+		begin = begin->next;
+	begin->next = new;
+}
+
+void	free_lst(t_door *lst)
+{
+	t_door	*tmp;
+
+	while (lst)
+	{
+		tmp = lst->next;
+		free(lst);
+		lst = tmp;
+	}
 }

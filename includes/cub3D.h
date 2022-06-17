@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 01:18:13 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 03:19:19 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,5 +209,7 @@ t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 /* utils */
 t_door	*ft_lstnew(t_point pos, float dist);
 void	ft_lstadd_front(t_door **alst, t_door *new);
+void	ft_lstadd_back(t_door **alst, t_door *new);
+void	free_lst(t_door *lst);
 
 #endif

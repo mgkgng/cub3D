@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 02:11:08 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 03:20:54 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,43 +111,59 @@ void	manip_list(t_door **one, t_door *other)
 	
 	if ((*one)->dist < other->dist)
 	{
-		other->next = *one;
-		*one = other;
+		ft_lstadd_front(one, ft_lstnew(other->pos, other->dist));
 		return ;
 	}
 	tmp = (*one)->next;
-	(*one)->next = other;
+	ft_lstadd_back(one, ft_lstnew(other->pos, other->dist));
 	(*one)->next->next = tmp;
-}	
+}
+
+t_door	*copy_list(t_door *lst)
+{	
+	t_door	*res;
+
+	res = NULL;
+	while (lst)
+	{
+		ft_lstadd_back(&res, ft_lstnew(lst->pos, lst->dist));
+		lst = lst->next;
+	}
+	return (res);
+}
 
 void	get_door(float dist, t_door **origin, t_door *compare)
 {
 	t_door	*begin;
+	t_door	*now_compare;
 
 	begin = *origin;
+	now_compare = compare;
 	if (!*origin)
 	{
-		while (compare)
+		while (now_compare)
 		{
-			if (compare->dist < dist)
-			{
-				*origin = compare;
+			if (now_compare->dist < dist)
+			{				
+				*origin = copy_list(now_compare);
+				free_lst(compare);
 				return ;
 			}
-			compare = compare->next;
+			now_compare = now_compare->next;
 		}
 	}
-	while (compare)
+	while (now_compare)
 	{
-		if (compare->dist < dist)
+		if (now_compare->dist < dist)
 		{
-			while ((*origin)->next && (*origin)->next->dist > compare->dist)
+			while ((*origin)->next && (*origin)->next->dist > now_compare->dist)
 				*origin = (*origin)->next;
-			manip_list(origin, compare);
+			manip_list(origin, now_compare);
 		}
-		compare = compare->next;
+		now_compare = now_compare->next;
 	}
 	*origin = begin;
+	free_lst(compare);
 }
 
 t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game)
