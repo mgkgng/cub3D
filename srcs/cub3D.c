@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 22:22:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:17:23 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ void	initialize_window(t_game *game)
 	game->win = mlx_new_window(game->mlx, SCREEN_X, SCREEN_Y, "Cub3D");
 	game->gui.img = mlx_new_image(game->mlx, SCREEN_X, SCREEN_Y);
 	game->gui.addr = mlx_get_data_addr(game->gui.img, &game->gui.bits_per_pixel, &game->gui.line_len, &game->gui.endian);
-	//* here is for the bonus
+	// bonus
 	game->minimap.img = mlx_new_image(game->mlx, MINI_W, MINI_H);
 	game->minimap.addr = mlx_get_data_addr(game->minimap.img, &game->minimap.bits_per_pixel, &game->minimap.line_len, &game->minimap.endian); 
-	//* bonus
 }
 
 void	initialize_hook(t_game *game)
@@ -57,27 +56,6 @@ int	redraw(t_game *game)
 	if (game->hook.minimap_on % 2)
 		draw_minimap(game);
 	return (0);
-}
-
-void	sprite(t_game *game)
-{
-	t_sprite *tmp;
-	int	i;
-
-	tmp = game->spr;
-	i = 0;
-	if (game->sprite == 5)
-	{
-		game->lock = 0;
-		game->sprite = 0;
-	}
-	while (i < game->sprite)
-	{
-		i++;
-		tmp  = tmp->next;
-	}
-	game->sprite++;
-	mlx_put_image_to_window(game->mlx, game->win, tmp->img, SCREEN_X / 2, SCREEN_Y / 2);
 }
 
 int	draw(t_game *game)

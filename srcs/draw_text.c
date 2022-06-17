@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 23:04:41 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:48:47 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_img which_texture(t_game *g, t_texture text, float angle)
 	}
 }
 
-void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle)
+void	draw_text(t_game *game, t_ray ray, int ray_n, float angle)
 {
 	int		start;
 	int		h;
@@ -118,7 +118,7 @@ void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
 	}	
 }
 
-void	draw_img(t_game *game, t_raycast *ray, int ray_x, float angle)
+void	draw_img(t_game *game, t_ray *ray, int ray_x, float angle)
 {
 	t_list	*current_door;
 	

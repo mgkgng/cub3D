@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 18:16:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:57:11 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:18:59 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	void	*mlx;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -32,6 +31,7 @@ typedef struct s_texture {
 	t_img	wall_w;
 	t_img	wall_e;
 	t_img	door;
+	t_img	sprite;
 }	t_texture;
 
 

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 18:31:26 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:48:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_cub3D(t_game *game)
 	float		start_angle;
 	float		angle;
 	int			ray_n;
-	t_raycast	ray;
+	t_ray	ray;
 
 
 	start_angle = game->map.theta - ANGLE / 2;
