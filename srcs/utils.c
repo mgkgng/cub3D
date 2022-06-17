@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:13:58 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 20:49:37 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:55:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	end_program(char *str, int tag)
 	exit(1);
 }
 
-void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color)
+void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
 	if (!color)
 		return ;
-	dst = gui->addr + (y * gui->line_len + x * (gui->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_len + x * (img->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
 }
 
@@ -48,7 +48,6 @@ float	get_angle(float old, float change)
 		return (res + M_PI * 2);
 	return (res);
 }
-
 
 void	free_chartab(char **tab)
 {

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 23:48:47 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 00:01:14 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ t_tex_info	get_tex_info(t_point wall, int h, int start)
 	return (info);
 }
 
-t_img which_texture(t_game *g, t_texture text, float angle)
+t_img which_texture(int wall_side, t_texture *text, float angle)
 {
-	if (g->side == 1)
+	if (wall_side == 1)
 	{
 		if (angle <= 3 * PI / 2 && angle >= PI / 2)
-			return (text.wall_w);
-		return (text.wall_e);
+			return (text->wall_w);
+		return (text->wall_e);
 	}
 	else
 	{
 		if (angle > PI && angle < 2 * PI)
-			return (text.wall_n);
-		return (text.wall_s);
+			return (text->wall_n);
+		return (text->wall_s);
 	}
 }
 
@@ -80,14 +80,14 @@ void	draw_text(t_game *game, t_ray ray, int ray_n, float angle)
 	if (h < SCREEN_Y)
 		start = (SCREEN_Y - h) / 2;
 	info = get_tex_info(ray.wall, h, start);
-	info.img = which_texture(game, game->texture, angle);
+	info.img = which_texture(ray.wall_side, &game->texture, angle);
 	i = -1;
 	while (++i < h && i < SCREEN_Y)
 	{
 		info.y = (int) info.tex_pos & (64 - 1);
 		info.tex_pos += info.step;
 		color = get_data_color(info.x, info.y, info.img.addr, info.img);
-		my_mlx_pixel_put(&game->gui, ray_n, start + i, color);
+		my_mlx_pixel_put(&game->game_img, ray_n, start + i, color);
 	}
 }
 
@@ -114,7 +114,7 @@ void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
 		info.y = (int) info.tex_pos & (64 - 1);
 		info.tex_pos += info.step;
 		color = get_data_color(info.x, info.y, img.addr, img);
-		my_mlx_pixel_put(&game->gui, ray_n, start + i, color);
+		my_mlx_pixel_put(&game->game_img, ray_n, start + i, color);
 	}	
 }
 

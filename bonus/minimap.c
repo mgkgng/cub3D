@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 00:40:46 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 00:03:13 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	fill_void(t_game *game, int color)
 	{
 		j = -1;
 		while (++j < MINI_H)
-			my_mlx_pixel_put(&game->minimap, i, j, color);
+			put_pixel(&game->minimap, i, j, color);
 	}
 }
 
@@ -36,7 +36,7 @@ static void	draw_square(t_game *game, int *where, int size, int color)
 	{
 		j = 0;
 		while (++j < size - 1)
-			my_mlx_pixel_put(&game->minimap, where[0] + j, where[1] + i, color);
+			put_pixel(&game->minimap, where[0] + j, where[1] + i, color);
 	}
 }
 

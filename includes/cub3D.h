@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 23:52:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/17 23:59:06 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define PI 3.141592
 # define DEG	0.017453
 # define ANGLE 1.04718f
-
 
 #define	BLOCKSIZE 18
 #define MINI_X 20
@@ -81,9 +80,9 @@ typedef struct	s_ray {
 	t_point	wall;
 	float	dist;
 	int		side[2];
+	int		wall_side;
 	t_list	*door;
 	t_list	*sprite;
-	int		height;
 }	t_ray;
 
 typedef struct s_sprite {
@@ -109,7 +108,6 @@ typedef struct s_game
 	t_draw		draw;
 	int			height;
 	t_texture	texture;
-	int			side;
 }	t_game;
 
 typedef struct s_tex_info {
@@ -146,6 +144,8 @@ int		is_surrounded(char **lines);
 
 /* utils */
 void	end_program(char *str, int tag);
+void	put_pixel(t_img *img, int x, int y, int color);
+
 
 /* key */
 int	key_pressed(int key, t_game *game);
@@ -154,19 +154,19 @@ void	movement(t_game *game);
 void	translate(t_map *map, float theta);
 
 /* dda */
+t_ray	digital_differential_analyzer(t_map *map, float theta, t_game *game);
 t_dda	init_dda(float theta, int xy);
 bool	is_through(t_map *map, int x, int y);
 void	is_object(t_ray *ray, int c, t_map *map);
 float	perpendicular_dist(t_point from, t_point to, float angle);
 
-void	my_mlx_pixel_put(t_img *gui, int x, int y, int color);
+/* draw */
 void	draw_cub3D(t_game *game);
 
 int		key_hook(int key, t_game *game);
 
 int		terminate(t_game *game);
 // t_ray	digital_differential_analyzer(t_map map, float theta, t_game *game);
-t_ray	digital_differential_analyzer(t_map map, float theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
