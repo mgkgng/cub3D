@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:39:16 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 19:02:35 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:13:25 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,12 @@ typedef enum e_key {
 } t_key;
 
 typedef enum e_pressed {
-	ESC = 1 << 0,
-	UP = 1 << 1,
-	DOWN = 1 << 2,
-	LEFT = 1 << 3,
-	RIGHT = 1 << 4,
-	TURN_L = 1 << 5,
-	TURN_R = 1 << 6,
-	DOOR = 1 << 7,
+	UP = 1 << 0,
+	DOWN = 1 << 1,
+	LEFT = 1 << 2,
+	RIGHT = 1 << 3,
+	TURN_L = 1 << 4,
+	TURN_R = 1 << 5,
 } t_pressed;
 
 #endif

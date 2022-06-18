@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:48:28 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/13 18:25:41 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:20:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	open_door(t_game *game)
 	{
 		/* open the door */
 		printf("The door is opening.\n");
-		game->map.map_move[(int) door_pos.y][(int) door_pos.x] = true; 
+		game->map.map_move[(int) door_pos.y][(int) door_pos.x] = true;
 	}
 	else
 	{

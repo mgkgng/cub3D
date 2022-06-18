@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 14:42:36 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 20:15:05 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void	draw_raycast(t_game *game, int h, int ray_x)
 		put_pixel(&game->screen, ray_x, start_y + i, 0x00FFFF00);
 }
 
-void	draw_cub3D(t_game *game)
+void	draw_cub3d(t_game *game)
 {
-	float		start_angle;
-	float		angle;
-	int			ray_n;
+	float	start_angle;
+	float	angle;
+	int		ray_n;
 	t_ray	ray;
 
 	start_angle = game->map.theta - ANGLE / 2;
@@ -68,7 +68,7 @@ void	draw_cub3D(t_game *game)
 int	redraw(t_game *game)
 {
 	paint_background(game);
-	draw_cub3D(game);
+	draw_cub3d(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
 	if (game->hook.minimap_on % 2)
 		draw_minimap(game);
@@ -77,15 +77,13 @@ int	redraw(t_game *game)
 
 int	draw(t_game *game)
 {
-	int	i;
-
-	movement(game);
+	move(game);
 	if (game->hook.re)
 	{
 		redraw(game);
 		game->hook.re = false;
 	}
-	if (game->hook.m_re)
+	/*if (game->hook.m_re)
 	{
 		i = -1;
 		while (++i * game->hook.m_sensibility < game->hook.m_turn)
@@ -94,6 +92,6 @@ int	draw(t_game *game)
 			redraw(game);
 		}
 		game->hook.m_re = false;
-	}
+	}*/
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 19:17:59 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/03 17:44:10 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:25:16 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		return (ft_memcpy(dst, src, len));
 	p_dst = (char *) dst + len - 1;
 	p_src = (char *) src + len - 1;
-		while (len-- > 0)
-			*p_dst-- = *p_src--;
+	while (len-- > 0)
+		*p_dst-- = *p_src--;
 	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 19:01:37 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 03:55:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 16:11:46 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_game	parse(char *filename)
 {
 	char	**lines;
 	t_game	game;
-	
+
 	if (!check_filename(filename))
 		end_program("Error: Wrong file format", 0);
 	lines = get_lines(get_fd(filename));

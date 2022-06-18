@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:13:58 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 14:45:00 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 16:04:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	terminate(t_game *game)
 float	get_angle(float old, float change)
 {
 	float	res;
+
 	res = old + change;
 	if (res > M_PI * 2)
 		return (res - M_PI * 2);

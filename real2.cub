@@ -1,9 +1,9 @@
-NO ./texture/Coree.xpm
-SO ./texture/France.xpm
+NO ./texture/wall.xpm
+SO ./texture/wall.xpm
 WE ./texture/wall.xpm
 EA ./texture/wall.xpm
-F 125,100,0
-C 225,30,0
+F 125,1,0
+C 20,30,0
 11111111111
 10000000001
 1000W000001

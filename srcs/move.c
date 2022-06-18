@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key.c                                              :+:      :+:    :+:   */
+/*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 20:48:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:38:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,61 +35,19 @@ void	turn(t_map *map, int dir)
 		map->theta += M_PI * 2;
 }
 
-int	key_pressed(int key, t_game *game)
+void	move(t_game *game)
 {
-	if (key == KEY_ESC)
-		terminate(game);
-	if (key == KEY_MINI)
-		game->hook.minimap_on++;
-	if (key == KEY_MINI_ZOOM_IN && game->hook.minimap_size > 5)
-		game->hook.minimap_size--;
-	if (key == KEY_MINI_ZOOM_OUT && game->hook.minimap_size < 20)
-		game->hook.minimap_size++;
-	if (key == KEY_UP)
-		game->hook.key_flag = UP;
-	else if (key == KEY_DOWN)
-		game->hook.key_flag = DOWN;
-	else if (key == KEY_LEFT)
-		game->hook.key_flag = LEFT;
-	else if (key == KEY_RIGHT)
-		game->hook.key_flag = RIGHT;
-	else if (key == KEY_TURN_L)
-		game->hook.key_flag = TURN_L;
-	else if (key == KEY_TURN_R)
-		game->hook.key_flag = TURN_R;
-	return (0);
-}
-
-int	key_released(int key, t_game *game)
-{
-	if (key == KEY_UP)
-		game->hook.key_flag -= UP;
-	else if (key == KEY_DOWN)
-		game->hook.key_flag -= DOWN;
-	else if (key == KEY_LEFT)
-		game->hook.key_flag -= LEFT;
-	else if (key == KEY_RIGHT)
-		game->hook.key_flag -= RIGHT;
-	else if (key == KEY_TURN_L)
-		game->hook.key_flag -= TURN_L;
-	else if (key == KEY_TURN_R)
-		game->hook.key_flag -= TURN_R;
-	return (0);
-}
-
-void	movement(t_game *game)
-{
-	if (game->hook.key_flag & UP)
+	if ((game->hook.key_flag & UP) > 0)
 		translate(&game->map, game->map.theta);
-	if (game->hook.key_flag & LEFT)
+	if ((game->hook.key_flag & LEFT) > 0)
 		translate(&game->map, game->map.theta - M_PI / 2);
-	if (game->hook.key_flag & DOWN)
+	if ((game->hook.key_flag & DOWN) > 0)
 		translate(&game->map, game->map.theta + M_PI);
-	if (game->hook.key_flag & RIGHT)
+	if ((game->hook.key_flag & RIGHT) > 0)
 		translate(&game->map, game->map.theta + M_PI / 2);
-	if (game->hook.key_flag & TURN_L)
+	if ((game->hook.key_flag & TURN_L) > 0)
 		turn(&game->map, -1);
-	if (game->hook.key_flag & TURN_R)
+	if ((game->hook.key_flag & TURN_R) > 0)
 		turn(&game->map, 1);
 	game->hook.re = true;
 }

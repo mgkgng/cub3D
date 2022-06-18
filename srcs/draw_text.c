@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 14:42:53 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:06:58 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,15 @@ t_tex_info	get_tex_info(t_point wall, int h, int start)
 	if (wall.x - (int) wall.x == 0)
 		info.fract = wall.y - (int) wall.y;
 	else
-		info.fract = wall.x - (int) wall.x; 
+		info.fract = wall.x - (int) wall.x;
 	info.step = 64.0f / (float) h;
 	info.x = info.fract * 64;
-	info.tex_pos = (start - (600 + h) / 2) * info.step;
+	(void) start;
+	info.tex_pos = (start - (600 - h + 1) / 2) * info.step;
 	return (info);
 }
 
-t_img which_texture(int wall_side, t_texture *text, float angle)
+t_img	which_texture(int wall_side, t_texture *text, float angle)
 {
 	if (wall_side == 1)
 	{
@@ -65,15 +66,15 @@ t_img which_texture(int wall_side, t_texture *text, float angle)
 	}
 }
 
-void	draw_text(t_game *game, t_ray ray, int ray_n, float angle)
+void	draw_wall(t_game *game, t_ray ray, int ray_n, float angle)
 {
-	int		start;
-	int		h;
-	unsigned int color;
-	t_tex_info info;
-	int	i;
+	int				start;
+	int				h;
+	unsigned int	color;
+	t_tex_info 		info;
+	int				i;
 	
-    h = get_height(ray.dist, game);
+	h = get_height(ray.dist, game);
 	if (game->height > 600)
 		h = h / ray.dist;
 	start = 0;
@@ -91,43 +92,45 @@ void	draw_text(t_game *game, t_ray ray, int ray_n, float angle)
 	}
 }
 
-void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
+void	draw_object(t_game *game, t_list *obj, int ray_n)
 {
-	int		start;
-	int		h;
-	unsigned int color;
-	t_tex_info info;
-	int	i;
-	t_img	img;
+	int				start;
+	int				h;
+	unsigned int	color;
+	t_tex_info 		info;
+	int				i;
 	
-	img = game->texture.door;
-	h = get_height(dist, game);
+	h = get_height(obj->dist, game);
 	if (game->height > 600)
-		h = h / dist;
+		h = h / obj->dist;
 	start = 0;
 	if (h < SCREEN_Y)
 		start = (SCREEN_Y - h) / 2;
-	info = get_tex_info(wall, h, start);
+	info = get_tex_info(obj->pos, h, start);
+	if (obj->type == DOOR)
+		info.img = game->texture.door;
+	else
+		info.img = game->texture.sprite;
 	i = -1;
 	while (++i < h && i < SCREEN_Y)
 	{
 		info.y = (int) info.tex_pos & (64 - 1);
 		info.tex_pos += info.step;
-		color = get_data_color(info.x, info.y, img.addr, img);
+		color = get_data_color(info.x, info.y, info.img.addr, info.img);
 		put_pixel(&game->screen, ray_n, start + i, color);
-	}	
+	}
 }
 
 void	draw_img(t_game *game, t_ray *ray, int ray_x, float angle)
 {
-	t_list	*current_door;
+	t_list	*current_obj;
 	
-	draw_text(game, *ray, ray_x, angle);
-	current_door = ray->door;
-	while (current_door)
+	draw_wall(game, *ray, ray_x, angle);
+	current_obj = ray->object;
+	while (current_obj)
 	{
-		draw_door(game, current_door->dist, current_door->pos, ray_x);
-		current_door = current_door->next;
+		draw_object(game, current_obj, ray_x);
+		current_obj = current_obj->next;
 	}
-	free_lst(ray->door);
+	free_list(ray->object);
 }
