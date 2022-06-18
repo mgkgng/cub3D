@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 00:02:33 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:42:36 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	paint_background(t_game *game)
 	{
 		i = -1;
 		while (++i < SCREEN_X)
-			put_pixel(&game->game_img, i, j, game->draw.col_ceil);
+			put_pixel(&game->screen, i, j, game->draw.col_ceil);
 	}
 	j--;
 	while (++j < SCREEN_Y)
 	{
 		i = -1;
 		while (++i < SCREEN_X)
-			put_pixel(&game->game_img, i, j, game->draw.col_floor);
+			put_pixel(&game->screen, i, j, game->draw.col_floor);
 	}	
 }
 
@@ -41,7 +41,7 @@ void	draw_raycast(t_game *game, int h, int ray_x)
 	start_y = (int)((SCREEN_Y - h) / 2);
 	i = -1;
 	while (++i < h)
-		put_pixel(&game->game_img, ray_x, start_y + i, 0x00FFFF00);
+		put_pixel(&game->screen, ray_x, start_y + i, 0x00FFFF00);
 }
 
 void	draw_cub3D(t_game *game)
@@ -50,7 +50,6 @@ void	draw_cub3D(t_game *game)
 	float		angle;
 	int			ray_n;
 	t_ray	ray;
-
 
 	start_angle = game->map.theta - ANGLE / 2;
 	ray_n = -1;
@@ -61,7 +60,40 @@ void	draw_cub3D(t_game *game)
 			angle += M_PI * 2;
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
-		ray = digital_differential_analyzer(&game->map, angle, game);
+		ray = digital_differential_analyzer(&game->map, angle);
 		draw_img(game, &ray, ray_n, angle);
 	}
+}
+
+int	redraw(t_game *game)
+{
+	paint_background(game);
+	draw_cub3D(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
+	if (game->hook.minimap_on % 2)
+		draw_minimap(game);
+	return (0);
+}
+
+int	draw(t_game *game)
+{
+	int	i;
+
+	movement(game);
+	if (game->hook.re)
+	{
+		redraw(game);
+		game->hook.re = false;
+	}
+	if (game->hook.m_re)
+	{
+		i = -1;
+		while (++i * game->hook.m_sensibility < game->hook.m_turn)
+		{
+			turn(&game->map, game->hook.m_dir);
+			redraw(game);
+		}
+		game->hook.m_re = false;
+	}
+	return (0);
 }

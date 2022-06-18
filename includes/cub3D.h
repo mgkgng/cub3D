@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 23:59:06 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:42:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,12 @@ typedef struct	s_ray {
 	t_list	*sprite;
 }	t_ray;
 
-typedef struct s_sprite {
-	void	*img;
-	char	*addr;
-	void	*mlx;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		w;
-	int		h;
-	struct s_sprite *next;
-}	t_sprite;
-
 typedef struct s_game 
 {
 	void		*mlx;
 	void		*win;
 	t_map		map;
-	t_img		game_img;
+	t_img		screen;
 	t_img		minimap;
 	t_hook		hook;
 	t_draw		draw;
@@ -154,19 +142,16 @@ void	movement(t_game *game);
 void	translate(t_map *map, float theta);
 
 /* dda */
-t_ray	digital_differential_analyzer(t_map *map, float theta, t_game *game);
+t_ray	digital_differential_analyzer(t_map *map, float theta);
 t_dda	init_dda(float theta, int xy);
 bool	is_through(t_map *map, int x, int y);
 void	is_object(t_ray *ray, int c, t_map *map);
 float	perpendicular_dist(t_point from, t_point to, float angle);
 
 /* draw */
-void	draw_cub3D(t_game *game);
-
-int		key_hook(int key, t_game *game);
+int		draw(t_game *game);
 
 int		terminate(t_game *game);
-// t_ray	digital_differential_analyzer(t_map map, float theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
@@ -195,10 +180,10 @@ t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 float	get_angle(float old, float change);
 
 /* list */
-t_door	*ft_lstnew(t_point pos, float dist);
-void	ft_lstadd_front(t_door **alst, t_door *new);
-void	ft_lstadd_back(t_door **alst, t_door *new);
-void	free_lst(t_door *lst);
+t_list	*ft_lstnew(t_point pos, float dist);
+void	ft_lstadd_front(t_list **alst, t_list *new);
+void	ft_lstadd_back(t_list **alst, t_list *new);
+void	free_lst(t_list *lst);
 void	manip_list(t_list **one, t_list *other);
 t_list	*copy_list(t_list *lst);
 void	combine_list(float dist, t_list **origin, t_list *compare);

@@ -6,18 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:04:09 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 03:55:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:30:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int		ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
 
 static int	get_color(char *colstr)
 {

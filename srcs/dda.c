@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 23:59:11 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:42:10 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_ray	get_distX(t_map *map, int *where, float theta)
 	res.wall.y = where[1];
 	while (is_through(map, res.wall.x, res.wall.y + dda.side))
 	{
-		is_object(&res, map[(int) res.wall.y + dda.side][(int) res.wall.x], map);
+		is_object(&res, map->map_move[(int) res.wall.y + dda.side][(int) res.wall.x], map);
 		res.wall.x += dda.delta;
 		res.wall.y += dda.incre;
 	}
@@ -64,7 +64,7 @@ static t_ray	get_distY(t_map *map, int *where, float theta)
 	return (res);
 }
 
-t_ray	digital_differential_analyzer(t_map *map, float theta, t_game *game)
+t_ray	digital_differential_analyzer(t_map *map, float theta)
 {
 	t_ray	res_x;
 	t_ray	res_y;

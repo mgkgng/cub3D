@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 23:17:23 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:39:32 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ void	initialize_window(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, SCREEN_X, SCREEN_Y, "Cub3D");
-	game->gui.img = mlx_new_image(game->mlx, SCREEN_X, SCREEN_Y);
-	game->gui.addr = mlx_get_data_addr(game->gui.img, &game->gui.bits_per_pixel, &game->gui.line_len, &game->gui.endian);
+	game->screen.img = mlx_new_image(game->mlx, SCREEN_X, SCREEN_Y);
+	game->screen.addr = mlx_get_data_addr(game->screen.img,
+		&game->screen.bits_per_pixel, &game->screen.line_length, 
+		&game->screen.endian);
 	// bonus
 	game->minimap.img = mlx_new_image(game->mlx, MINI_W, MINI_H);
-	game->minimap.addr = mlx_get_data_addr(game->minimap.img, &game->minimap.bits_per_pixel, &game->minimap.line_len, &game->minimap.endian); 
+	game->minimap.addr = mlx_get_data_addr(game->minimap.img,
+		&game->minimap.bits_per_pixel, &game->minimap.line_length,
+		&game->minimap.endian); 
 }
 
 void	initialize_hook(t_game *game)
@@ -48,57 +52,14 @@ void	initialize_texture(t_game *game)
 	game->texture.door.addr = mlx_get_data_addr(game->texture.door.img, &game->texture.door.bits_per_pixel, &game->texture.door.line_length, &game->texture.door.endian);
 }
 
-int	redraw(t_game *game)
-{
-	paint_background(game);
-	draw_cub3D(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->gui.img, 0, 0);
-	if (game->hook.minimap_on % 2)
-		draw_minimap(game);
-	return (0);
-}
-
-int	draw(t_game *game)
-{
-	int	i;
-
-	movement(game);
-	if (game->hook.re)
-	{
-		redraw(game);
-		game->hook.re = false;
-	}
-	if (game->hook.m_re)
-	{
-		i = -1;
-		while (++i * game->hook.m_sensibility < game->hook.m_turn)
-		{
-			turn(&game->map, game->hook.m_dir);
-			redraw(game);
-		}
-		game->hook.m_re = false;
-	}
-	if (game->lock == 1 && game->count % 2 == 0)
-		sprite(game); // A REGLER.
-	game->count++;
-	return (0);
-}
-
-void	mouse_hook_control(t_game *game, t_hook *hook)
-{	
-	hook->m_re = true;
-	mlx_hook(game->win, 6, 1L << 6, mouse_hook, hook);
-	// mlx_loop_hook(game->gui.mlx, draw, game);
-}
-
 int	cub3D(t_game game)
 {
 	initialize_window(&game);
 	initialize_hook(&game);
 	initialize_texture(&game);
-	mouse_hook_control(&game, &game.hook);
 	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_released, &game);
+	mlx_hook(game.win, 6, 1L << 6, mouse_hook, &game.hook);
 	mlx_loop_hook(game.mlx, draw, &game);
 	mlx_loop(game.mlx);
 	return (terminate(&game));

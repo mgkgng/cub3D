@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:13:58 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 23:55:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:45:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	put_pixel(t_img *img, int x, int y, int color)
 
 	if (!color)
 		return ;
-	dst = img->addr + (y * img->line_len + x * (img->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
 }
 

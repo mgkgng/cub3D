@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:57:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 00:01:14 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:42:53 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	draw_text(t_game *game, t_ray ray, int ray_n, float angle)
 		info.y = (int) info.tex_pos & (64 - 1);
 		info.tex_pos += info.step;
 		color = get_data_color(info.x, info.y, info.img.addr, info.img);
-		my_mlx_pixel_put(&game->game_img, ray_n, start + i, color);
+		put_pixel(&game->screen, ray_n, start + i, color);
 	}
 }
 
@@ -114,7 +114,7 @@ void	draw_door(t_game *game, float dist, t_point wall, int ray_n)
 		info.y = (int) info.tex_pos & (64 - 1);
 		info.tex_pos += info.step;
 		color = get_data_color(info.x, info.y, img.addr, img);
-		my_mlx_pixel_put(&game->game_img, ray_n, start + i, color);
+		put_pixel(&game->screen, ray_n, start + i, color);
 	}	
 }
 
