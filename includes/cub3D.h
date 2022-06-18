@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 18:57:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 14:42:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,16 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <math.h>
-// #include <mlx.h>
-#include "../minilibx_opengl_20191021/mlx.h"
+#include <mlx.h>
 
 #include "libft.h"
-#include "hook.h"
 #include "raycast.h"
 #include "texture.h"
-#include "sprite.h"
+#include "key.h"
 
-#define	PI 3.141592
-#define DEG	0.017453
+# define PI 3.141592
+# define DEG	0.017453
+# define ANGLE 1.04718f
 
 #define	BLOCKSIZE 18
 #define MINI_X 20
@@ -43,12 +42,11 @@ typedef struct s_point {
 	float	y;
 }	t_point;
 
-typedef struct s_door {
-	t_point	*pos;
-	float	*dist;
-	bool	*open;
-	int		nb;
-}	t_door;
+typedef struct s_list {
+	t_point			pos;
+	float			dist;
+	struct s_list	*next;
+}	t_list;
 
 typedef struct s_draw {
 	char	**nswe;
@@ -62,28 +60,8 @@ typedef struct s_map {
 	bool	**map_move;
 	char	**map_wall;
 	t_point	pos;
-	t_point *doors;
-	int		doors_nb;
-	t_point pixel_pos;
 	float	theta;
 }	t_map;
-
-typedef struct s_gui {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	//* bonus
-	void	*mini_img;
-	char	*mini_addr;
-	int		mini_pixel;
-	int		mini_len;
-	int		mini_endian;
-	//* bonus
-	int		bits_per_pixel;
-	int		line_len;
-	int		endian;
-} 	t_gui;
 
 typedef struct s_hook {
 	bool	re;
@@ -95,53 +73,29 @@ typedef struct s_hook {
 	int		m_dir;
 	int		m_sensibility;
 	bool	m_re;
+	int			key_flag;
 }	t_hook;
 
-typedef struct	s_raycast {
+typedef struct	s_ray {
 	t_point	wall;
 	float	dist;
 	int		side[2];
-	t_door	door;
-	int		height;
-}	t_raycast;
-
-typedef struct s_sprite {
-	void	*img;
-	char	*addr;
-	void	*mlx;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		w;
-	int		h;
-	struct s_sprite *next;
-}	t_sprite;
-
-typedef struct	s_key {
-	int	w;
-	int	a;
-	int	s;
-	int	d;
-	int	turn_l;
-	int	turn_r;
-}	t_key;
+	int		wall_side;
+	t_list	*door;
+	t_list	*sprite;
+}	t_ray;
 
 typedef struct s_game 
 {
+	void		*mlx;
+	void		*win;
 	t_map		map;
-	t_gui		gui;
+	t_img		screen;
+	t_img		minimap;
 	t_hook		hook;
 	t_draw		draw;
-	t_raycast	ray;
-	t_sprite	*spr;
-	t_key		*key;
 	int			height;
 	t_texture	texture;
-	int			pos[2];
-	int			lock;
-	int			sprite;
-	int 		count;
-	int			side;
 }	t_game;
 
 typedef struct s_tex_info {
@@ -153,22 +107,32 @@ typedef struct s_tex_info {
 	t_img	img;
 }	t_tex_info;
 
+typedef struct s_dda {
+	float	delta;
+	int		incre;
+	int		side;
+}	t_dda;
+
 int	cub3D(t_game game);
 
 /* parse */
 t_game	parse(char *filename);
+t_map	get_map(char **lines);
+t_draw	get_draw(char **lines);
 
 /* parse_utils */
-int	get_fd(char *filename);
-int	ft_tablen(char **map);
-int	verif_texture(char *dir);
-int	get_color(char *colstr);
-int	is_surrounded(char **lines);
+char	**get_lines(int fd);
+int		get_fd(char *filename);
+int		ft_tablen(char **map);
 
+/* parse_error */
+int		check_filename(char *file);
+int		verif_texture(char *dir);
+int		is_surrounded(char **lines);
 
-/* error */
-void	error(int c);
+/* utils */
 void	end_program(char *str, int tag);
+void	put_pixel(t_img *img, int x, int y, int color);
 
 
 /* key */
@@ -177,41 +141,53 @@ int	key_released(int key, t_game *game);
 void	movement(t_game *game);
 void	translate(t_map *map, float theta);
 
-/* key */
-int	key_pressed(int key, t_game game);
-int	key_released(int key, t_game game);
+/* dda */
+t_ray	digital_differential_analyzer(t_map *map, float theta);
+t_dda	init_dda(float theta, int xy);
+bool	is_through(t_map *map, int x, int y);
+void	is_object(t_ray *ray, int c, t_map *map);
+float	perpendicular_dist(t_point from, t_point to, float angle);
 
-void	my_mlx_pixel_put(t_gui *gui, int x, int y, int color);
-// int     mlx_mouse_move(mlx_win_list_t *win, int x, int y);
-void	draw_cub3D(t_game *game);
-
-int		key_hook(int key, t_game *game);
+/* draw */
+int		draw(t_game *game);
 
 int		terminate(t_game *game);
-// t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
-t_raycast	digital_differential_analyzer(t_map map, float theta, t_game *game);
 /*parse utils*/
 int		check_filename(char *file);
 int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
-int		get_color(char *colstr);
 
 //*bonus
 
 void	draw_minimap(t_game *game);
-void	minimap_pixel_put(t_gui *gui, int x, int y, int color);
 int		mouse_hook(int x, int y, t_hook *hook);
 void	turn(t_map *map, int dir);
 /*draw*/
-void	draw_text(t_game *game, t_raycast ray, int ray_n, float angle);
+void	paint_background(t_game *game);
+
+void	draw_text(t_game *game, t_ray ray, int ray_n, float angle);
 
 float	perpendicular_dist(t_point from, t_point to, float angle);
-//void	draw_text(t_game *game, t_img img, int h, t_raycast ray, int ray_n);
+//void	draw_text(t_game *game, t_img img, int h, t_ray ray, int ray_n);
 
 bool	is_door(t_point *door, int x, int y, int nb);
 void	open_door(t_game *game);
-void	draw_img(t_game *game, t_raycast ray, int ray_x, float angle);
+void	draw_img(t_game *game, t_ray *ray, int ray_x, float angle);
 /* error */
+t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 
-t_texture	get_texture(t_draw draw, void *mlx_ptr);
+/* utils */
+
+float	get_angle(float old, float change);
+
+/* list */
+t_list	*ft_lstnew(t_point pos, float dist);
+void	ft_lstadd_front(t_list **alst, t_list *new);
+void	ft_lstadd_back(t_list **alst, t_list *new);
+void	free_lst(t_list *lst);
+void	manip_list(t_list **one, t_list *other);
+t_list	*copy_list(t_list *lst);
+void	combine_list(float dist, t_list **origin, t_list *compare);
+
+void	free_chartab(char **tab);
 
 #endif

@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.h                                             :+:      :+:    :+:   */
+/*   key.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 01:41:17 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:44:48 by min-kang         ###   ########.fr       */
+/*   Created: 2022/06/17 18:39:16 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/17 19:02:35 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOK_H
-# define HOOK_H
+#ifndef KEY_H
+# define KEY_H
 
-# define ESC 53
-# define UP 13
-# define DOWN 1
-# define LEFT 0
-# define RIGHT 2
-# define TURN_L 123
-# define TURN_R 124
-# define MINIMAP 46
-# define MINIMAP_ZOOM_IN 126
-# define MINIMAP_ZOOM_OUT 125
+typedef enum e_key {
+	KEY_ESC = 53,
+	KEY_UP = 13,
+	KEY_DOWN = 1,
+	KEY_LEFT = 0,
+	KEY_RIGHT = 2,
+	KEY_TURN_L = 123,
+	KEY_TURN_R = 124,
+	KEY_MINI = 46,
+	KEY_MINI_ZOOM_IN = 126,
+	KEY_MINI_ZOOM_OUT = 125,
+} t_key;
 
+typedef enum e_pressed {
+	ESC = 1 << 0,
+	UP = 1 << 1,
+	DOWN = 1 << 2,
+	LEFT = 1 << 3,
+	RIGHT = 1 << 4,
+	TURN_L = 1 << 5,
+	TURN_R = 1 << 6,
+	DOOR = 1 << 7,
+} t_pressed;
 
 #endif

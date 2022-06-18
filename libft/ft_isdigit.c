@@ -5,16 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 14:57:42 by min-kang          #+#    #+#             */
-/*   Updated: 2022/04/09 13:30:35 by min-kang         ###   ########.fr       */
+/*   Created: 2022/06/18 14:30:03 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/18 14:30:32 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(int c)
+int		ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
-}	
+}

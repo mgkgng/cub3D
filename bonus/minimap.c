@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 22:03:49 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 00:03:13 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	fill_void(t_game *game, int color)
 	{
 		j = -1;
 		while (++j < MINI_H)
-			minimap_pixel_put(&game->gui, i, j, color);
+			put_pixel(&game->minimap, i, j, color);
 	}
 }
 
@@ -36,7 +36,7 @@ static void	draw_square(t_game *game, int *where, int size, int color)
 	{
 		j = 0;
 		while (++j < size - 1)
-			minimap_pixel_put(&game->gui, where[0] + j, where[1] + i, color);
+			put_pixel(&game->minimap, where[0] + j, where[1] + i, color);
 	}
 }
 
@@ -70,18 +70,18 @@ static void	put_character(t_game *game, int border)
 	int		pos[2];
 
 	img = NULL;
-	img = mlx_xpm_file_to_image(game->gui.mlx,
+	img = mlx_xpm_file_to_image(game->mlx,
 			"./texture/Suisse.xpm", &pos[0], &pos[1]);
-	mlx_put_image_to_window(game->gui.mlx, game->gui.win,
+	mlx_put_image_to_window(game->mlx, game->win,
 		img, MINI_W / 2, MINI_H / 2 - border);
 }	
 
 void	draw_minimap(t_game *game)
 {
-	ft_bzero(game->gui.mini_addr, MINI_W * MINI_H * 4);
+	ft_bzero(game->minimap.addr, MINI_W * MINI_H * 4);
 	fill_void(game, 0x8887ceeb);
 	fill_floor(game, game->hook.minimap_size, 0x44505050);
-	mlx_put_image_to_window(game->gui.mlx, game->gui.win,
-		game->gui.mini_img, MINI_X, MINI_Y);
+	mlx_put_image_to_window(game->mlx, game->win,
+		game->minimap.img, MINI_X, MINI_Y);
 	put_character(game, MINI_X / game->hook.minimap_size);
 }
