@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:08:30 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 23:16:26 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 16:08:17 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	is_surrounded(char **lines)
 	while (lines[++i])
 	{
 		j = -1;
-		open = false;																																										
+		open = false;
 		while (lines[i][++j])
 		{
 			if (!open && !(lines[i][j] == ' ' || lines[i][j] == '1'))

@@ -1,10 +1,10 @@
-SRCS =	srcs/main.c srcs/cub3D.c \
-		srcs/key.c \
+SRCS =	srcs/main.c srcs/cub3d.c \
+		srcs/key_hook.c srcs/move.c \
 		srcs/parse.c srcs/parse_draw.c srcs/parse_map.c srcs/parse_utils.c srcs/parse_error.c \
 		srcs/dda.c srcs/dda_utils.c \
 		srcs/draw.c srcs/draw_text.c \
 		srcs/utils.c \
-		bonus/door.c bonus/list.c bonus/minimap.c bonus/mouse.c \
+		bonus/door.c bonus/list.c bonus/list2.c bonus/minimap.c bonus/mouse.c \
 
 NAME = cub3D
 

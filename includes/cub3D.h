@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 14:42:22 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:33:13 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include "key.h"
 
 # define PI 3.141592
-# define DEG	0.017453
+# define DEG 0.017453
 # define ANGLE 1.04718f
 
 #define	BLOCKSIZE 18
@@ -37,6 +37,9 @@
 #define	SCREEN_X 920
 #define SCREEN_Y 600
 
+# define	DOOR 1
+# define	SPRITE 2
+
 typedef struct s_point {
 	float	x;
 	float	y;
@@ -45,6 +48,7 @@ typedef struct s_point {
 typedef struct s_list {
 	t_point			pos;
 	float			dist;
+	int				type;
 	struct s_list	*next;
 }	t_list;
 
@@ -81,8 +85,7 @@ typedef struct	s_ray {
 	float	dist;
 	int		side[2];
 	int		wall_side;
-	t_list	*door;
-	t_list	*sprite;
+	t_list	*object;
 }	t_ray;
 
 typedef struct s_game 
@@ -113,7 +116,7 @@ typedef struct s_dda {
 	int		side;
 }	t_dda;
 
-int	cub3D(t_game game);
+int	cub3d(t_game game);
 
 /* parse */
 t_game	parse(char *filename);
@@ -138,7 +141,7 @@ void	put_pixel(t_img *img, int x, int y, int color);
 /* key */
 int	key_pressed(int key, t_game *game);
 int	key_released(int key, t_game *game);
-void	movement(t_game *game);
+void	move(t_game *game);
 void	translate(t_map *map, float theta);
 
 /* dda */
@@ -180,10 +183,10 @@ t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 float	get_angle(float old, float change);
 
 /* list */
-t_list	*ft_lstnew(t_point pos, float dist);
+t_list	*ft_lstnew(t_point pos, float dist, int type);
 void	ft_lstadd_front(t_list **alst, t_list *new);
 void	ft_lstadd_back(t_list **alst, t_list *new);
-void	free_lst(t_list *lst);
+void	free_list(t_list *lst);
 void	manip_list(t_list **one, t_list *other);
 t_list	*copy_list(t_list *lst);
 void	combine_list(float dist, t_list **origin, t_list *compare);

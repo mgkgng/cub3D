@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 23:34:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 14:37:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:10:26 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ t_dda	init_dda(float theta, int xy)
 bool	is_through(t_map *map, int x, int y)
 {
 	if (x >= 0 && x < map->width
-		&& y >= 0 && y < map->height &&  
-			map->map_wall[y][x] != '1')
+		&& y >= 0 && y < map->height
+		&& map->map_wall[y][x] != '1')
 		return (true);
 	return (false);
 }
@@ -51,11 +51,13 @@ bool	is_through(t_map *map, int x, int y)
 void	is_object(t_ray *ray, int c, t_map *map)
 {
 	if (c == 'D')
-		ft_lstadd_front(&ray->door, ft_lstnew(ray->wall, 
-			perpendicular_dist(map->pos, ray->wall, map->theta + PI / 2)));
+		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
+				perpendicular_dist(map->pos, ray->wall,
+				map->theta + PI / 2), DOOR));
 	else if (c == 'Z')
-		ft_lstadd_front(&ray->sprite, ft_lstnew(ray->wall, 
-			perpendicular_dist(map->pos, ray->wall, map->theta + PI / 2)));
+		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
+				perpendicular_dist(map->pos, ray->wall,
+				map->theta + PI / 2), SPRITE));
 }
 
 float	perpendicular_dist(t_point from, t_point to, float angle)

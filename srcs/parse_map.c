@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/16 22:46:05 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 16:07:44 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,15 @@ static void	put_info(t_map *map, char **map_data)
 	int	max_width;
 	int	i;
 	int	j;
-	
+
 	max_width = 0;
 	i = -1;
 	while (map_data[++i])
 	{
 		j = -1;
 		while (map_data[i][++j])
-		{
 			if (ft_strchr("NSWE", map_data[i][j]))
-				put_player_info(map, (int [2]) {i, j}, map_data[i][j]);
-		}
+				put_player_info(map, (int [2]){i, j}, map_data[i][j]);
 		if (j > max_width)
 			max_width = j;
 	}
@@ -49,7 +47,7 @@ static void	put_info(t_map *map, char **map_data)
 	map->width = max_width;
 }
 
-static bool **get_map_move(t_map map, char **charmap)
+static bool	**get_map_move(t_map map, char **charmap)
 {
 	int		i;
 	int		j;
@@ -64,7 +62,7 @@ static bool **get_map_move(t_map map, char **charmap)
 	{
 		j = -1;
 		while (charmap[i][++j])
-			if (!(charmap[i][j] == ' ' || charmap[i][j] == '1' || charmap[i][j] == 'D'))
+			if (!(ft_strchr(" 1DZ", charmap[i][j])))
 				res[i][j] = true;
 	}
 	return (res);
@@ -75,7 +73,7 @@ static char	**get_map_wall(t_map map, char **charmap)
 	int		i;
 	int		j;
 	char	**res;
-	
+
 	res = ft_calloc(map.height, sizeof(char *));
 	i = -1;
 	while (++i < map.height)

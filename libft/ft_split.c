@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:33:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/15 16:13:38 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:23:12 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**ft_split(char const *s, char c)
 	char	**res;
 	int		i;
 	int		start;
-	int 	len;
+	int		len;
 
 	if (!s)
 		return (NULL);
