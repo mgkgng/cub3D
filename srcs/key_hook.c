@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:59:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 15:59:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:54:50 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ int	key_pressed(int key, t_game *game)
 		game->hook.minimap_size--;
 	if (key == KEY_MINI_ZOOM_OUT && game->hook.minimap_size < 20)
 		game->hook.minimap_size++;
-	if (key == KEY_UP)
-		game->hook.key_flag = UP;
-	else if (key == KEY_DOWN)
-		game->hook.key_flag = DOWN;
-	else if (key == KEY_LEFT)
-		game->hook.key_flag = LEFT;
-	else if (key == KEY_RIGHT)
-		game->hook.key_flag = RIGHT;
-	else if (key == KEY_TURN_L)
-		game->hook.key_flag = TURN_L;
-	else if (key == KEY_TURN_R)
-		game->hook.key_flag = TURN_R;
+	if (key == KEY_UP && !(game->hook.key_flag & UP))
+		game->hook.key_flag += UP;
+	else if (key == KEY_DOWN && !(game->hook.key_flag & DOWN))
+		game->hook.key_flag += DOWN;
+	else if (key == KEY_LEFT && !(game->hook.key_flag & LEFT))
+		game->hook.key_flag += LEFT;
+	else if (key == KEY_RIGHT && !(game->hook.key_flag & RIGHT))
+		game->hook.key_flag += RIGHT;
+	else if (key == KEY_TURN_L && !(game->hook.key_flag & TURN_L))
+		game->hook.key_flag += TURN_L;
+	else if (key == KEY_TURN_R && !(game->hook.key_flag & TURN_R))
+		game->hook.key_flag += TURN_R;
 	return (0);
 }
 

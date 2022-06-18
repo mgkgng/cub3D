@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 16:11:57 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:38:24 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ void	turn(t_map *map, int dir)
 
 void	move(t_game *game)
 {
-	if (game->hook.key_flag & UP)
+	if ((game->hook.key_flag & UP) > 0)
 		translate(&game->map, game->map.theta);
-	if (game->hook.key_flag & LEFT)
+	if ((game->hook.key_flag & LEFT) > 0)
 		translate(&game->map, game->map.theta - M_PI / 2);
-	if (game->hook.key_flag & DOWN)
+	if ((game->hook.key_flag & DOWN) > 0)
 		translate(&game->map, game->map.theta + M_PI);
-	if (game->hook.key_flag & RIGHT)
+	if ((game->hook.key_flag & RIGHT) > 0)
 		translate(&game->map, game->map.theta + M_PI / 2);
-	if (game->hook.key_flag & TURN_L)
+	if ((game->hook.key_flag & TURN_L) > 0)
 		turn(&game->map, -1);
-	if (game->hook.key_flag & TURN_R)
+	if ((game->hook.key_flag & TURN_R) > 0)
 		turn(&game->map, 1);
 	game->hook.re = true;
 }

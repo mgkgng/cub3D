@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 17:29:25 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 20:36:33 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_ray	get_dist_x(t_map *map, int *where, float theta)
 	while (is_through(map, res.wall.x, res.wall.y + dda.side))
 	{
 		is_object(&res,
-			map->map_move[(int) res.wall.y + dda.side][(int) res.wall.x], map);
+			map->map_wall[(int) res.wall.y + dda.side][(int) res.wall.x], map);
 		res.wall.x += dda.delta;
 		res.wall.y += dda.incre;
 	}

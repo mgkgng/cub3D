@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list2.c                                            :+:      :+:    :+:   */
+/*   list_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:21:29 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 17:21:30 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 20:09:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	combine_list(float dist, t_list **origin, t_list *compare)
 			now_compare = now_compare->next;
 		}
 	}
-	while (now_compare)
+	while (now_compare) // i should take care here
 	{
 		if (now_compare->dist < dist)
 		{

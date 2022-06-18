@@ -4,7 +4,7 @@ SRCS =	srcs/main.c srcs/cub3d.c \
 		srcs/dda.c srcs/dda_utils.c \
 		srcs/draw.c srcs/draw_text.c \
 		srcs/utils.c \
-		bonus/door.c bonus/list.c bonus/list2.c bonus/minimap.c bonus/mouse.c \
+		bonus/door.c bonus/list_utils.c bonus/list_utils2.c bonus/minimap.c bonus/mouse.c \
 
 NAME = cub3D
 

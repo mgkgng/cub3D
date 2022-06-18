@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 17:33:13 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/18 20:15:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include <mlx.h>
 
 #include "libft.h"
-#include "raycast.h"
 #include "texture.h"
 #include "key.h"
 
@@ -162,7 +161,7 @@ int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
 //*bonus
 
 void	draw_minimap(t_game *game);
-int		mouse_hook(int x, int y, t_hook *hook);
+int		mouse_hook(int x, int y, t_game *game);
 void	turn(t_map *map, int dir);
 /*draw*/
 void	paint_background(t_game *game);
