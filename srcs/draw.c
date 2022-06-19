@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 17:21:25 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:21:01 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ static void	draw_object(t_game *game, t_list *obj, int ray_n)
 	if (h < SCREEN_Y)
 		start = (SCREEN_Y - h) / 2;
 	info = get_tex_info(obj->pos, h, start);
-	if (obj->type == DOOR)
-		info.img = game->texture.door;
+	if (obj->type == DOOR && game->map.map_move[(int) obj->map_pos.y][(int) obj->map_pos.x] == false)
+		info.img = game->texture.door_c;
+	else if (obj->type == DOOR && game->map.map_move[(int) obj->map_pos.y][(int) obj->map_pos.x] == true)
+		info.img = game->texture.door_o;
 	else
 		info.img = game->texture.sprite;
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 16:57:29 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:25:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ static void	init_img(t_game *game)
 			game->draw.nswe[2], &size_info[0], &size_info[1]);
 	game->texture.wall_e.img = mlx_xpm_file_to_image(game->mlx,
 			game->draw.nswe[3], &size_info[0], &size_info[1]);
-	game->texture.door.img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/The_Doors.xpm", &size_info[0], &size_info[1]);
-	/*game->texture.sprite.img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/Sprite.xpm", &size_info[0], &size_info[1]);*/
+	game->texture.door_o.img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/Door_o.xpm", &size_info[0], &size_info[1]);
+	game->texture.door_c.img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/Door_c.xpm", &size_info[0], &size_info[1]);
+	game->texture.sprite.img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/Zombie.xpm", &size_info[0], &size_info[1]);
 }
 
 static void	init_img_addr(t_game *game)
@@ -65,12 +67,15 @@ static void	init_img_addr(t_game *game)
 	game->texture.wall_e.addr = mlx_get_data_addr(game->texture.wall_e.img,
 			&game->texture.wall_e.bits_per_pixel,
 			&game->texture.wall_e.line_length, &game->texture.wall_e.endian);
-	game->texture.door.addr = mlx_get_data_addr(game->texture.door.img,
-			&game->texture.door.bits_per_pixel,
-			&game->texture.door.line_length, &game->texture.door.endian);
-	/*game->texture.sprite.addr = mlx_get_data_addr(game->texture.sprite.img,
+	game->texture.door_o.addr = mlx_get_data_addr(game->texture.door_o.img,
+			&game->texture.door_o.bits_per_pixel,
+			&game->texture.door_o.line_length, &game->texture.door_o.endian);
+	game->texture.door_c.addr = mlx_get_data_addr(game->texture.door_c.img,
+			&game->texture.door_c.bits_per_pixel,
+			&game->texture.door_c.line_length, &game->texture.door_c.endian);
+	game->texture.sprite.addr = mlx_get_data_addr(game->texture.sprite.img,
 			&game->texture.sprite.bits_per_pixel,
-			&game->texture.sprite.line_length, &game->texture.sprite.endian);*/
+			&game->texture.sprite.line_length, &game->texture.sprite.endian);
 }
 
 int	cub3d(t_game game)

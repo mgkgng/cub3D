@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:39:16 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 16:40:55 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 20:40:45 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef enum e_key {
 	KEY_MINI = 46,
 	KEY_MINI_ZOOM_IN = 126,
 	KEY_MINI_ZOOM_OUT = 125,
+	KEY_DOOR = 14
 } t_key;
 
 typedef enum e_pressed {

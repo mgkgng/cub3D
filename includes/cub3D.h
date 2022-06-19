@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 17:00:05 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:12:04 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_point {
 
 typedef struct s_list {
 	t_point			pos;
+	t_point			map_pos;
 	float			dist;
 	int				type;
 	struct s_list	*next;
@@ -129,7 +130,6 @@ int				is_surrounded(char **lines);
 void			end_program(char *str, int tag);
 void			put_pixel(t_img *img, int x, int y, int color);
 
-
 /* key */
 int				key_pressed(int key, t_game *game);
 int				key_released(int key, t_game *game);
@@ -140,7 +140,7 @@ void			translate(t_map *map, float theta);
 t_ray			digital_differential_analyzer(t_map *map, float theta);
 t_dda			init_dda(float theta, int xy);
 bool			is_through(t_map *map, int x, int y);
-void			is_object(t_ray *ray, int c, t_map *map);
+void			is_object(t_ray *ray, t_map *map, int *pos);
 float			perpendicular_dist(t_point from, t_point to, float angle);
 
 /* draw */
@@ -150,9 +150,6 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img);
 t_tex_info		get_tex_info(t_point wall, int h, int start);
 t_img			which_texture(int wall_side, t_texture *text, float angle);
 void			paint_background(t_game *game);
-
-
-
 
 int		terminate(t_game *game);
 /*parse utils*/
@@ -183,7 +180,7 @@ t_texture	get_texture_img(t_draw draw, void *mlx_ptr);
 float	get_angle(float old, float change);
 
 /* list */
-t_list	*ft_lstnew(t_point pos, float dist, int type);
+t_list	*ft_lstnew(t_point pos, float dist, int type, t_point map_pos);
 void	ft_lstadd_front(t_list **alst, t_list *new);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	free_list(t_list *lst);

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 16:57:38 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 20:42:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,19 @@ static t_ray	get_dist_x(t_map *map, int *where, float theta)
 	if (theta > 0 && theta < PI)
 		where[1]++;
 	dda = init_dda(theta, 0);
+	res.side[0] = 0;
+	res.side[1] = dda.side;
 	res.wall.x = map->pos.x + (where[1] - map->pos.y) / tan(theta);
 	res.wall.y = where[1];
 	while (is_through(map, res.wall.x, res.wall.y + dda.side))
 	{
-		is_object(&res,
-			map->map_wall[(int) res.wall.y + dda.side][(int) res.wall.x], map);
+		is_object(&res, map,
+			(int [2]){(int) res.wall.y + dda.side, (int) res.wall.x});
 		res.wall.x += dda.delta;
 		res.wall.y += dda.incre;
 	}
 	res.dist = perpendicular_dist(map->pos, res.wall, map->theta + PI / 2);
-	res.side[1] = dda.side;
-	res.side[0] = 0;
+
 	return (res);
 }
 
@@ -51,18 +52,18 @@ static t_ray	get_dist_y(t_map *map, int *where, float theta)
 	if ((theta > 0 && theta < PI / 2) || (theta > PI / 2 * 3 && theta < PI * 2))
 		where[0]++;
 	dda = init_dda(theta, 1);
+	res.side[0] = dda.side;
+	res.side[1] = 0;
 	res.wall.x = where[0];
 	res.wall.y = map->pos.y + (where[0] - map->pos.x) * tan(theta);
 	while (is_through(map, res.wall.x + dda.side, res.wall.y))
 	{
-		is_object(&res,
-			map->map_wall[(int) res.wall.y][(int) res.wall.x + dda.side], map);
+		is_object(&res, map,
+			(int [2]){(int) res.wall.y, (int) res.wall.x + dda.side});
 		res.wall.x += dda.incre;
 		res.wall.y += dda.delta;
 	}
 	res.dist = perpendicular_dist(map->pos, res.wall, map->theta + PI / 2);
-	res.side[0] = dda.side;
-	res.side[1] = 0;
 	return (res);
 }
 

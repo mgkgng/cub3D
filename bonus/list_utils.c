@@ -6,13 +6,13 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 20:49:53 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 16:58:19 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:09:33 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_list	*ft_lstnew(t_point pos, float dist, int type)
+t_list	*ft_lstnew(t_point pos, float dist, int type, t_point map_pos)
 {
 	t_list	*res;
 
@@ -20,6 +20,8 @@ t_list	*ft_lstnew(t_point pos, float dist, int type)
 	res->pos = pos;
 	res->dist = dist;
 	res->type = type;
+	res->map_pos.x = map_pos.x;
+	res->map_pos.y = map_pos.y;
 	return (res);
 }
 

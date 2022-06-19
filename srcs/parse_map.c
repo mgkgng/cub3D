@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 16:07:44 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:12:15 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static void	put_player_info(t_map *map, int *pos, char dir)
 {

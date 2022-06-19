@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:59:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 16:57:48 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 20:41:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	key_pressed(int key, t_game *game)
 {
 	if (key == KEY_ESC)
 		terminate(game);
-	if (key == KEY_MINI)
+	else if (key == KEY_MINI)
 		game->hook.minimap_on++;
-	if (key == KEY_MINI_ZOOM_IN && game->hook.minimap_size > 5)
+	else if (key == KEY_MINI_ZOOM_IN && game->hook.minimap_size > 5)
 		game->hook.minimap_size--;
-	if (key == KEY_MINI_ZOOM_OUT && game->hook.minimap_size < 20)
+	else if (key == KEY_MINI_ZOOM_OUT && game->hook.minimap_size < 20)
 		game->hook.minimap_size++;
-	if (key == KEY_UP && !(game->hook.flag & UP))
+	else if (key == KEY_UP && !(game->hook.flag & UP))
 		game->hook.flag += UP;
 	else if (key == KEY_DOWN && !(game->hook.flag & DOWN))
 		game->hook.flag += DOWN;
@@ -34,6 +34,8 @@ int	key_pressed(int key, t_game *game)
 		game->hook.flag += TURN_L;
 	else if (key == KEY_TURN_R && !(game->hook.flag & TURN_R))
 		game->hook.flag += TURN_R;
+	else if (key == KEY_DOOR)
+		open_door(game);
 	return (0);
 }
 
