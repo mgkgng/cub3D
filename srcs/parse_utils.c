@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/17 00:52:13 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:58:04 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 char	**get_lines(int fd)
 {

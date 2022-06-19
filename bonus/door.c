@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 18:48:28 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 17:20:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:58:17 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	put_door_pos(t_point *pos, float theta)
 {

@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:21:29 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 20:09:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:58:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 void	manip_list(t_list **one, t_list *other)
 {

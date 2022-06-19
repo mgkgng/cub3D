@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:46:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 16:12:02 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:57:51 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 int	main(int argc, char **argv)
 {

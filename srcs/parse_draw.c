@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:04:09 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 16:11:31 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:57:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static int	get_color(char *colstr)
 {

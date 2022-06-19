@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 20:15:27 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 17:00:05 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,12 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_hook {
-	bool	re;
-	//*bonus
+	bool			re;
+	int				flag;
 	unsigned int	minimap_on;
 	unsigned int	minimap_size;
-	int		x_prev;
-	int		m_turn;
-	int		m_dir;
-	int		m_sensibility;
-	bool	m_re;
-	int			key_flag;
+	int				mouse_x_prev;
+
 }	t_hook;
 
 typedef struct	s_ray {
@@ -115,43 +111,48 @@ typedef struct s_dda {
 	int		side;
 }	t_dda;
 
-int	cub3d(t_game game);
+/* cub3d */
+int				cub3d(t_game game);
 
 /* parse */
-t_game	parse(char *filename);
-t_map	get_map(char **lines);
-t_draw	get_draw(char **lines);
-
-/* parse_utils */
-char	**get_lines(int fd);
-int		get_fd(char *filename);
-int		ft_tablen(char **map);
-
-/* parse_error */
-int		check_filename(char *file);
-int		verif_texture(char *dir);
-int		is_surrounded(char **lines);
+t_game			parse(char *filename);
+t_map			get_map(char **lines);
+t_draw			get_draw(char **lines);
+char			**get_lines(int fd);
+int				get_fd(char *filename);
+int				ft_tablen(char **map);
+int				check_filename(char *file);
+int				verif_texture(char *dir);
+int				is_surrounded(char **lines);
 
 /* utils */
-void	end_program(char *str, int tag);
-void	put_pixel(t_img *img, int x, int y, int color);
+void			end_program(char *str, int tag);
+void			put_pixel(t_img *img, int x, int y, int color);
 
 
 /* key */
-int	key_pressed(int key, t_game *game);
-int	key_released(int key, t_game *game);
-void	move(t_game *game);
-void	translate(t_map *map, float theta);
+int				key_pressed(int key, t_game *game);
+int				key_released(int key, t_game *game);
+void			move(t_game *game);
+void			translate(t_map *map, float theta);
 
 /* dda */
-t_ray	digital_differential_analyzer(t_map *map, float theta);
-t_dda	init_dda(float theta, int xy);
-bool	is_through(t_map *map, int x, int y);
-void	is_object(t_ray *ray, int c, t_map *map);
-float	perpendicular_dist(t_point from, t_point to, float angle);
+t_ray			digital_differential_analyzer(t_map *map, float theta);
+t_dda			init_dda(float theta, int xy);
+bool			is_through(t_map *map, int x, int y);
+void			is_object(t_ray *ray, int c, t_map *map);
+float			perpendicular_dist(t_point from, t_point to, float angle);
 
 /* draw */
-int		draw(t_game *game);
+int				draw(t_game *game);
+float			get_height(float dist, t_game *game);
+unsigned int	get_data_color(int x, int y, void *addr, t_img img);
+t_tex_info		get_tex_info(t_point wall, int h, int start);
+t_img			which_texture(int wall_side, t_texture *text, float angle);
+void			paint_background(t_game *game);
+
+
+
 
 int		terminate(t_game *game);
 /*parse utils*/

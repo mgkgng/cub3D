@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:39:16 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 19:13:25 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:40:55 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef enum e_pressed {
 	RIGHT = 1 << 3,
 	TURN_L = 1 << 4,
 	TURN_R = 1 << 5,
+	MOUSE_L = 1 << 6,
+	MOUSE_R = 1 << 7,
 } t_pressed;
 
 #endif

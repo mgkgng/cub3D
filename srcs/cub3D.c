@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/18 20:14:08 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:57:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static void	init_window(t_game *game)
 {
@@ -28,9 +28,7 @@ static void	init_window(t_game *game)
 
 static void	init_hook(t_game *game)
 {
-	game->hook.m_turn = 0;
-	game->hook.x_prev = SCREEN_X / 2;
-	game->hook.m_sensibility = 20;
+	game->hook.mouse_x_prev = SCREEN_X / 2;
 	game->hook.minimap_on = 0;
 	game->hook.minimap_size = 7;
 }
