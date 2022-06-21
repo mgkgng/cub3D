@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 18:12:15 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:41:13 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
-static void	put_player_info(t_map *map, int *pos, char dir)
+static void	put_player_info(t_map *map, int *pos, char dir, int *verif)
 {
 	map->pos.x = pos[1];
 	map->pos.y = pos[0];
@@ -24,6 +24,7 @@ static void	put_player_info(t_map *map, int *pos, char dir)
 		map->theta = PI;
 	else
 		map->theta = 0;
+	*verif = 1;
 }
 
 static void	put_info(t_map *map, char **map_data)
@@ -31,7 +32,9 @@ static void	put_info(t_map *map, char **map_data)
 	int	max_width;
 	int	i;
 	int	j;
+	int verif;
 
+	verif = 0;
 	max_width = 0;
 	i = -1;
 	while (map_data[++i])
@@ -39,10 +42,12 @@ static void	put_info(t_map *map, char **map_data)
 		j = -1;
 		while (map_data[i][++j])
 			if (ft_strchr("NSWE", map_data[i][j]))
-				put_player_info(map, (int [2]){i, j}, map_data[i][j]);
+				put_player_info(map, (int [2]){i, j}, map_data[i][j], &verif);
 		if (j > max_width)
 			max_width = j;
 	}
+	if (verif != 1)
+		end_program("NO NSWE", 0);
 	map->height = i;
 	map->width = max_width;
 }
@@ -101,6 +106,7 @@ t_map	get_map(char **lines)
 	t_map	map;
 
 	is_surrounded(lines + 6);
+	door_error(lines + 6);
 	put_info(&map, lines + 6);
 	map.map_move = get_map_move(map, lines + 6);
 	map.map_wall = get_map_wall(map, lines + 6);

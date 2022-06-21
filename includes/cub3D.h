@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 21:12:04 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:48:19 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int				ft_tablen(char **map);
 int				check_filename(char *file);
 int				verif_texture(char *dir);
 int				is_surrounded(char **lines);
+void			door_error(char **map);
 
 /* utils */
 void			end_program(char *str, int tag);
