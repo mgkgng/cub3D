@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/22 21:11:29 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/22 22:03:59 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,6 @@ void	combine_list(float dist, t_list **origin, t_list *compare);
 void	free_chartab(char **tab);
 
 /* sprite */
-float	get_sprite_distance(t_point ray_p, float dist, float theta);
+float	get_sprite_dist(t_point ray_p, float dist, float theta);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/22 21:15:57 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/22 22:05:06 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static void	draw_object(t_game *game, t_list *obj, int ray_n)
 	t_tex_info		info;
 	int				i;
 
-	if (obj->type == SPRITE)
-		obj->dist = get_sprite_distance(obj->pos, obj->dist, game->map.theta);
 	h = get_height(obj->dist, game);
 	if (game->height > 600)
 		h = h / obj->dist;

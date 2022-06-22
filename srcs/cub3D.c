@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/22 21:12:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/22 22:33:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	init_img(t_game *game)
 	game->texture.door_c.img = mlx_xpm_file_to_image(game->mlx,
 			"./texture/Door_c.xpm", &size_info[0], &size_info[1]);
 	game->texture.sprite.img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/Zombie.xpm", &size_info[0], &size_info[1]);
+			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
 }
 
 static void	init_img_addr(t_game *game)

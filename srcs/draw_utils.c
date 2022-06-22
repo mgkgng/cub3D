@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:49:55 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/22 21:13:02 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/22 22:30:47 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_tex_info	get_tex_info(t_point wall, int h, int start)
 {
 	t_tex_info	info;
 
-	if (wall.x - (int) wall.x == 0 || wall.x - (int) wall.x == 0.5)
+	if (wall.x - (int) wall.x == 0)
 		info.fract = wall.y - (int) wall.y;
 	else
 		info.fract = wall.x - (int) wall.x;
