@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 23:34:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 21:21:32 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/22 20:42:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	is_through(t_map *map, int x, int y)
 	return (false);
 }
 
-void	is_object(t_ray *ray, t_map *map, int *pos)
+void	is_object(t_ray *ray, t_map *map, int *pos, int y)
 {
 	t_point	map_pos;
 
@@ -58,7 +58,7 @@ void	is_object(t_ray *ray, t_map *map, int *pos)
 		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
 				perpendicular_dist(map->pos, ray->wall,
 					map->theta + PI / 2), DOOR, map_pos));
-	else if (map->map_wall[pos[0]][pos[1]] == 'Z')
+	else if (y && map->map_wall[pos[0]][pos[1]] == 'Z')
 		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
 				perpendicular_dist(map->pos, ray->wall,
 					map->theta + PI / 2), SPRITE, map_pos));

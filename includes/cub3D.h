@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 21:12:04 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/22 20:47:28 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,13 @@ typedef struct s_dda {
 	int		side;
 }	t_dda;
 
+// ax + by + c = 0
+typedef struct s_line {
+	float	a;
+	float	b;
+	float	c;
+}	t_line;
+
 /* cub3d */
 int				cub3d(t_game game);
 
@@ -140,7 +147,7 @@ void			translate(t_map *map, float theta);
 t_ray			digital_differential_analyzer(t_map *map, float theta);
 t_dda			init_dda(float theta, int xy);
 bool			is_through(t_map *map, int x, int y);
-void			is_object(t_ray *ray, t_map *map, int *pos);
+void			is_object(t_ray *ray, t_map *map, int *pos, int y);
 float			perpendicular_dist(t_point from, t_point to, float angle);
 
 /* draw */
