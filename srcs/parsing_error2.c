@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_error2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:41:49 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/21 15:50:39 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:13:30 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static void	door_check(char	**map, int i, int j)
 {
