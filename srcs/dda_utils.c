@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 23:34:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/22 22:29:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/23 13:19:42 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,21 @@ void	is_object(t_ray *ray, t_map *map, int *pos, int y)
 	float	new_dist;
 	t_point	centre;
 
+	(void) y;
 	map_pos.x = pos[1];
 	map_pos.y = pos[0];
 	if (map->map_wall[pos[0]][pos[1]] == 'D')
 		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
 				perpendicular_dist(map->pos, ray->wall,
 					map->theta + PI / 2), DOOR, map_pos));
-	else if (y && map->map_wall[pos[0]][pos[1]] == 'Z')
+	else if (map->map_wall[pos[0]][pos[1]] == 'Z')
 	{
 		//printf("%f... %f...\n", ray->wall.x, ray->wall.y);
 		centre.x = map_pos.x + 0.5;
 		centre.y = map_pos.y + 0.5;
-		new_dist = perpendicular_dist(centre, ray->wall, map->theta + PI / 2);
+		new_dist = sqrt(pow(centre.x - map->pos.x, 2) + pow(centre.y - map->pos.y, 2));
 		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
-				perpendicular_dist(map->pos, ray->wall,
-					map->theta + PI / 2) + new_dist, SPRITE, map_pos));
+				new_dist, SPRITE, map_pos));
 	}
 }
 
