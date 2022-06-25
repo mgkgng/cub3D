@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/20 12:17:53 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:12:07 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,22 @@ static void	init_img_addr(t_game *game)
 			&game->texture.sprite.line_length, &game->texture.sprite.endian);
 }
 
+void	init_lodev(t_game *game)
+{
+	game->lod = malloc(sizeof(t_lodev));
+	game->lod->dir_x = cos(game->map.theta);
+	game->lod->dir_y = sin(game->map.theta);
+	game->lod->plane_x = 0;
+	game->lod->plane_y = 0.66;
+}
+
 int	cub3d(t_game game)
 {
 	init_window(&game);
 	init_hook(&game);
 	init_img(&game);
 	init_img_addr(&game);
+	init_lodev(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_released, &game);
 	mlx_hook(game.win, 6, 1L << 6, mouse_hook, &game);

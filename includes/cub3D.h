@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/21 15:48:19 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:05:40 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define PI 3.141592
 # define DEG 0.017453
-# define ANGLE 1.04718f
+# define ANGLE 1.15192f
 
 #define	BLOCKSIZE 18
 #define MINI_X 20
@@ -64,6 +64,7 @@ typedef struct s_map {
 	bool	**map_move;
 	char	**map_wall;
 	t_point	pos;
+	t_list	*spr;
 	float	theta;
 }	t_map;
 
@@ -84,6 +85,15 @@ typedef struct	s_ray {
 	t_list	*object;
 }	t_ray;
 
+typedef struct s_lodev
+{
+	double 	plane_x;
+	double 	plane_y;
+	double	dir_x;
+	double	dir_y;
+	double	camera_x;
+}	t_lodev;
+
 typedef struct s_game 
 {
 	void		*mlx;
@@ -93,6 +103,7 @@ typedef struct s_game
 	t_img		minimap;
 	t_hook		hook;
 	t_draw		draw;
+	t_lodev		*lod;
 	int			height;
 	t_texture	texture;
 }	t_game;
@@ -161,7 +172,7 @@ int		check_fileformat(char *mapstr, char **map, int map_width, int map_height);
 
 void	draw_minimap(t_game *game);
 int		mouse_hook(int x, int y, t_game *game);
-void	turn(t_map *map, int dir);
+void	turn(t_game *game, t_map *map, int dir);
 /*draw*/
 void	paint_background(t_game *game);
 

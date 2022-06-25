@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/20 12:18:25 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/24 20:42:23 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,43 @@ void	translate(t_map *map, float theta)
 	map->pos.y = new_y;
 }
 
-void	turn(t_map *map, int dir)
+void	turn(t_game *game, t_map *map, int dir)
 {
+	// if (dir == TURN_L)
+	// {
+	// 	double oldDirX = game->lod->dir_x;
+    // 	game->lod->dir_x = game->lod->dir_x * cos(rotSpeed) - game->lod->dir_y * sin(rotSpeed);
+	// 	game->lod->dir_y = oldDirX * sin(rotSpeed) + game->lod->dir_y * cos(rotSpeed);
+    // 	double oldPlaneX = game->lod->plane_x;
+    // 	game->lod->plane_x = game->lod->plane_x * cos(rotSpeed) - game->lod->plane_y * sin(rotSpeed);
+    // 	game->lod->plane_y = oldPlaneX * sin(rotSpeed) + game->lod->plane_y * cos(rotSpeed);
+	// }
+	double	tmp;
+	tmp = map->theta;
 	map->theta += dir * (M_PI_4 / 25);
 	if (map->theta > M_PI * 2)
 		map->theta -= M_PI * 2;
 	if (map->theta < 0)
 		map->theta += M_PI * 2;
+	double	diff = map->theta - tmp;
+	if (dir == TURN_L)
+	{
+		double oldDirX = game->lod->dir_x;
+    	game->lod->dir_x = game->lod->dir_x * cos(diff) - game->lod->dir_y * sin(diff);
+		game->lod->dir_y = oldDirX * sin(diff) + game->lod->dir_y * cos(diff);
+    	double oldPlaneX = game->lod->plane_x;
+    	game->lod->plane_x = game->lod->plane_x * cos(diff) - game->lod->plane_y * sin(diff);
+    	game->lod->plane_y = oldPlaneX * sin(diff) + game->lod->plane_y * cos(diff);
+	}
+	else if (dir == TURN_R)
+	{
+    	double oldDirX = game->lod->dir_x;
+    	game->lod->dir_x = game->lod->dir_x * cos(-diff) - game->lod->dir_y * sin(-diff);
+    	game->lod->dir_y = oldDirX * sin(-diff) + game->lod->dir_y * cos(-diff);
+    	double oldPlaneX = game->lod->plane_x;
+    	game->lod->plane_x = game->lod->plane_x * cos(-diff) - game->lod->plane_y * sin(-diff);
+    	game->lod->plane_y = oldPlaneX * sin(-diff) + game->lod->plane_y * cos(-diff);
+	}
 }
 
 void	move(t_game *game)
@@ -46,17 +76,17 @@ void	move(t_game *game)
 	if ((game->hook.flag & RIGHT) > 0)
 		translate(&game->map, game->map.theta + M_PI / 2);
 	if ((game->hook.flag & TURN_L) > 0)
-		turn(&game->map, -1);
+		turn(game, &game->map, -1);
 	if ((game->hook.flag & TURN_R) > 0)
-		turn(&game->map, 1);
+		turn(game, &game->map, 1);
 	if ((game->hook.flag & MOUSE_L) > 0)
 	{
-		turn(&game->map, -1);
+		turn(game, &game->map, -1);
 		game->hook.flag -= MOUSE_L;
 	}
 	if ((game->hook.flag & MOUSE_R) > 0)
 	{
-		turn(&game->map, 1);
+		turn(game, &game->map, 1);
 		game->hook.flag -= MOUSE_R;
 	}
 	game->hook.re = true;
