@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 20:22:22 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:05:02 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static char	**get_map_wall(t_map map, char **charmap)
 				end_program("Error: Unknown character present on the map", 0);
 			if (!charmap[i][j])
 				while (j < map.width)
-					res[i][j++] = '1';
+					res[i][j++] = 'X';
 			else if (ft_strchr("NSWE", charmap[i][j]))
 				res[i][j] = '0';
 			else
@@ -114,6 +114,7 @@ t_map	get_map(char **lines)
 	put_info(&map, lines + 6);
 	map.map_move = get_map_move(map, lines + 6);
 	map.map_wall = get_map_wall(map, lines + 6);
-	check_map(lines + 6);
+	check_map_horizontal(lines + 6);
+	check_map_vertical(&map);
 	return (map);
 }

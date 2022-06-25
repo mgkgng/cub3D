@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:53:33 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 20:41:29 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:05:30 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	check_map_horizontal(char **map)
 			if (open && map[i][j] == '1')
 				open = false;
 		}
-		printf("   %dth line, open value = %d\n", i, open);
 		if (open)
 			end_program("Error: The map is not surrounded.", 0);
 	}	
@@ -70,18 +69,22 @@ void	check_map_vertical(t_map *map)
 	int		j;
 	bool	open;
 	
-	width = 0;
-	i = -1;
-
+	j = -1;
+	open = false;
+	while (++j < map->width)
+	{
 		i = -1;
-		while (map[++i])
+		while (++i < map->height)
 		{	
-			if (!open && !(map[i][j] == ' ' || map[i][j] == '1'))
+			if (!open && !ft_strchr(" 1X", map->map_wall[i][j]))
 				open = true;
-			if (open && map[i][j] == '1')
+			if (open && map->map_wall[i][j] == '1')
 				open = false;
+			if (map->map_wall[i][j] == 'X' && open)
+				end_program("Error: The map is not surrounded v.", 0);
 		}
 		if (open)
-			end_program("Error: The map is not surrounded.", 0);
+			end_program("Error: The map is not surrounded v.", 0);
+
 	}
 }

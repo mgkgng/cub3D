@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 20:27:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 20:44:57 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,8 @@ int				get_fd(char *filename);
 int				ft_tablen(char **map);
 int				check_filename(char *file);
 int				verif_texture(char *dir);
-void			check_map(char **map);
+void			check_map_horizontal(char **map);
+void			check_map_vertical(t_map *map);
 
 //int				is_surrounded(char **lines);
 //void			door_error(char **map);
