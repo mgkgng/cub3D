@@ -6,22 +6,43 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/22 21:13:20 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:49:13 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	check_lines(char *line)
+{
+	static bool	draw_done;
+	static bool	map_start;
+	static bool	new_line;
+
+	if (!ft_strncmp("C ", line, 2))
+		draw_done = true;
+	if (draw_done && ft_strchr(" 10NSWEZD", line[0]))
+		map_start = true;
+	if (draw_done && map_start && !ft_strcmp("\n", line))
+		new_line = true;
+	if (new_line && ft_strcmp("\n", line))
+		end_program("Error: Wrong format of map", 0);
+}
 
 char	**get_lines(int fd)
 {
 	char	*line;
 	char	*r;
 	char	**res;
+	bool	draw_done;
+	bool	map_start;
 
 	r = NULL;
+	draw_done = false;
+	map_start = false;
 	line = get_next_line(fd);
 	while (line)
 	{
+		check_lines(line);
 		r = ft_strcat(r, line);
 		free(line);
 		line = get_next_line(fd);

@@ -1,13 +1,12 @@
 SRCS =	srcs/main.c srcs/cub3d.c \
 		srcs/key.c srcs/move.c \
-		srcs/parse.c srcs/parse_draw.c srcs/parse_map.c srcs/parse_utils.c srcs/parse_error.c \
+		srcs/parse.c srcs/parse_draw.c srcs/parse_map.c srcs/parse_utils.c srcs/parse_error.c srcs/parse_check.c\
 		srcs/dda.c srcs/dda_utils.c \
 		srcs/draw.c srcs/draw_utils.c \
 		srcs/utils.c \
 		bonus/door.c bonus/list_utils.c bonus/list_utils2.c \
 		bonus/minimap.c bonus/mouse.c bonus/sprite.c\
-		srcs/parsing_error2.c \
-
+	
 NAME = cub3D
 
 OBJS = ${SRCS:.c=.o}

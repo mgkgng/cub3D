@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 15:24:23 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 20:27:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,10 @@ int				get_fd(char *filename);
 int				ft_tablen(char **map);
 int				check_filename(char *file);
 int				verif_texture(char *dir);
-int				is_surrounded(char **lines);
-void			door_error(char **map);
+void			check_map(char **map);
+
+//int				is_surrounded(char **lines);
+//void			door_error(char **map);
 
 /* utils */
 void			end_program(char *str, int tag);
@@ -159,7 +161,7 @@ void			translate(t_map *map, float theta);
 t_ray			digital_differential_analyzer(t_map *map, float theta);
 t_dda			init_dda(float theta, int xy);
 bool			is_through(t_map *map, int x, int y);
-void			is_object(t_ray *ray, t_map *map, int *pos, int y);
+void			is_object(t_ray *ray, t_map *map, int *pos);
 float			perpendicular_dist(t_point from, t_point to, float angle);
 
 /* draw */

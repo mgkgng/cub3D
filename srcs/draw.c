@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 15:24:06 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 20:30:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ static void	draw_by_ray(t_game *game)
 	tmp = game->map.spr;
 	while (tmp)
 	{
-		printf("%f...%f\n", tmp->pos.x, tmp->pos.y);
+		//printf("%f...%f\n", tmp->pos.x, tmp->pos.y);
 		tmp = tmp->next;
 	}
 }

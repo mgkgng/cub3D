@@ -6,16 +6,16 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/22 21:13:18 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 20:22:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	put_player_info(t_map *map, int *pos, char dir, int *verif)
+static void	put_player_info(t_map *map, int *pos, char dir, int *dir_n)
 {
-	map->pos.x = pos[1];
-	map->pos.y = pos[0];
+	map->pos.x = pos[1] + 0.5;
+	map->pos.y = pos[0] + 0.5;
 	if (dir == 'N')
 		map->theta = 3 * PI / 2;
 	else if (dir == 'S')
@@ -24,7 +24,7 @@ static void	put_player_info(t_map *map, int *pos, char dir, int *verif)
 		map->theta = PI;
 	else
 		map->theta = 0;
-	*verif = 1;
+	(*dir_n)++;
 }
 
 static void	put_info(t_map *map, char **map_data)
@@ -32,9 +32,9 @@ static void	put_info(t_map *map, char **map_data)
 	int	max_width;
 	int	i;
 	int	j;
-	int verif;
+	int dir_n;
 
-	verif = 0;
+	dir_n = 0;
 	max_width = 0;
 	i = -1;
 	while (map_data[++i])
@@ -42,14 +42,18 @@ static void	put_info(t_map *map, char **map_data)
 		j = -1;
 		while (map_data[i][++j])
 			if (ft_strchr("NSWE", map_data[i][j]))
-				put_player_info(map, (int [2]){i, j}, map_data[i][j], &verif);
+				put_player_info(map, (int [2]){i, j}, map_data[i][j], &dir_n);
 		if (j > max_width)
 			max_width = j;
 	}
-	if (verif != 1)
-		end_program("NO NSWE", 0);
+	if (!dir_n)
+		end_program("Error: no position indicator(NSWE)", 0);
+	if (dir_n > 1)
+		end_program("Error: more than one position indicator(NSWE)", 0);
 	map->height = i;
 	map->width = max_width;
+	if (map->height < 3 || map->width < 3)
+		end_program("Error: the map is too small", 0);
 }
 
 static bool	**get_map_move(t_map map, char **charmap)
@@ -89,6 +93,8 @@ static char	**get_map_wall(t_map map, char **charmap)
 		j = -1;
 		while (++j < map.width)
 		{
+			if (!ft_strchr("NSWEDZ01 ", charmap[i][j]))
+				end_program("Error: Unknown character present on the map", 0);
 			if (!charmap[i][j])
 				while (j < map.width)
 					res[i][j++] = '1';
@@ -105,10 +111,9 @@ t_map	get_map(char **lines)
 {
 	t_map	map;
 
-	is_surrounded(lines + 6);
-	door_error(lines + 6);
 	put_info(&map, lines + 6);
 	map.map_move = get_map_move(map, lines + 6);
 	map.map_wall = get_map_wall(map, lines + 6);
+	check_map(lines + 6);
 	return (map);
 }
