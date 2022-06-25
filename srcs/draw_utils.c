@@ -6,11 +6,11 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:49:55 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/23 17:57:13 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:24:12 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 float	get_height(float dist, t_game *game)
 {
@@ -39,7 +39,7 @@ t_tex_info	get_tex_info(t_point wall, int h, int start)
 {
 	t_tex_info	info;
 
-	if (wall.x - (int) wall.x == 0 || wall.x - (int) wall.x == 0.5)
+	if (wall.x - (int) wall.x == 0)
 		info.fract = wall.y - (int) wall.y;
 	else
 		info.fract = wall.x - (int) wall.x;

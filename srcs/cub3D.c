@@ -6,11 +6,11 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/23 16:12:07 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:24:53 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static void	init_window(t_game *game)
 {
@@ -50,7 +50,7 @@ static void	init_img(t_game *game)
 	game->texture.door_c.img = mlx_xpm_file_to_image(game->mlx,
 			"./texture/Door_c.xpm", &size_info[0], &size_info[1]);
 	game->texture.sprite.img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/Zombie.xpm", &size_info[0], &size_info[1]);
+			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
 }
 
 static void	init_img_addr(t_game *game)

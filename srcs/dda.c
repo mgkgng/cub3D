@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/20 12:18:02 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:13:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static t_ray	get_dist_x(t_map *map, int *where, float theta)
 {
@@ -31,7 +31,7 @@ static t_ray	get_dist_x(t_map *map, int *where, float theta)
 	while (is_through(map, res.wall.x, res.wall.y + dda.side))
 	{
 		is_object(&res, map,
-			(int [2]){(int) res.wall.y + dda.side, (int) res.wall.x});
+			(int [2]){(int) res.wall.y + dda.side, (int) res.wall.x}, 0);
 		res.wall.x += dda.delta;
 		res.wall.y += dda.incre;
 	}
@@ -59,7 +59,7 @@ static t_ray	get_dist_y(t_map *map, int *where, float theta)
 	while (is_through(map, res.wall.x + dda.side, res.wall.y))
 	{
 		is_object(&res, map,
-			(int [2]){(int) res.wall.y, (int) res.wall.x + dda.side});
+			(int [2]){(int) res.wall.y, (int) res.wall.x + dda.side}, 1);
 		res.wall.x += dda.incre;
 		res.wall.y += dda.delta;
 	}
