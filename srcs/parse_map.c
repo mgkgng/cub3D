@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:05:02 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:09:25 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	put_info(t_map *map, char **map_data)
 	int	max_width;
 	int	i;
 	int	j;
-	int dir_n;
+	int	dir_n;
 
 	dir_n = 0;
 	max_width = 0;
@@ -71,8 +71,12 @@ static bool	**get_map_move(t_map map, char **charmap)
 	{
 		j = -1;
 		while (charmap[i][++j])
+		{
+			if (!ft_strchr("NSWEDZ01 ", charmap[i][j]))
+				end_program("Error: Unknown character present on the map", 0);
 			if (!(ft_strchr(" 1DZ", charmap[i][j])))
 				res[i][j] = true;
+		}
 	}
 	return (res);
 }
@@ -93,8 +97,6 @@ static char	**get_map_wall(t_map map, char **charmap)
 		j = -1;
 		while (++j < map.width)
 		{
-			if (!ft_strchr("NSWEDZ01 ", charmap[i][j]))
-				end_program("Error: Unknown character present on the map", 0);
 			if (!charmap[i][j])
 				while (j < map.width)
 					res[i][j++] = 'X';

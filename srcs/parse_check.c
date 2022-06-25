@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:53:33 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:05:30 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:17:44 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void	check_door(char **map, int i, int j)
 	end_program("Door must be surrounded on their side by a wall", 0);
 }
 
-static void check_space(char **map, int i, int j)
+static void	check_space(char **map, int i, int j)
 {
-	if ((i > 0 && !ft_strchr(" 1", map[i - 1][j]))
-		|| (map[i + 1] && !ft_strchr(" 1", map[i + 1][j])))
-		end_program("Space must be placed next to the wall or another space", 0);
-	if ((j > 0 && !ft_strchr(" 1", map[i][j - 1]))
-		|| (map[i][j + 1] && !ft_strchr(" 1", map[i][j + 1])))
-		end_program("Space must be placed next to the wall or another space", 0);
+	if ((i > 0 && !ft_strchr(" 1X", map[i - 1][j]))
+		|| (map[i + 1] && !ft_strchr(" 1X", map[i + 1][j])))
+		end_program("Space must be placed next to a wall or another space", 0);
+	if ((j > 0 && !ft_strchr(" 1X", map[i][j - 1]))
+		|| (map[i][j + 1] && !ft_strchr(" 1X", map[i][j + 1])))
+		end_program("Space must be placed next to a wall or another space", 0);
 }
 
 void	check_map_horizontal(char **map)
@@ -38,7 +38,7 @@ void	check_map_horizontal(char **map)
 	int		i;
 	int		j;
 	bool	open;
-	
+
 	i = -1;
 	open = false;
 	while (map[++i])
@@ -51,8 +51,6 @@ void	check_map_horizontal(char **map)
 				end_program("The border of the map should be enclosed", 0);
 			if (map[i][j] == 'D')
 				check_door(map, i, j);
-			if (map[i][j] == ' ')
-				check_space(map, i, j);
 			if (!open && !ft_strchr(" 1", map[i][j]))
 				open = true;
 			if (open && map[i][j] == '1')
@@ -68,14 +66,16 @@ void	check_map_vertical(t_map *map)
 	int		i;
 	int		j;
 	bool	open;
-	
+
 	j = -1;
 	open = false;
 	while (++j < map->width)
 	{
 		i = -1;
 		while (++i < map->height)
-		{	
+		{
+			if (map->map_wall[i][j] == ' ')
+				check_space(map, i, j);
 			if (!open && !ft_strchr(" 1X", map->map_wall[i][j]))
 				open = true;
 			if (open && map->map_wall[i][j] == '1')
@@ -85,6 +85,5 @@ void	check_map_vertical(t_map *map)
 		}
 		if (open)
 			end_program("Error: The map is not surrounded v.", 0);
-
 	}
 }

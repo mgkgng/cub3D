@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:04:09 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 17:21:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:11:23 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	get_color(char *colstr)
 	i = -1;
 	while (rgb[++i])
 		if (ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
-			end_program("RGB value must be inferior to 255 and superior or equal to 0", 0);
+			end_program("RGB value must be between 0 and 255", 0);
 	col = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | (ft_atoi(rgb[2]));
 	free_chartab(rgb);
 	return (col);
