@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 15:06:56 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/25 15:24:11 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:31:26 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 t_list	*sort_linked_list(t_list *spr, t_game *game)
 {

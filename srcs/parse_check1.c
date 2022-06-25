@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_check.c                                      :+:      :+:    :+:   */
+/*   parse_check1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:53:33 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:17:44 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:32:43 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	check_map_vertical(t_map *map)
 		while (++i < map->height)
 		{
 			if (map->map_wall[i][j] == ' ')
-				check_space(map, i, j);
+				check_space(map->map_wall, i, j);
 			if (!open && !ft_strchr(" 1X", map->map_wall[i][j]))
 				open = true;
 			if (open && map->map_wall[i][j] == '1')

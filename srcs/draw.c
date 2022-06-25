@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:22:57 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:30:53 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static void	draw_wall(t_game *game, t_ray ray, int ray_n, float angle)
 {

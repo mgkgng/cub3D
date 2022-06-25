@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 17:06:38 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:31:50 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 static void	fill_void(t_game *game, int color)
 {

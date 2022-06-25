@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:22:31 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:30:05 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,9 @@ int				check_filename(char *file);
 int				verif_texture(char *dir);
 void			check_map_horizontal(char **map);
 void			check_map_vertical(t_map *map);
+int				check_filename(char *file);
+int				check_texture(char *dir);
+void			check_lines(char *line);
 
 //int				is_surrounded(char **lines);
 //void			door_error(char **map);

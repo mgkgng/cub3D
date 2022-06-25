@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 02:02:19 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 17:06:41 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:31:35 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 int	mouse_hook(int x, int y, t_game *game)
 {

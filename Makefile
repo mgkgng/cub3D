@@ -1,6 +1,7 @@
-SRCS =	srcs/main.c srcs/cub3D.c \
+SRCS =	srcs/main.c srcs/cub3d.c \
 		srcs/key.c srcs/move.c \
-		srcs/parse.c srcs/parse_draw.c srcs/parse_map.c srcs/parse_utils.c srcs/parse_error.c srcs/parse_check.c\
+		srcs/parse.c srcs/parse_draw.c srcs/parse_map.c srcs/parse_utils.c \
+		srcs/parse_check1.c srcs/parse_check2.c \
 		srcs/dda.c srcs/dda_utils.c \
 		srcs/draw.c srcs/draw_utils.c \
 		srcs/utils.c \
