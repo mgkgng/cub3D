@@ -1,4 +1,4 @@
-SRCS =	srcs/main.c srcs/cub3d.c \
+SRCS =	srcs/main.c srcs/cub3D.c \
 		srcs/key.c srcs/move.c \
 		srcs/parse.c srcs/parse_draw.c srcs/parse_map.c srcs/parse_utils.c srcs/parse_error.c \
 		srcs/dda.c srcs/dda_utils.c \
@@ -14,7 +14,7 @@ OBJS = ${SRCS:.c=.o}
 
 INCLUDES = ./includes/
 
-CFLAG = -Wextra -Wall -Werror
+CFLAG = -Wextra -Wall -Werror #-g -fsanitize=address
 
 MLX = -lmlx -framework OpenGL -framework Appkit
 

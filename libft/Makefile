@@ -11,7 +11,7 @@ OBJS = ${SRCS:.c=.o}
 
 INCLUDES = ../includes/
 
-CFLAG = -Wextra -Wall -Werror
+CFLAG = -Wextra -Wall -Werror #-g -fsanitize=address
 
 all:		${NAME}
 

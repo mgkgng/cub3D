@@ -6,11 +6,11 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 23:34:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 15:24:54 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:04:26 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 t_dda	init_dda(float theta, int xy)
 {
@@ -65,10 +65,9 @@ int	already_here(t_list	*spr, t_point new)
 void	is_object(t_ray *ray, t_map *map, int *pos)
 {
 	t_point	map_pos;
-	float	new_dist;
-	t_point	centre;
+	// float	new_dist;
+	// t_point	centre;
 
-	(void) y;
 	map_pos.x = pos[1];
 	map_pos.y = pos[0];
 	if (map->map_wall[pos[0]][pos[1]] == 'D')

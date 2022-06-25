@@ -6,7 +6,7 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 15:24:23 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:04:05 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void			translate(t_map *map, float theta);
 t_ray			digital_differential_analyzer(t_map *map, float theta);
 t_dda			init_dda(float theta, int xy);
 bool			is_through(t_map *map, int x, int y);
-void			is_object(t_ray *ray, t_map *map, int *pos, int y);
+void			is_object(t_ray *ray, t_map *map, int *pos);
 float			perpendicular_dist(t_point from, t_point to, float angle);
 
 /* draw */

@@ -6,11 +6,11 @@
 /*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:49:55 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 15:24:12 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:02:31 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 float	get_height(float dist, t_game *game)
 {
