@@ -6,11 +6,11 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:03:47 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 17:49:13 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/25 21:25:04 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 static void	check_lines(char *line)
 {
@@ -33,12 +33,8 @@ char	**get_lines(int fd)
 	char	*line;
 	char	*r;
 	char	**res;
-	bool	draw_done;
-	bool	map_start;
 
 	r = NULL;
-	draw_done = false;
-	map_start = false;
 	line = get_next_line(fd);
 	while (line)
 	{
