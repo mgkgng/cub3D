@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:30:05 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 19:40:41 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ typedef struct s_point {
 	float	x;
 	float	y;
 }	t_point;
+
+typedef struct s_spr
+{
+	t_point			pos;
+	struct s_spr	*next;
+}	t_spr;
 
 typedef struct s_list {
 	t_point			pos;
