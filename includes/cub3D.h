@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 17:02:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:52:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_map {
 	bool	**map_move;
 	char	**map_wall;
 	t_point	pos;
-	t_list	*spr;
+	t_point	*spr;
 	float	theta;
 }	t_map;
 

@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 17:46:00 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 22:09:50 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,73 @@ static void	draw_ray(t_game *game, t_ray *ray, int ray_x, float angle)
 	free_list(ray->object);
 }
 
-void sort_sprites(int *order, double* dist, int amount)
+int	find_max_index(float *dist, int nb, int already)
 {
-	
+	int	i;
+	int	max;
+	int	res;
+
+	i = -1;
+	max = INT32_MIN;
+	res = 0;
+	while (++i < nb)
+	{
+		if (dist[i] > max && (already == -1 || dist[i] < dist[already]))
+		{
+			max = dist[i];
+			res = i;
+		}
+	}
+	return (res);
+}
+
+int	*sort_sprites(float *dist, int nb)
+{
+	int	i;
+	int	*res;
+	int	already;
+	int	max;
+
+	res = ft_calloc(nb, sizeof(int));
+	i = -1;
+	already = -1;
+	while (++i < nb)
+	{
+		max = find_max_index(dist, nb, already);
+		res[i] = max;
+		already = max;
+	}
+	return (res);
 }
 
 void	draw_sprite(t_game *game, float *dist, t_img img)
 {
+	int	sprite_nb;
+	int	i;
+
+	if (!game->map.spr)
+		return ;
+	sprite_nb = 0;
+	i = -1;
+	while (game->map.spr[++i].x != -1)
+		sprite_nb++;
+	
+	float	*spr_dist = ft_calloc(sprite_nb, sizeof(float));
     //SPRITE CASTING
     //sort sprites from far to close
-    for(int i = 0; i < numSprites; i++)
+    for(int i = 0; i < sprite_nb; i++)
     {
-		spr_order[i] = i;
-		spr_dist[i] = pow(game->map.pos.x - sprite[i].x, 2) + pow(game->map.pos.y - sprite[i].y)
+		spr_dist[i] = pow(game->map.pos.x - game->map.spr[i].x, 2)
+			+ pow(game->map.pos.y - game->map.spr[i].y, 2);
 	}
-
-	sort_sprites(spr_order, spr_dist, numSprites);
+	int *spr_sort = sort_sprites(spr_dist, sprite_nb);
 
     //after sorting the sprites, do the projection and draw them
-    for(int i = 0; i < numSprites; i++)
+    for(int i = 0; i < sprite_nb; i++)
 	{
       //translate sprite position to relative to camera
-		float spr_x = sprite[spriteOrder[i]].x - game->map.pos.x;
-		float spr_y = sprite[spriteOrder[i]].y - game->map.pos.y;
+		float spr_x = game->map.spr[spr_sort[i]].x - game->map.pos.x;
+		float spr_y = game->map.spr[spr_sort[i]].y - game->map.pos.y;
 
       //transform sprite with the inverse camera matrix
       // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
