@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 23:34:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:30:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 22:11:05 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,6 @@ bool	is_through(t_map *map, int x, int y)
 	return (false);
 }
 
-int	already_here(t_list	*spr, t_point new)
-{
-	t_list	*tmp;
-
-	tmp = spr;
-	while (tmp)
-	{
-		if ((int)tmp->pos.x == (int)new.x && (int)tmp->pos.y == (int)new.y)
-			return (1);
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
 void	is_object(t_ray *ray, t_map *map, int *pos)
 {
 	t_point	map_pos;
@@ -72,10 +58,7 @@ void	is_object(t_ray *ray, t_map *map, int *pos)
 		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
 				perpendicular_dist(map->pos, ray->wall,
 					map->theta + PI / 2), DOOR, map_pos));
-	else if (map->map_wall[pos[0]][pos[1]] == 'Z' && already_here(map->spr, map_pos) == 0)
-		ft_lstadd_front(&map->spr, ft_lstnew(ray->wall,
-				perpendicular_dist(map->pos, ray->wall,
-					map->theta + PI / 2), SPRITE, map_pos));
+
 }
 
 float	perpendicular_dist(t_point from, t_point to, float angle)

@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 21:52:11 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 22:13:47 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,5 +216,6 @@ void	free_chartab(char **tab);
 
 /* sprite */
 float	get_sprite_dist(t_point ray_p, float dist, float theta);
+t_point	*get_sprite(char **map);
 
 #endif

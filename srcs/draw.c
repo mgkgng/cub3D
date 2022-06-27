@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 22:09:50 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 22:18:38 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
 		int spr_screen_x = (int)((SCREEN_X / 2) * (1 + transform_x / transform_y));
 
       //calculate height of the sprite on screen
-		int spr_h = abs(SCREEN_Y / transform_y); //using 'transformY' instead of the real distance prevents fisheye
+		int spr_h = abs((int) (SCREEN_Y / transform_y)); //using 'transformY' instead of the real distance prevents fisheye
       //calculate lowest and highest pixel to fill in current stripe
 		int start_y = (SCREEN_Y - spr_h) / 2;
 		if(start_y < 0)
@@ -173,7 +173,7 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
 		end_y = SCREEN_Y - 1;
 
       //calculate width of the sprite
-		int spr_width = abs(SCREEN_Y / transform_y);
+		int spr_width = abs((int) (SCREEN_Y / transform_y));
 		int start_x = spr_screen_x - spr_width / 2;
 		if (start_x < 0)
 			start_x = 0;
@@ -226,7 +226,7 @@ static void	draw_by_ray(t_game *game)
 		if (angle > M_PI * 2)
 			angle -= M_PI * 2;
 		ray = digital_differential_analyzer(&game->map, angle);
-		add_sprite(&sprites, ray.object);
+		dist[ray_n] = ray.dist;
 		draw_ray(game, &ray, ray_n, angle);
 	}
 	draw_sprite(game, (float *) dist, game->texture.sprite);
