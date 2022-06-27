@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:30:05 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 16:42:39 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,14 @@ typedef struct	s_ray {
 	t_list	*object;
 }	t_ray;
 
-typedef struct s_lodev
+typedef struct s_camera
 {
-	double 	plane_x;
-	double 	plane_y;
-	double	dir_x;
-	double	dir_y;
-	double	camera_x;
-}	t_lodev;
+	float 	plane_x;
+	float 	plane_y;
+	float	dir_x;
+	float	dir_y;
+	float	camera_x;
+}	t_camera;
 
 typedef struct s_game 
 {
@@ -103,7 +103,7 @@ typedef struct s_game
 	t_img		minimap;
 	t_hook		hook;
 	t_draw		draw;
-	t_lodev		*lod;
+	t_camera	camera;
 	int			height;
 	t_texture	texture;
 }	t_game;

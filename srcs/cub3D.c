@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:30:38 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 16:45:37 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,12 @@ static void	init_img_addr(t_game *game)
 			&game->texture.sprite.line_length, &game->texture.sprite.endian);
 }
 
-void	init_lodev(t_game *game)
+void	init_camera(t_game *game)
 {
-	game->lod = malloc(sizeof(t_lodev));
-	game->lod->dir_x = cos(game->map.theta);
-	game->lod->dir_y = sin(game->map.theta);
-	game->lod->plane_x = 0;
-	game->lod->plane_y = 0.66;
+	game->camera.dir_x = cos(game->map.theta);
+	game->camera.dir_y = sin(game->map.theta);
+	game->camera.plane_x = 0;
+	game->camera.plane_y = 0.66;
 }
 
 int	cub3d(t_game game)
@@ -93,7 +92,7 @@ int	cub3d(t_game game)
 	init_hook(&game);
 	init_img(&game);
 	init_img_addr(&game);
-	init_lodev(&game);
+	init_camera(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_released, &game);
 	mlx_hook(game.win, 6, 1L << 6, mouse_hook, &game);

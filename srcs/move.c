@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:31:06 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 16:46:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	translate(t_map *map, float theta)
 
 void	turn(t_game *game, t_map *map, int dir)
 {
+	(void) game;
 	// if (dir == TURN_L)
 	// {
 	// 	double oldDirX = game->lod->dir_x;
@@ -44,7 +45,7 @@ void	turn(t_game *game, t_map *map, int dir)
 		map->theta -= M_PI * 2;
 	if (map->theta < 0)
 		map->theta += M_PI * 2;
-	double	diff = map->theta - tmp;
+	/*double	diff = map->theta - tmp;
 	if (dir == TURN_L)
 	{
 		double oldDirX = game->lod->dir_x;
@@ -62,7 +63,7 @@ void	turn(t_game *game, t_map *map, int dir)
     	double oldPlaneX = game->lod->plane_x;
     	game->lod->plane_x = game->lod->plane_x * cos(-diff) - game->lod->plane_y * sin(-diff);
     	game->lod->plane_y = oldPlaneX * sin(-diff) + game->lod->plane_y * cos(-diff);
-	}
+	}*/
 }
 
 void	move(t_game *game)
