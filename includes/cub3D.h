@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 16:42:39 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 17:02:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct s_hook {
 	unsigned int	minimap_on;
 	unsigned int	minimap_size;
 	int				mouse_x_prev;
-
 }	t_hook;
 
 typedef struct	s_ray {
