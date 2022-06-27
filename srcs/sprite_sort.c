@@ -3,33 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:59:16 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/27 18:34:21 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:48:31 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "limits.h"
 
-float	*sort_sprite(t_spr	*spr, t_game *game)
+float	*sort_sprite(t_point *spr, t_game *game)
 {
 	float	*dist;
-	t_spr	*tmp;
 	int i;
 
-	i = 0;
-	tmp = spr;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	tmp = spr;
-	dist = malloc(sizeof(float) * i);
-	i = 0;
-	while (tmp)
+	i = -1;
+	while (spr[++i].x != -1)
 	{
 		dist[i] = ((game->map.pos.x - tmp->pos.x) * (game->map.pos.x - tmp->pos.x) + (game->map.pos.y - tmp->pos.y) * (game->map.pos.y - tmp->pos.y));
 		i++;

@@ -3,60 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sprite.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:36:27 by mlecherb          #+#    #+#             */
-/*   Updated: 2022/06/27 20:25:16 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:35:28 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-t_spr	*ft_lstnew_spr(int x, int y)
+t_point	*put_sprite(t_point *spr, int i, int j, int *count)
 {
-	t_list	*res;
 
-	res = ft_calloc(1, sizeof(t_list));
-	res->pos.x = x;
-	res->pos.y = y;
-	res->next = NULL;
-	return (res);
+	if (!count)
+		spr = ft_calloc(1, sizeof(t_point) + 1);
+	else
+		spr = ft_realloc(spr, (sizeof(t_point) + 1) * *count);
+	spr[*count].x = j;
+	spr[*count++].y = i;
+	spr[*count].x = -1;
+	spr[*count].y = -1;
+	return (spr);
 }
 
-
-void	ft_lstadd_back_spr(t_spr **alst, t_spr *new)
-{
-	t_spr	*begin;
-
-	if (!*alst)
-	{
-		*alst = new;
-		return ;
-	}
-	begin = *alst;
-	while (begin->next)
-		begin = begin->next;
-	begin->next = new;
-}
-
-t_spr	*get_sprite(char **map)
+t_point	*get_sprite(char **map)
 {
 	int 	i;
 	int 	j;
-	t_spr	*sprite;
+	t_point	*spr;
+	int		count;
 	
-	sprite = NULL;
-	i = 0;
-	while (map[i])
+	i = -1;
+	count = 0;
+	while (map[++i])
 	{
-		j = 0;
-		while (map[i][j])
-		{
+		j = -1;
+		while (map[i][++j])
 			if (map[i][j] == 'Z')
-				ft_lstadd_back_spr(&sprite, ft_lstnew_spr(j, i));
-			j++;
-		}
-		i++;
+				spr = put_sprite(spr, i, j, &count);
 	}
-	return (sprite);
+	if (!count)
+		return (NULL);
+	return (spr);
 }

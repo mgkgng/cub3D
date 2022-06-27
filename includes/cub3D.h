@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 19:40:41 by mlecherb         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:28:42 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ typedef struct s_point {
 	float	y;
 }	t_point;
 
-typedef struct s_spr
-{
-	t_point			pos;
-	struct s_spr	*next;
-}	t_spr;
-
 typedef struct s_list {
 	t_point			pos;
 	t_point			map_pos;
@@ -70,7 +64,7 @@ typedef struct s_map {
 	bool	**map_move;
 	char	**map_wall;
 	t_point	pos;
-	t_list	*spr;
+	t_point	*spr;
 	float	theta;
 }	t_map;
 
@@ -109,7 +103,6 @@ typedef struct s_game
 	t_img		minimap;
 	t_hook		hook;
 	t_draw		draw;
-	t_lodev		*lod;
 	int			height;
 	t_texture	texture;
 }	t_game;
@@ -223,5 +216,6 @@ void	free_chartab(char **tab);
 
 /* sprite */
 float	get_sprite_dist(t_point ray_p, float dist, float theta);
+t_point	*get_sprite(char **map);
 
 #endif
