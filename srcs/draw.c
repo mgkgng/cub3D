@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 22:18:38 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:56:17 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,9 +212,7 @@ static void	draw_by_ray(t_game *game)
 	int		ray_n;
 	t_ray	ray;
 	float	dist[960];
-	t_point	*sprites;
 
-	sprites = NULL;	
 	start_angle = game->map.theta - ANGLE / 2;
 	ray_n = -1;
 	while (++ray_n < SCREEN_X)

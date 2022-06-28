@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 22:20:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:54:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,42 +28,22 @@ void	translate(t_map *map, float theta)
 
 void	turn(t_game *game, t_map *map, int dir)
 {
-	(void) game;
-	// if (dir == TURN_L)
-	// {
-	// 	double oldDirX = game->camera.dir_x;
-    // 	game->camera.dir_x = game->camera.dir_x * cos(rotSpeed) - game->camera.dir_y * sin(rotSpeed);
-	// 	game->camera.dir_y = oldDirX * sin(rotSpeed) + game->camera.dir_y * cos(rotSpeed);
-    // 	double oldPlaneX = game->camera.plane_x;
-    // 	game->camera.plane_x = game->camera.plane_x * cos(rotSpeed) - game->camera.plane_y * sin(rotSpeed);
-    // 	game->camera.plane_y = oldPlaneX * sin(rotSpeed) + game->camera.plane_y * cos(rotSpeed);
-	// }
-	double	tmp;
-	tmp = map->theta;
-	map->theta += dir * (M_PI_4 / 25);
+	float	turn;
+	float	old_dir_x;
+	float	old_plane_x;
+	
+	turn = dir * M_PI / 100;
+	map->theta += dir;
 	if (map->theta > M_PI * 2)
 		map->theta -= M_PI * 2;
 	if (map->theta < 0)
 		map->theta += M_PI * 2;
-	double	diff = map->theta - tmp;
-	if (dir == TURN_L)
-	{
-		double oldDirX = game->camera.dir_x;
-    	game->camera.dir_x = game->camera.dir_x * cos(diff) - game->camera.dir_y * sin(diff);
-		game->camera.dir_y = oldDirX * sin(diff) + game->camera.dir_y * cos(diff);
-    	double oldPlaneX = game->camera.plane_x;
-    	game->camera.plane_x = game->camera.plane_x * cos(diff) - game->camera.plane_y * sin(diff);
-    	game->camera.plane_y = oldPlaneX * sin(diff) + game->camera.plane_y * cos(diff);
-	}
-	else if (dir == TURN_R)
-	{
-    	double oldDirX = game->camera.dir_x;
-    	game->camera.dir_x = game->camera.dir_x * cos(-diff) - game->camera.dir_y * sin(-diff);
-    	game->camera.dir_y = oldDirX * sin(-diff) + game->camera.dir_y * cos(-diff);
-    	double oldPlaneX = game->camera.plane_x;
-    	game->camera.plane_x = game->camera.plane_x * cos(-diff) - game->camera.plane_y * sin(-diff);
-    	game->camera.plane_y = oldPlaneX * sin(-diff) + game->camera.plane_y * cos(-diff);
-	}
+	old_dir_x = game->camera.dir_x;
+	old_plane_x = game->camera.plane_x;
+	game->camera.dir_x = game->camera.dir_x * cos(turn) - game->camera.dir_y * sin(turn);
+	game->camera.dir_y = old_dir_x * sin(turn) + game->camera.dir_y * cos(turn);
+    game->camera.plane_x = game->camera.plane_x * cos(turn) - game->camera.plane_y * sin(turn);
+    game->camera.plane_y = old_plane_x * sin(turn) + game->camera.plane_y * cos(turn);
 }
 
 void	move(t_game *game)

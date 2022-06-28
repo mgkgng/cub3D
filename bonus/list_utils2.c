@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:21:29 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:31:47 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:57:06 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ t_list	*copy_list(t_list *lst)
 
 void	combine_list(float dist, t_list **origin, t_list *compare)
 {
-	t_list	*begin;
+	//t_list	*begin;
 	t_list	*now_compare;
 
-	begin = *origin;
+	//begin = *origin;
 	now_compare = compare;
 	if (!*origin)
 	{
