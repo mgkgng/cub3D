@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 11:56:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:19:37 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
 	i = -1;
 	while (game->map.spr[++i].x != -1)
 		sprite_nb++;
-	
 	float	*spr_dist = ft_calloc(sprite_nb, sizeof(float));
     //SPRITE CASTING
     //sort sprites from far to close
@@ -140,6 +139,7 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
     {
 		spr_dist[i] = pow(game->map.pos.x - game->map.spr[i].x, 2)
 			+ pow(game->map.pos.y - game->map.spr[i].y, 2);
+		printf("spr distance %d: %f\n", i, spr_dist[i]);
 	}
 	int *spr_sort = sort_sprites(spr_dist, sprite_nb);
 
@@ -182,8 +182,10 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
 			end_x = SCREEN_X - 1;
 
 		int	i = start_x - 1;
+		printf("so %d... %d...\n", i, end_x);
 		while (++i < end_x)
 		{
+			printf("it goes\n");
 			int tex_x = (int)(256 * (i - (spr_screen_x - spr_width / 2)) * 64 / spr_width) / 256;
 			//the conditions in the if are:
 			//1) it's in front of camera plane so you don't see things behind you
@@ -195,6 +197,7 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
 				int j = start_y - 1;
 				while (++j < end_y) //for every pixel of the current stripe
 				{
+					printf("to see\n");
 					int d = j * 256 - SCREEN_Y * 128 + spr_h * 128; //256 and 128 factors to avoid floats
 					int tex_y = ((d * 64) / spr_h) / 256;
 					unsigned int color = get_data_color(tex_x, 64 * tex_y, img.addr, img);

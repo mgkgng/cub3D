@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 22:15:16 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:13:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,7 @@ t_map	get_map(char **lines)
 	put_info(&map, lines + 6);
 	map.map_move = get_map_move(map, lines + 6);
 	map.map_wall = get_map_wall(map, lines + 6);
-	printf("where\n");
 	map.spr = get_sprite(lines + 6);
-	printf("whre2\n");
 	check_map_horizontal(lines + 6);
 	check_map_vertical(&map);
 	return (map);

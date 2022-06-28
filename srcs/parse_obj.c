@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:49:51 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 22:17:51 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:13:34 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_point	*get_sprite(char **map)
 	count = 0;
 	while (map[++i])
 	{
-        printf("ang?\n");
 		j = -1;
 		while (map[i][++j])
 			if (map[i][j] == 'Z')
@@ -31,7 +30,7 @@ t_point	*get_sprite(char **map)
                 if (!count)
 		            spr = ft_calloc(1, sizeof(t_point) + 1);
 	            else
-		            spr = ft_realloc(spr, (sizeof(t_point) + 1) * count);
+		            spr = ft_realloc(spr, sizeof(t_point) * (count + 2));
 	            spr[count].x = j;
 	            spr[count++].y = i;
 	            spr[count].x = -1;
