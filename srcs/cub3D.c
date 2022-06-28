@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 18:44:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 19:26:37 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ static void	init_img(t_game *game)
 			"./texture/Door_o.xpm", &size_info[0], &size_info[1]);
 	game->texture.door_c.img = mlx_xpm_file_to_image(game->mlx,
 			"./texture/Door_c.xpm", &size_info[0], &size_info[1]);
-	game->texture.sprite.img = mlx_xpm_file_to_image(game->mlx,
+	game->texture.sprite[0].img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
+	game->texture.sprite[1].img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
+	game->texture.sprite[2].img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
+	game->texture.sprite[3].img = mlx_xpm_file_to_image(game->mlx,
 			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
 }
 
@@ -73,9 +79,18 @@ static void	init_img_addr(t_game *game)
 	game->texture.door_c.addr = mlx_get_data_addr(game->texture.door_c.img,
 			&game->texture.door_c.bits_per_pixel,
 			&game->texture.door_c.line_length, &game->texture.door_c.endian);
-	game->texture.sprite.addr = mlx_get_data_addr(game->texture.sprite.img,
-			&game->texture.sprite.bits_per_pixel,
-			&game->texture.sprite.line_length, &game->texture.sprite.endian);
+	game->texture.sprite[0].addr = mlx_get_data_addr(game->texture.sprite[0].img,
+			&game->texture.sprite[0].bits_per_pixel,
+			&game->texture.sprite[0].line_length, &game->texture.sprite[0].endian);
+	game->texture.sprite[1].addr = mlx_get_data_addr(game->texture.sprite[1].img,
+			&game->texture.sprite[1].bits_per_pixel,
+			&game->texture.sprite[1].line_length, &game->texture.sprite[0].endian);
+	game->texture.sprite[2].addr = mlx_get_data_addr(game->texture.sprite[2].img,
+			&game->texture.sprite[2].bits_per_pixel,
+			&game->texture.sprite[2].line_length, &game->texture.sprite[2].endian);
+	game->texture.sprite[3].addr = mlx_get_data_addr(game->texture.sprite[3].img,
+			&game->texture.sprite[3].bits_per_pixel,
+			&game->texture.sprite[3].line_length, &game->texture.sprite[3].endian);
 }
 
 void	init_camera(t_game *game)

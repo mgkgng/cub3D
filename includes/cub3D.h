@@ -6,11 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/27 21:28:42 by min-kang         ###   ########.fr       */
-=======
-/*   Updated: 2022/06/27 22:13:47 by min-kang         ###   ########.fr       */
->>>>>>> sprite2b
+/*   Updated: 2022/06/28 19:23:50 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +102,7 @@ typedef struct s_game
 	t_img		minimap;
 	t_hook		hook;
 	t_draw		draw;
-<<<<<<< HEAD
-=======
 	t_camera	camera;
->>>>>>> sprite2b
 	int			height;
 	t_texture	texture;
 }	t_game;
