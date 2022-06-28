@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 11:54:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:40:11 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,17 @@ void	translate(t_map *map, float theta)
 void	turn(t_game *game, t_map *map, int dir)
 {
 	float	turn;
-	float	old_dir_x;
 	float	old_plane_x;
 	
-	turn = dir * M_PI / 100;
-	map->theta += dir;
-	if (map->theta > M_PI * 2)
-		map->theta -= M_PI * 2;
+	turn = dir * PI / 100;
+	map->theta += turn;
+	if (map->theta > PI * 2)
+		map->theta -= PI * 2;
 	if (map->theta < 0)
-		map->theta += M_PI * 2;
-	old_dir_x = game->camera.dir_x;
+		map->theta += PI * 2;
 	old_plane_x = game->camera.plane_x;
-	game->camera.dir_x = game->camera.dir_x * cos(turn) - game->camera.dir_y * sin(turn);
-	game->camera.dir_y = old_dir_x * sin(turn) + game->camera.dir_y * cos(turn);
+	game->camera.dir_x = cos(map->theta);
+	game->camera.dir_y = sin(map->theta);
     game->camera.plane_x = game->camera.plane_x * cos(turn) - game->camera.plane_y * sin(turn);
     game->camera.plane_y = old_plane_x * sin(turn) + game->camera.plane_y * cos(turn);
 }

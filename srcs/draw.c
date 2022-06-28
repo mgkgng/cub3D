@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 12:19:37 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 19:01:57 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,38 +133,22 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
 	while (game->map.spr[++i].x != -1)
 		sprite_nb++;
 	float	*spr_dist = ft_calloc(sprite_nb, sizeof(float));
-    //SPRITE CASTING
-    //sort sprites from far to close
     for(int i = 0; i < sprite_nb; i++)
     {
 		spr_dist[i] = pow(game->map.pos.x - game->map.spr[i].x, 2)
 			+ pow(game->map.pos.y - game->map.spr[i].y, 2);
-		printf("spr distance %d: %f\n", i, spr_dist[i]);
 	}
 	int *spr_sort = sort_sprites(spr_dist, sprite_nb);
 
-    //after sorting the sprites, do the projection and draw them
     for(int i = 0; i < sprite_nb; i++)
 	{
-      //translate sprite position to relative to camera
 		float spr_x = game->map.spr[spr_sort[i]].x - game->map.pos.x;
 		float spr_y = game->map.spr[spr_sort[i]].y - game->map.pos.y;
-
-      //transform sprite with the inverse camera matrix
-      // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
-      // [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
-      // [ planeY   dirY ]                                          [ -planeY  planeX ]
-
-		float invDet = 1.0 / (game->camera.plane_x * game->camera.dir_y - game->camera.dir_x * game->camera.plane_y); //required for correct matrix multiplication
-
-		float transform_x = invDet * (game->camera.dir_y * spr_x - game->camera.dir_x * spr_y);
-		float transform_y = invDet * (game->camera.plane_x * spr_y - game->camera.plane_y * spr_x); //this is actually the depth inside the screen, that what Z is in 3D
-
-		int spr_screen_x = (int)((SCREEN_X / 2) * (1 + transform_x / transform_y));
-
-      //calculate height of the sprite on screen
-		int spr_h = abs((int) (SCREEN_Y / transform_y)); //using 'transformY' instead of the real distance prevents fisheye
-      //calculate lowest and highest pixel to fill in current stripe
+		float	inverse = 1.0f / (game->camera.plane_x * game->camera.dir_y - game->camera.dir_x * game->camera.plane_y); //required for correct matrix multiplication
+		float transform_x = inverse * (game->camera.dir_y * spr_x - game->camera.dir_x * spr_y);
+		float transform_y = inverse * (game->camera.plane_x * spr_y - game->camera.plane_y * spr_x); //this is actually the depth inside the screen, that what Z is in 3D
+		int spr_screen_x = SCREEN_X / 2 * (1 + transform_x / transform_y);
+		float spr_h = SCREEN_Y / transform_y;
 		int start_y = (SCREEN_Y - spr_h) / 2;
 		if(start_y < 0)
 			start_y = 0;
@@ -172,35 +156,26 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
 		if(end_y >= SCREEN_Y)
 		end_y = SCREEN_Y - 1;
 
-      //calculate width of the sprite
-		int spr_width = abs((int) (SCREEN_Y / transform_y));
+		float spr_width = SCREEN_Y / transform_y;
 		int start_x = spr_screen_x - spr_width / 2;
 		if (start_x < 0)
 			start_x = 0;
 		int end_x = spr_width / 2 + spr_screen_x;
 		if (end_x >= SCREEN_X)
-			end_x = SCREEN_X - 1;
-
+			end_x = SCREEN_X;
+		printf("%d.. start_x\n", start_x);
 		int	i = start_x - 1;
-		printf("so %d... %d...\n", i, end_x);
 		while (++i < end_x)
 		{
-			printf("it goes\n");
 			int tex_x = (int)(256 * (i - (spr_screen_x - spr_width / 2)) * 64 / spr_width) / 256;
-			//the conditions in the if are:
-			//1) it's in front of camera plane so you don't see things behind you
-			//2) it's on the screen (left)
-			//3) it's on the screen (right)
-			//4) ZBuffer, with perpendicular distance
 			if (transform_y > 0 && i > 0 && i < SCREEN_X && transform_y < dist[i])
 			{
 				int j = start_y - 1;
-				while (++j < end_y) //for every pixel of the current stripe
+				while (++j < end_y)
 				{
-					printf("to see\n");
-					int d = j * 256 - SCREEN_Y * 128 + spr_h * 128; //256 and 128 factors to avoid floats
+					int d = j * 256 - SCREEN_Y * 128 + spr_h * 128;
 					int tex_y = ((d * 64) / spr_h) / 256;
-					unsigned int color = get_data_color(tex_x, 64 * tex_y, img.addr, img);
+					unsigned int color = get_data_color(tex_x, tex_y, img.addr, img);
 					put_pixel(&game->screen, i, j, color);
 				}
 			}

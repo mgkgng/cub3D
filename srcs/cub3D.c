@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 22:14:55 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:44:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ static void	init_img_addr(t_game *game)
 void	init_camera(t_game *game)
 {
 	game->camera.dir_x = cos(game->map.theta);
-	game->camera.dir_y = sin(game->map.theta);
-	game->camera.plane_x = 0;
-	game->camera.plane_y = 0.66;
+	game->camera.dir_y = sin(game->map.theta) * -1;
+	game->camera.plane_x = 0.66 * sin(game->map.theta);
+	game->camera.plane_y = 0.66 * cos(game->map.theta);
 }
 
 int	cub3d(t_game game)
