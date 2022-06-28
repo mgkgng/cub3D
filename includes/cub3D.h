@@ -6,7 +6,11 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/27 21:28:42 by min-kang         ###   ########.fr       */
+=======
+/*   Updated: 2022/06/27 22:13:47 by min-kang         ###   ########.fr       */
+>>>>>>> sprite2b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +78,6 @@ typedef struct s_hook {
 	unsigned int	minimap_on;
 	unsigned int	minimap_size;
 	int				mouse_x_prev;
-
 }	t_hook;
 
 typedef struct	s_ray {
@@ -85,14 +88,14 @@ typedef struct	s_ray {
 	t_list	*object;
 }	t_ray;
 
-typedef struct s_lodev
+typedef struct s_camera
 {
-	double 	plane_x;
-	double 	plane_y;
-	double	dir_x;
-	double	dir_y;
-	double	camera_x;
-}	t_lodev;
+	float 	plane_x;
+	float 	plane_y;
+	float	dir_x;
+	float	dir_y;
+	float	camera_x;
+}	t_camera;
 
 typedef struct s_game 
 {
@@ -103,6 +106,10 @@ typedef struct s_game
 	t_img		minimap;
 	t_hook		hook;
 	t_draw		draw;
+<<<<<<< HEAD
+=======
+	t_camera	camera;
+>>>>>>> sprite2b
 	int			height;
 	t_texture	texture;
 }	t_game;

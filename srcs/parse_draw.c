@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_draw.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:04:09 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:31:11 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/27 16:44:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	**get_texture(char **file)
 	res = malloc(sizeof(char *) * 5);
 	i = -1;
 	while (++i < 4)
-		if (i != verif_texture(file[i]) - 1)
+		if (i != check_texture(file[i]) - 1)
 			end_program("Wrong format for texture information.", 0);
 	i = -1;
 	while (++i < 4)
