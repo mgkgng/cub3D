@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 18:19:57 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:37:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,16 @@ float			get_sprite_dist(t_point ray_p, float dist, float theta);
 void			get_sprite(t_map *map, char **charmap);
 
 /* mouse */
-int			mouse_hook(int x, int y, t_game *game);
+int				mouse_hook(int x, int y, t_game *game);
 
 /* door */
-void		open_door(t_game *game);
-void		free_chartab(char **tab);
+void			open_door(t_game *game);
+void			free_chartab(char **tab);
 
 /* minimap */
-void		draw_minimap(t_game *game);
+void			draw_minimap(t_game *game);
 
 /* utils */
-int			terminate(t_game *game);
+int				terminate(t_game *game);
 
 #endif

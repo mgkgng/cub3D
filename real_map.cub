@@ -1,7 +1,7 @@
-NO ./texture/wall-4-set2.xpm
-SO ./texture/wall-2-set2.xpm
-WE ./texture/wall2.xpm
-EA ./texture/wall-1-set2.xpm
+NO ./texture/wall_n.xpm
+SO ./texture/wall_s.xpm
+WE ./texture/wall_w.xpm
+EA ./texture/wall_e.xpm
 F 45,100,0
 C 25,30,0
         1111111111111111111111111
