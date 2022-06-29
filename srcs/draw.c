@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 19:01:57 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:38:32 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,107 +82,6 @@ static void	draw_ray(t_game *game, t_ray *ray, int ray_x, float angle)
 	free_list(ray->object);
 }
 
-int	find_max_index(float *dist, int nb, int already)
-{
-	int	i;
-	int	max;
-	int	res;
-
-	i = -1;
-	max = INT32_MIN;
-	res = 0;
-	while (++i < nb)
-	{
-		if (dist[i] > max && (already == -1 || dist[i] < dist[already]))
-		{
-			max = dist[i];
-			res = i;
-		}
-	}
-	return (res);
-}
-
-int	*sort_sprites(float *dist, int nb)
-{
-	int	i;
-	int	*res;
-	int	already;
-	int	max;
-
-	res = ft_calloc(nb, sizeof(int));
-	i = -1;
-	already = -1;
-	while (++i < nb)
-	{
-		max = find_max_index(dist, nb, already);
-		res[i] = max;
-		already = max;
-	}
-	return (res);
-}
-
-void	draw_sprite(t_game *game, float *dist, t_img img)
-{
-	int	sprite_nb;
-	int	i;
-
-	if (!game->map.spr)
-		return ;
-	sprite_nb = 0;
-	i = -1;
-	while (game->map.spr[++i].x != -1)
-		sprite_nb++;
-	float	*spr_dist = ft_calloc(sprite_nb, sizeof(float));
-    for(int i = 0; i < sprite_nb; i++)
-    {
-		spr_dist[i] = pow(game->map.pos.x - game->map.spr[i].x, 2)
-			+ pow(game->map.pos.y - game->map.spr[i].y, 2);
-	}
-	int *spr_sort = sort_sprites(spr_dist, sprite_nb);
-
-    for(int i = 0; i < sprite_nb; i++)
-	{
-		float spr_x = game->map.spr[spr_sort[i]].x - game->map.pos.x;
-		float spr_y = game->map.spr[spr_sort[i]].y - game->map.pos.y;
-		float	inverse = 1.0f / (game->camera.plane_x * game->camera.dir_y - game->camera.dir_x * game->camera.plane_y); //required for correct matrix multiplication
-		float transform_x = inverse * (game->camera.dir_y * spr_x - game->camera.dir_x * spr_y);
-		float transform_y = inverse * (game->camera.plane_x * spr_y - game->camera.plane_y * spr_x); //this is actually the depth inside the screen, that what Z is in 3D
-		int spr_screen_x = SCREEN_X / 2 * (1 + transform_x / transform_y);
-		float spr_h = SCREEN_Y / transform_y;
-		int start_y = (SCREEN_Y - spr_h) / 2;
-		if(start_y < 0)
-			start_y = 0;
-		int end_y = (SCREEN_Y + spr_h) / 2;
-		if(end_y >= SCREEN_Y)
-		end_y = SCREEN_Y - 1;
-
-		float spr_width = SCREEN_Y / transform_y;
-		int start_x = spr_screen_x - spr_width / 2;
-		if (start_x < 0)
-			start_x = 0;
-		int end_x = spr_width / 2 + spr_screen_x;
-		if (end_x >= SCREEN_X)
-			end_x = SCREEN_X;
-		printf("%d.. start_x\n", start_x);
-		int	i = start_x - 1;
-		while (++i < end_x)
-		{
-			int tex_x = (int)(256 * (i - (spr_screen_x - spr_width / 2)) * 64 / spr_width) / 256;
-			if (transform_y > 0 && i > 0 && i < SCREEN_X && transform_y < dist[i])
-			{
-				int j = start_y - 1;
-				while (++j < end_y)
-				{
-					int d = j * 256 - SCREEN_Y * 128 + spr_h * 128;
-					int tex_y = ((d * 64) / spr_h) / 256;
-					unsigned int color = get_data_color(tex_x, tex_y, img.addr, img);
-					put_pixel(&game->screen, i, j, color);
-				}
-			}
-		}
-	}
-}
-
 static void	draw_by_ray(t_game *game)
 {
 	float	start_angle;
@@ -205,7 +104,7 @@ static void	draw_by_ray(t_game *game)
 		dist[ray_n] = ray.dist;
 		draw_ray(game, &ray, ray_n, angle);
 	}
-	draw_sprite(game, (float *) dist, game->texture.sprite);
+	draw_sprite(game, (float *) dist, game->texture.sprite[0]);
 }
 
 int	draw(t_game *game)

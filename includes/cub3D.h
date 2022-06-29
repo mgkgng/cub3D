@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 19:23:50 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:02:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "libft.h"
 #include "texture.h"
 #include "key.h"
+#include "sprite.h"
 
 # define PI 3.141592
 # define DEG 0.017453
@@ -65,6 +66,7 @@ typedef struct s_map {
 	char	**map_wall;
 	t_point	pos;
 	t_point	*spr;
+	int		spr_nb;
 	float	theta;
 }	t_map;
 
