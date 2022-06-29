@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:38:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 21:12:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 21:46:58 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	*sort_sprites(t_map *map, int nb)
 	return (res);
 }
 
-static t_sprite	get_sprite_info(t_camera camera, t_point spr, t_point pos)
+/*static t_sprite	get_sprite_info(t_camera camera, t_point spr, t_point pos)
 {
 	t_sprite	res;
 
@@ -121,7 +121,6 @@ void	draw_sprite(t_game *game, t_map *map, float *dist, t_img img)
 	t_sprite	spr_info;
 	int			*spr_sort;
 
-	printf("%f.. %f.. %f.. %f..\n", map->camera.dir_x, map->camera.dir_y, map->camera.plane_x, map->camera.plane_y);
 	spr_sort = sort_sprites(map, map->spr_nb);
 	i = -1;
 	while (++i < map->spr_nb)
@@ -132,4 +131,63 @@ void	draw_sprite(t_game *game, t_map *map, float *dist, t_img img)
 		put_sprite(game, spr_info, dist, img);
 	}
 	free(spr_sort);
+}*/
+
+void	draw_sprite(t_game *game, t_map *map, float *dist, t_img img)
+{
+	int	sprite_nb;
+	int	i;
+
+	if (!game->map.spr)
+		return ;
+
+	float	*spr_dist = ft_calloc(sprite_nb, sizeof(float));
+    for(int i = 0; i < sprite_nb; i++)
+    {
+		spr_dist[i] = pow(game->map.pos.x - game->map.spr[i].x, 2)
+			+ pow(game->map.pos.y - game->map.spr[i].y, 2);
+	}
+	int *spr_sort = sort_sprites(spr_dist, sprite_nb);
+
+    for(int i = 0; i < sprite_nb; i++)
+	{
+		float spr_x = game->map.spr[spr_sort[i]].x - game->map.pos.x;
+		float spr_y = game->map.spr[spr_sort[i]].y - game->map.pos.y;
+		float	inverse = 1.0f / (map->camera.plane_x * map->camera.dir_y - map->camera.dir_x * map->camera.plane_y); //required for correct matrix multiplication
+		float transform_x = inverse * (map->camera.dir_y * spr_x - map->camera.dir_x * spr_y);
+		float transform_y = inverse * (map->camera.plane_x * spr_y - map->camera.plane_y * spr_x); //this is actually the depth inside the screen, that what Z is in 3D
+		int spr_screen_x = SCREEN_X / 2 * (1 + transform_x / transform_y);
+		float spr_h = SCREEN_Y / transform_y;
+		int start_y = (SCREEN_Y - spr_h) / 2;
+		if(start_y < 0)
+			start_y = 0;
+		int end_y = (SCREEN_Y + spr_h) / 2;
+		if(end_y >= SCREEN_Y)
+		end_y = SCREEN_Y - 1;
+
+		float spr_width = SCREEN_Y / transform_y;
+		int start_x = spr_screen_x - spr_width / 2;
+		if (start_x < 0)
+			start_x = 0;
+		int end_x = spr_width / 2 + spr_screen_x;
+		if (end_x >= SCREEN_X)
+			end_x = SCREEN_X;
+		printf("%d.. start_x\n", start_x);
+		int	i = start_x - 1;
+		while (++i < end_x)
+		{
+			int tex_x = (int)(256 * (i - (spr_screen_x - spr_width / 2)) * 64 / spr_width) / 256;
+			if (transform_y > 0 && i > 0 && i < SCREEN_X && transform_y < dist[i])
+			{
+				int j = start_y - 1;
+				while (++j < end_y)
+				{
+					int d = j * 256 - SCREEN_Y * 128 + spr_h * 128;
+					int tex_y = ((d * 64) / spr_h) / 256;
+					unsigned int color = get_data_color(tex_x, tex_y, img.addr, img);
+					put_pixel(&game->screen, i, j, color);
+				}
+			}
+		}
+	}
 }
