@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 16:41:25 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:58:35 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ static void	init_game(t_game *game)
 	game->hook.mouse_x_prev = SCREEN_X / 2;
 	game->hook.minimap_on = 0;
 	game->hook.minimap_size = 7;
-	game->camera.dir_x = cos(game->map.theta);
-	game->camera.dir_y = sin(game->map.theta) * -1;
-	game->camera.plane_x = 0.66 * sin(game->map.theta);
-	game->camera.plane_y = 0.66 * cos(game->map.theta);
 }
 
 static void	init_img(t_game *game)

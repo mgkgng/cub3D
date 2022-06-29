@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 15:56:22 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 19:05:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,33 @@
 
 static void	put_player_info(t_map *map, int *pos, char dir, int *dir_n)
 {
+	ft_bzero(&map->camera, sizeof(t_camera));
 	map->pos.x = pos[1] + 0.5;
 	map->pos.y = pos[0] + 0.5;
 	if (dir == 'N')
+	{
 		map->theta = 3 * PI / 2;
+		map->camera.dir_y = -1;
+		map->camera.plane_x = 0.66;
+	}
 	else if (dir == 'S')
+	{
 		map->theta = M_PI / 2;
+		map->camera.dir_y = 1;
+		map->camera.plane_x = -0.66;
+	}
 	else if (dir == 'W')
+	{
 		map->theta = PI;
+		map->camera.dir_x = -1;
+		map->camera.plane_y = -0.66;
+	}
 	else
+	{
 		map->theta = 0;
+		map->camera.dir_x = 1;
+		map->camera.plane_y = 0.66;
+	}
 	(*dir_n)++;
 }
 

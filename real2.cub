@@ -1,14 +1,14 @@
-NO ./texture/wall2.xpm
-SO ./texture/wall2.xpm
-WE ./texture/wall2.xpm
-EA ./texture/wall2.xpm
+NO ./texture/wall_n.xpm
+SO ./texture/wall_s.xpm
+WE ./texture/wall_w.xpm
+EA ./texture/wall_e.xpm
 F 34,32,52
 C 20,30,2
 
 11111111111
 100000000Z1
 10001000Z01
-100000W0101
+100000N0101
 11111D10001
 10000010001
 100000D0101

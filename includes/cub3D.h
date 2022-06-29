@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 18:37:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 19:10:44 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@
 # define ANGLE 1.15192f
 
 typedef struct s_map {
-	int		width;
-	int		height;
-	bool	**map_move;
-	char	**map_wall;
-	t_point	pos;
-	t_point	*spr;
-	int		spr_nb;
-	float	theta;
+	int			width;
+	int			height;
+	bool		**map_move;
+	char		**map_wall;
+	t_point		pos;
+	t_point		*spr;
+	int			spr_nb;
+	float		theta;
+	t_camera	camera;
 }	t_map;
 
 typedef struct s_ray
@@ -59,7 +60,6 @@ typedef struct s_game
 	t_img		minimap;
 	t_hook		hook;
 	t_draw		draw;
-	t_camera	camera;
 	int			height;
 	t_texture	texture;
 }	t_game;
@@ -106,7 +106,6 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img);
 t_tex_info		get_tex_info(t_point wall, int h, int start);
 t_img			which_texture(int wall_side, t_texture *text, float angle);
 void			paint_background(t_game *game);
-void			draw_sprite(t_game *game, float *dist, t_img img);
 
 /* list */
 t_list			*ft_lstnew(t_point pos, float dist, t_point map_pos);
@@ -130,6 +129,9 @@ void			free_chartab(char **tab);
 
 /* minimap */
 void			draw_minimap(t_game *game);
+
+/* sprite */
+void			draw_sprite(t_game *game, t_map *map, float *dist, t_img img);
 
 /* utils */
 int				terminate(t_game *game);

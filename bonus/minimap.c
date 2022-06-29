@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 18:22:58 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 20:43:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	put_character(t_game *game, int border)
 
 	img = NULL;
 	img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/Suisse.xpm", &pos[0], &pos[1]);
+			"./texture/icon-character.xpm", &pos[0], &pos[1]);
 	mlx_put_image_to_window(game->mlx, game->win,
 		img, MINI_W / 2, MINI_H / 2 - border);
 }	
