@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 22:46:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 23:59:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void			draw_minimap(t_game *game);
 
 /* sprite */
 void			draw_sprite(t_game *game, t_map *map, float *dist, t_img img);
+void			begin_thread(t_game *game);
 
 /* utils */
 int				terminate(t_game *game);

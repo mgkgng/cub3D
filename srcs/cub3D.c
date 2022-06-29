@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 23:06:54 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 23:57:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ static void	init_game(t_game *game)
 	game->hook.mouse_x_prev = SCREEN_X / 2;
 	game->hook.minimap_on = 0;
 	game->hook.minimap_size = 7;
+	game->map.camera.dir_x = cos(game->map.theta);
+	game->map.camera.dir_y = sin(game->map.theta) * -1;
+	game->map.camera.plane_x = 0.66 * sin(game->map.theta) * -1;
+	game->map.camera.plane_y = 0.66 * cos(game->map.theta);
 }
 
 static void	init_img(t_game *game)
@@ -48,11 +52,17 @@ static void	init_img(t_game *game)
 	game->texture.spr[0].img = mlx_xpm_file_to_image(game->mlx,
 			"./texture/robot1.xpm", &size_info[0], &size_info[1]);
 	game->texture.spr[1].img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
+			"./texture/robot2.xpm", &size_info[0], &size_info[1]);
 	game->texture.spr[2].img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
+			"./texture/robot3.xpm", &size_info[0], &size_info[1]);
 	game->texture.spr[3].img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/ghost1.xpm", &size_info[0], &size_info[1]);
+			"./texture/robot4.xpm", &size_info[0], &size_info[1]);
+	game->texture.spr[4].img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/robot4.xpm", &size_info[0], &size_info[1]);	
+	game->texture.spr[5].img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/robot4.xpm", &size_info[0], &size_info[1]);	
+	game->texture.spr[6].img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/robot4.xpm", &size_info[0], &size_info[1]);
 }
 
 static void	init_img_addr(t_game *game)
@@ -91,14 +101,15 @@ static void	init_spr_img(t_game *game)
 	game->texture.spr[3].addr = mlx_get_data_addr(game->texture.spr[3].img,
 			&game->texture.spr[3].bits_per_pixel,
 			&game->texture.spr[3].line_length, &game->texture.spr[3].endian);
-}
-
-static void	init_camera(t_game *game)
-{
-	game->map.camera.dir_x = cos(game->map.theta);
-	game->map.camera.dir_y = sin(game->map.theta) * -1;
-	game->map.camera.plane_x = 0.66 * sin(game->map.theta) * -1;
-	game->map.camera.plane_y = 0.66 * cos(game->map.theta);
+	game->texture.spr[4].addr = mlx_get_data_addr(game->texture.spr[4].img,
+			&game->texture.spr[4].bits_per_pixel,
+			&game->texture.spr[4].line_length, &game->texture.spr[4].endian);
+	game->texture.spr[5].addr = mlx_get_data_addr(game->texture.spr[5].img,
+			&game->texture.spr[5].bits_per_pixel,
+			&game->texture.spr[5].line_length, &game->texture.spr[5].endian);
+	game->texture.spr[6].addr = mlx_get_data_addr(game->texture.spr[6].img,
+			&game->texture.spr[6].bits_per_pixel,
+			&game->texture.spr[6].line_length, &game->texture.spr[6].endian);
 }
 
 int	cub3d(t_game game)
@@ -107,7 +118,7 @@ int	cub3d(t_game game)
 	init_img(&game);
 	init_img_addr(&game);
 	init_spr_img(&game);
-	init_camera(&game);
+	begin_thread(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_released, &game);
 	//mlx_hook(game.win, 6, 1L << 6, mouse_hook, &game);

@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 14:49:05 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 23:24:04 by min-kang         ###   ########.fr       */
+/*   Created: 2022/06/29 23:57:37 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/29 23:57:38 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_H
-# define SPRITE_H
+#include "cub3d.h"
 
-# include <pthread.h>
-
-typedef struct s_camera
+void	*change_spr_img(void *g)
 {
-	float	plane_x;
-	float	plane_y;
-	float	dir_x;
-	float	dir_y;
-}	t_camera;
+	t_game		*game;
+	unsigned int	i;
 
-typedef struct s_sprite {
-	float	x;
-	float	y;
-	float	c;
-	float	x_trans;
-	float	y_trans;
-	float	x_screen;
-	float	w;
-	float	h;
-	int		start_x;
-	int		start_y;
-	int		end_x;
-	int		end_y;
-}	t_sprite;
+	game = (t_game *) g;
+	i = 0;
+	while (1)
+	{
+		game->texture.spr_now = i++ % 4;
+		game->hook.re = true;
+		usleep(250000);
+	}
+	return (NULL);
+}
 
-#endif
+void	begin_thread(t_game *game)
+{
+	pthread_t	th;
+
+	pthread_create(&th, NULL, &change_spr_img, game);
+	pthread_detach(th);
+	
+}

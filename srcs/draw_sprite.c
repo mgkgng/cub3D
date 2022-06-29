@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:38:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 22:51:02 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 23:33:47 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ static void	put_sprite(t_game *game, t_sprite spr_info, float *dist, t_img img)
 	int	tex_y;
 	int	d;
 
-	printf("%d...start_x\n", spr_info.start_x);
 	x = spr_info.start_x - 1;
 	while (++x < spr_info.end_x)
 	{
