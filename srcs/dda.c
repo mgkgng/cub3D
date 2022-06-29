@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:55:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:30:46 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:33:19 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static t_ray	get_dist_x(t_map *map, int *where, float theta)
 		res.wall.y += dda.incre;
 	}
 	res.dist = perpendicular_dist(map->pos, res.wall, map->theta + PI / 2);
-
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 15:38:32 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:33:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static void	draw_by_ray(t_game *game)
 	while (++ray_n < SCREEN_X)
 	{
 		angle = start_angle + (ray_n + 1) * ANGLE / SCREEN_X;
-		//game->camera.camera_x = ray_n / (double) 920;
 		if (angle < 0)
 			angle += M_PI * 2;
 		if (angle > M_PI * 2)
@@ -104,7 +103,8 @@ static void	draw_by_ray(t_game *game)
 		dist[ray_n] = ray.dist;
 		draw_ray(game, &ray, ray_n, angle);
 	}
-	draw_sprite(game, (float *) dist, game->texture.sprite[0]);
+	if (game->map.spr_nb)
+		draw_sprite(game, (float *) dist, game->texture.sprite[0]);
 }
 
 int	draw(t_game *game)

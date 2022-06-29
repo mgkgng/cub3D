@@ -3,41 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:49:51 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 12:13:34 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:40:16 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_point	*get_sprite(char **map)
+static void	put_sprite(t_map *map, int i, int j, int count)
 {
-	int 	i;
-	int 	j;
-	t_point	*spr;
-	int		count;
-	
+	if (!count)
+		map->spr = ft_calloc(2, sizeof(t_point));
+	else
+		map->spr = ft_realloc(map->spr, sizeof(t_point) * (count + 2));
+		map->spr[count].x = j;
+		map->spr[count++].y = i;
+		map->spr[count].x = -1;
+		map->spr[count].y = -1;
+}
+
+void	get_sprite(t_map *map, char **charmap)
+{
+	int	i;
+	int	j;
+	int	count;
+
 	i = -1;
 	count = 0;
-	while (map[++i])
+	while (charmap[++i])
 	{
 		j = -1;
-		while (map[i][++j])
-			if (map[i][j] == 'Z')
-			{
-                if (!count)
-		            spr = ft_calloc(1, sizeof(t_point) + 1);
-	            else
-		            spr = ft_realloc(spr, sizeof(t_point) * (count + 2));
-	            spr[count].x = j;
-	            spr[count++].y = i;
-	            spr[count].x = -1;
-	            spr[count].y = -1;
-            }
+		while (charmap[i][++j])
+			if (charmap[i][j] == 'Z')
+				put_sprite(map, i, j, count);
 	}
+	map->spr_nb = count;
 	if (!count)
-		return (NULL);
-	return (spr);
+		map->spr = NULL;
 }

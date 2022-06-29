@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 22:42:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 19:32:21 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:56:22 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_map	get_map(char **lines)
 	put_info(&map, lines + 6);
 	map.map_move = get_map_move(map, lines + 6);
 	map.map_wall = get_map_wall(map, lines + 6);
-	map.spr = get_sprite(lines + 6);
+	get_sprite(&map, lines + 6);
 	check_map_horizontal(lines + 6);
 	check_map_vertical(&map);
 	return (map);

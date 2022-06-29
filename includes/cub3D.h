@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 15:02:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:26:21 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ typedef struct s_camera
 	float 	plane_y;
 	float	dir_x;
 	float	dir_y;
-	float	camera_x;
 }	t_camera;
 
 typedef struct s_game 
@@ -176,6 +175,8 @@ unsigned int	get_data_color(int x, int y, void *addr, t_img img);
 t_tex_info		get_tex_info(t_point wall, int h, int start);
 t_img			which_texture(int wall_side, t_texture *text, float angle);
 void			paint_background(t_game *game);
+void			draw_sprite(t_game *game, float *dist, t_img img);
+
 
 int		terminate(t_game *game);
 /*parse utils*/
@@ -189,8 +190,6 @@ int		mouse_hook(int x, int y, t_game *game);
 void	turn(t_game *game, t_map *map, int dir);
 /*draw*/
 void	paint_background(t_game *game);
-
-void	draw_text(t_game *game, t_ray ray, int ray_n, float angle);
 
 float	perpendicular_dist(t_point from, t_point to, float angle);
 //void	draw_text(t_game *game, t_img img, int h, t_ray ray, int ray_n);
@@ -218,6 +217,6 @@ void	free_chartab(char **tab);
 
 /* sprite */
 float	get_sprite_dist(t_point ray_p, float dist, float theta);
-t_point	*get_sprite(char **map);
+void	get_sprite(t_map *map, char **charmap);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 23:34:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/27 22:11:05 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:33:43 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	is_object(t_ray *ray, t_map *map, int *pos)
 		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
 				perpendicular_dist(map->pos, ray->wall,
 					map->theta + PI / 2), DOOR, map_pos));
-
 }
 
 float	perpendicular_dist(t_point from, t_point to, float angle)

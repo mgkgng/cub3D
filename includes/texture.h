@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 18:16:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 19:24:30 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:36:41 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_texture {
 	t_img	wall_e;
 	t_img	door_o;
 	t_img	door_c;
-	t_img	sprite[4];
+	t_img	spr[4];
 }	t_texture;
 
 

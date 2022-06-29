@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/28 18:40:11 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:11:38 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	turn(t_game *game, t_map *map, int dir)
 {
 	float	turn;
 	float	old_plane_x;
-	
+
 	turn = dir * PI / 100;
 	map->theta += turn;
 	if (map->theta > PI * 2)
@@ -40,8 +40,10 @@ void	turn(t_game *game, t_map *map, int dir)
 	old_plane_x = game->camera.plane_x;
 	game->camera.dir_x = cos(map->theta);
 	game->camera.dir_y = sin(map->theta);
-    game->camera.plane_x = game->camera.plane_x * cos(turn) - game->camera.plane_y * sin(turn);
-    game->camera.plane_y = old_plane_x * sin(turn) + game->camera.plane_y * cos(turn);
+	game->camera.plane_x = game->camera.plane_x * cos(turn)
+		- game->camera.plane_y * sin(turn);
+	game->camera.plane_y = old_plane_x * sin(turn)
+		+ game->camera.plane_y * cos(turn);
 }
 
 void	move(t_game *game)
