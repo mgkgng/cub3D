@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 18:16:50 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 18:04:54 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 23:41:44 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef struct s_texture {
 	t_img	wall_e;
 	t_img	door_o;
 	t_img	door_c;
-	t_img	spr[4];
+	t_img	spr[7];
+	int		spr_now;
 }	t_texture;
 
 typedef struct s_tex_info {
