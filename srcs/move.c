@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:46:41 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 21:25:20 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 22:49:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ void	turn(t_map *map, int dir)
 	old_plane_x = map->camera.plane_x;
 	map->camera.dir_x = cos(map->theta);
 	map->camera.dir_y = sin(map->theta);
-	map->camera.plane_x = map->camera.plane_x * cos(turn)
-		- map->camera.plane_y * sin(turn);
-	map->camera.plane_y = old_plane_x * sin(turn)
-		+ map->camera.plane_y * cos(turn);
+	map->camera.plane_x = map->camera.plane_x * cos(turn) - map->camera.plane_y * sin(turn);
+	map->camera.plane_y = old_plane_x * sin(turn) + map->camera.plane_y * cos(turn);
 }
 
 void	move(t_game *game)

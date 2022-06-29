@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 22:07:55 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 23:06:54 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,10 @@ static void	init_camera(t_game *game)
 {
 	game->map.camera.dir_x = cos(game->map.theta);
 	game->map.camera.dir_y = sin(game->map.theta) * -1;
-	game->map.camera.plane_x = 0.66 * sin(game->map.theta);
+	game->map.camera.plane_x = 0.66 * sin(game->map.theta) * -1;
 	game->map.camera.plane_y = 0.66 * cos(game->map.theta);
 }
+
 int	cub3d(t_game game)
 {
 	init_game(&game);
@@ -109,7 +110,7 @@ int	cub3d(t_game game)
 	init_camera(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_released, &game);
-	mlx_hook(game.win, 6, 1L << 6, mouse_hook, &game);
+	//mlx_hook(game.win, 6, 1L << 6, mouse_hook, &game);
 	mlx_loop_hook(game.mlx, draw, &game);
 	mlx_loop(game.mlx);
 	return (terminate(&game));
