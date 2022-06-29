@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 14:49:05 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 18:08:15 by min-kang         ###   ########.fr       */
+/*   Created: 2022/06/29 18:00:30 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/29 18:09:09 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_H
-# define SPRITE_H
+#ifndef DRAW_H
+# define DRAW_H
 
-typedef struct s_camera
-{
-	float	plane_x;
-	float	plane_y;
-	float	dir_x;
-	float	dir_y;
-}	t_camera;
+# define BLOCKSIZE 18
+# define MINI_X 20
+# define MINI_Y 20
+# define MINI_SQUARE 50
+# define MINI_W 250
+# define MINI_H 250
+# define SCREEN_X 920
+# define SCREEN_Y 600
 
-typedef struct s_sprite {
-	float	x;
-	float	y;
-	float	c;
-	float	x_trans;
-	float	y_trans;
-	float	x_screen;
-	float	w;
-	float	h;
-	int		start_x;
-	int		start_y;
-	int		end_x;
-	int		end_y;
-}	t_sprite;
+typedef struct s_dda {
+	float	delta;
+	int		incre;
+	int		side;
+}	t_dda;
 
 #endif

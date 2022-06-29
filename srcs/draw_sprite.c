@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:38:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 16:34:46 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:52:38 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,12 @@ void	draw_sprite(t_game *game, float *dist, t_img img)
 	{
 		spr_info = get_sprite_info(game, game->camera,
 				game->map.spr[spr_sort[i]]);
-		x = spr_info.start_x - 1;
-		if (spr_info.y_trans <= 0 || x <= 0
-			|| x >= SCREEN_X || spr_info.y_trans >= dist[i])
+		x = spr_info.start_x;
+		printf("%f...%d...\n", spr_info.y_trans, x);
+		if (spr_info.y_trans <= 0 || x < 0
+			|| x >= SCREEN_X || spr_info.y_trans >= dist[x])
 			continue ;
-		put_sprite(game, spr_info, img, x);
+		put_sprite(game, spr_info, img, x - 1);
 	}
 	free(spr_sort);
 }

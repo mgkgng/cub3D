@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 23:34:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 16:33:43 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:18:33 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ void	is_object(t_ray *ray, t_map *map, int *pos)
 {
 	t_point	map_pos;
 
+	if (map->map_wall[pos[0]][pos[1]] != 'D')
+		return ;
 	map_pos.x = pos[1];
 	map_pos.y = pos[0];
-	if (map->map_wall[pos[0]][pos[1]] == 'D')
-		ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
-				perpendicular_dist(map->pos, ray->wall,
-					map->theta + PI / 2), DOOR, map_pos));
+	ft_lstadd_front(&ray->object, ft_lstnew(ray->wall,
+			perpendicular_dist(map->pos, ray->wall,
+				map->theta + PI / 2), map_pos));
 }
 
 float	perpendicular_dist(t_point from, t_point to, float angle)

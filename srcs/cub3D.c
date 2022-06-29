@@ -6,7 +6,7 @@
 /*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 16:37:24 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 16:41:25 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	cub3d(t_game game)
 	init_img(&game);
 	init_img_addr(&game);
 	init_spr_img(&game);
-	init_camera(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_released, &game);
 	mlx_hook(game.win, 6, 1L << 6, mouse_hook, &game);

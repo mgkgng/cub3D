@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 16:33:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:19:26 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,14 @@ static void	draw_door(t_game *game, t_list *obj, int ray_n)
 
 static void	draw_ray(t_game *game, t_ray *ray, int ray_x, float angle)
 {
-	t_list	*current_obj;
+	t_list	*current_door;
 
 	draw_wall(game, *ray, ray_x, angle);
-	current_obj = ray->object;
-	while (current_obj)
+	current_door = ray->object;
+	while (current_door)
 	{
-		if (current_obj->type == DOOR)
-			draw_door(game, current_obj, ray_x);
-		current_obj = current_obj->next;
+		draw_door(game, current_door, ray_x);
+		current_door = current_door->next;
 	}
 	free_list(ray->object);
 }
@@ -104,7 +103,7 @@ static void	draw_by_ray(t_game *game)
 		draw_ray(game, &ray, ray_n, angle);
 	}
 	if (game->map.spr_nb)
-		draw_sprite(game, (float *) dist, game->texture.sprite[0]);
+		draw_sprite(game, (float *) dist, game->texture.spr[0]);
 }
 
 int	draw(t_game *game)

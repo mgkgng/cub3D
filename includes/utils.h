@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 14:49:05 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 18:08:15 by min-kang         ###   ########.fr       */
+/*   Created: 2022/06/29 18:02:34 by min-kang          #+#    #+#             */
+/*   Updated: 2022/06/29 18:17:00 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_H
-# define SPRITE_H
+#ifndef UTILS_H
+# define UTILS_H
 
-typedef struct s_camera
-{
-	float	plane_x;
-	float	plane_y;
-	float	dir_x;
-	float	dir_y;
-}	t_camera;
-
-typedef struct s_sprite {
+typedef struct s_point {
 	float	x;
 	float	y;
-	float	c;
-	float	x_trans;
-	float	y_trans;
-	float	x_screen;
-	float	w;
-	float	h;
-	int		start_x;
-	int		start_y;
-	int		end_x;
-	int		end_y;
-}	t_sprite;
+}	t_point;
+
+typedef struct s_list {
+	t_point			pos;
+	t_point			map_pos;
+	float			dist;
+	struct s_list	*next;
+}	t_list;
 
 #endif

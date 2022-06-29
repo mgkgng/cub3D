@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:39:16 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/19 20:40:45 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:08:47 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_key {
 	KEY_MINI_ZOOM_IN = 126,
 	KEY_MINI_ZOOM_OUT = 125,
 	KEY_DOOR = 14
-} t_key;
+}	t_key;
 
 typedef enum e_pressed {
 	UP = 1 << 0,
@@ -36,6 +36,14 @@ typedef enum e_pressed {
 	TURN_R = 1 << 5,
 	MOUSE_L = 1 << 6,
 	MOUSE_R = 1 << 7,
-} t_pressed;
+}	t_pressed;
+
+typedef struct s_hook {
+	bool			re;
+	int				flag;
+	unsigned int	minimap_on;
+	unsigned int	minimap_size;
+	int				mouse_x_prev;
+}	t_hook;
 
 #endif
