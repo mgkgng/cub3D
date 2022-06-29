@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:38:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 21:46:58 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 21:48:50 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	find_max_index(float *dist, int nb, int already)
 	return (res);
 }
 
-static int	*sort_sprites(t_map *map, int nb)
+/*static int	*sort_sprites(t_map *map, int nb)
 {
 	int		i;
 	int		*res;
@@ -55,6 +55,24 @@ static int	*sort_sprites(t_map *map, int nb)
 		already = max;
 	}
 	free(spr_dist);
+	return (res);
+}*/
+int	*sort_sprites(float *dist, int nb)
+{
+	int	i;
+	int	*res;
+	int	already;
+	int	max;
+
+	res = ft_calloc(nb, sizeof(int));
+	i = -1;
+	already = -1;
+	while (++i < nb)
+	{
+		max = find_max_index(dist, nb, already);
+		res[i] = max;
+		already = max;
+	}
 	return (res);
 }
 
@@ -140,6 +158,10 @@ void	draw_sprite(t_game *game, t_map *map, float *dist, t_img img)
 
 	if (!game->map.spr)
 		return ;
+	sprite_nb = 0;
+	i = -1;
+	while (game->map.spr[++i].x != -1)
+		sprite_nb++;
 
 	float	*spr_dist = ft_calloc(sprite_nb, sizeof(float));
     for(int i = 0; i < sprite_nb; i++)
