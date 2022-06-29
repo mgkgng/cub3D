@@ -3,25 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <min-kang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:49:51 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 16:49:59 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/29 22:24:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	put_sprite(t_map *map, int i, int j, int count)
+static t_point	*put_sprite(t_map *map, int i, int j, int count)
 {
+	t_point	*res;
+
 	if (!count)
-		map->spr = ft_calloc(2, sizeof(t_point));
+		res = ft_calloc(2, sizeof(t_point));
 	else
-		map->spr = ft_realloc(map->spr, sizeof(t_point) * (count + 2));
-		map->spr[count].x = j;
-		map->spr[count].y = i;
-		map->spr[count].x = -1;
-		map->spr[count].y = -1;
+	{
+		res = ft_calloc(count + 2, sizeof(t_point));
+		ft_memcpy(res, map->spr, count * sizeof(t_point));
+	}
+	res[count].x = j;
+	res[count].y = i;
+	res[count + 1].x = -1;
+	res[count + 1].y = -1;
+	return (res);
 }
 
 void	get_sprite(t_map *map, char **charmap)
@@ -37,7 +43,7 @@ void	get_sprite(t_map *map, char **charmap)
 		j = -1;
 		while (charmap[i][++j])
 			if (charmap[i][j] == 'Z')
-				put_sprite(map, i, j, count++);
+				map->spr = put_sprite(map, i, j, count++);
 	}
 	map->spr_nb = count;
 	if (!count)
