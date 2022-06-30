@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:49:55 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:30:49 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 21:51:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,15 @@ t_tex_info	get_tex_info(t_point wall, int h, int start)
 	return (info);
 }
 
-t_img	which_texture(int wall_side, t_texture *text, float angle)
+t_img	which_texture(t_ray ray, t_map *map, t_texture *text, float angle)
 {
-	if (wall_side == 1)
+	int	pos[2];
+
+	pos[1] = (int) ray.wall.y + ray.side[1];
+	pos[0] = (int) ray.wall.x + ray.side[0];
+	if (map->map_wall[pos[1]][pos[0]] == 'D')
+		return (text->door_c);
+	else if (ray.wall_side == 1)
 	{
 		if (angle <= 3 * PI / 2 && angle >= PI / 2)
 			return (text->wall_w);
