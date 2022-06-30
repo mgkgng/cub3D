@@ -47,6 +47,7 @@ clean:
 
 fclean:		clean
 			rm -f ${NAME}
+			make fclean -C ${LIB_PATH}
 
 re:			fclean all
 
