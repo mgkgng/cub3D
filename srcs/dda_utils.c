@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 23:34:26 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 18:43:01 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 20:00:54 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	is_through(t_map *map, int x, int y)
 {
 	if (x >= 0 && x < map->width
 		&& y >= 0 && y < map->height
-		&& map->map_wall[y][x] != '1')
+		&& (map->map_move[y][x] || map->map_wall[y][x] == 'Z'))
 		return (true);
 	return (false);
 }
