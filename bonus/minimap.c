@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 20:43:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:40:29 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ static void	draw_square(t_game *game, int *where, int size, int color)
 	}
 }
 
+static void put_sprite(t_game *game, int x, int y)
+{
+	int		pos[2];
+	void	*img;
+
+	img = mlx_xpm_file_to_image(game->mlx,
+			"./texture/icon-robot.xpm", &pos[0], &pos[1]);
+	mlx_put_image_to_window(game->mlx, game->win,
+		img, x, y);	
+}
+
 static void	fill_floor(t_game *game, int size, int color)
 {
 	int	x_init;
@@ -57,9 +68,12 @@ static void	fill_floor(t_game *game, int size, int color)
 		{
 			if (x_init + i < 0 || x_init + i >= game->map.width
 				|| y_init + j < 0 || y_init + j >= game->map.height
-				|| !game->map.map_move[y_init + j][x_init + i])
+				|| (!game->map.map_move[y_init + j][x_init + i] 
+				&& game->map.map_wall[y_init + j][x_init + i] != 'Z'))
 				draw_square(game, (int [2]){i * MINI_W / size,
 					j * MINI_H / size}, MINI_W / size, color);
+			else if (game->map.map_wall[y_init + j][x_init + i] == 'Z')
+				put_sprite(game, i * MINI_W / size + 22, j * MINI_H / size + 22);				
 		}
 	}
 }
@@ -69,11 +83,10 @@ static void	put_character(t_game *game, int border)
 	void	*img;
 	int		pos[2];
 
-	img = NULL;
 	img = mlx_xpm_file_to_image(game->mlx,
 			"./texture/icon-character.xpm", &pos[0], &pos[1]);
 	mlx_put_image_to_window(game->mlx, game->win,
-		img, MINI_W / 2, MINI_H / 2 - border);
+		img, MINI_W / 2 + 4, MINI_H / 2 - border + 4);
 }	
 
 void	draw_minimap(t_game *game)
