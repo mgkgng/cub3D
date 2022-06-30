@@ -1,20 +1,29 @@
-SRCS =	srcs/main.c srcs/cub3d.c \
-		srcs/key.c srcs/move.c \
-		srcs/parse.c srcs/parse_draw.c srcs/parse_map.c srcs/parse_utils.c \
-		srcs/parse_check1.c srcs/parse_check2.c srcs/parse_obj.c \
-		srcs/dda.c srcs/dda_utils.c \
-		srcs/draw.c srcs/draw_utils.c srcs/draw_sprite.c\
-		srcs/utils.c \
-		bonus/door.c bonus/list_utils.c bonus/list_utils2.c bonus/minimap_floor.c \
-		bonus/minimap.c bonus/mouse.c bonus/thread.c bonus/init.c \
-	
+SRCS =	mandatory/main.c mandatory/cub3d.c \
+		mandatory/key.c mandatory/move.c \
+		mandatory/parse.c mandatory/parse_draw.c mandatory/parse_map.c \
+		mandatory/parse_utils.c mandatory/parse_check1.c mandatory/parse_check2.c \
+		mandatory/dda.c mandatory/dda_utils.c \
+		mandatory/draw.c mandatory/draw_utils.c \
+		mandatory/utils.c \
+
+BONUS =	bonus/main.c bonus/cub3d.c \
+		bonus/key.c bonus/move.c \
+		bonus/parse.c bonus/parse_draw.c bonus/parse_map.c bonus/parse_utils.c \
+		bonus/parse_check1.c bonus/parse_check2.c bonus/parse_obj.c \
+		bonus/dda.c bonus/dda_utils.c \
+		bonus/draw.c bonus/draw_utils.c bonus/draw_sprite.c \
+		bonus/utils.c \
+		bonus/door.c bonus/list_utils.c bonus/list_utils2.c \
+		bonus/minimap.c bonus/minimap_floor.c \
+		bonus/mouse.c bonus/thread.c bonus/init.c \
+
 NAME = cub3D
 
 OBJS = ${SRCS:.c=.o}
 
 INCLUDES = ./includes/
 
-CFLAG = -Wextra -Wall -Werror #-g -fsanitize=address
+CFLAG = -Wextra -Wall -Werror
 
 MLX = -lmlx -framework OpenGL -framework Appkit
 
@@ -38,6 +47,7 @@ clean:
 
 fclean:		clean
 			rm -f ${NAME}
+			make fclean -C ${LIB_PATH}
 
 re:			fclean all
 
