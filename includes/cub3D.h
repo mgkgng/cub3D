@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 21:35:22 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 22:02:04 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ int				draw(t_game *game);
 float			get_height(float dist, t_game *game);
 unsigned int	get_data_color(int x, int y, void *addr, t_img img);
 t_tex_info		get_tex_info(t_point wall, int h, int start);
-t_img			which_texture(t_ray ray, t_map *map, t_texture *text, float angle);
+t_img			which_texture(t_ray ray, t_map *map,
+					t_texture *text, float angle);
 void			paint_background(t_game *game);
 
 /* list */
@@ -132,6 +133,7 @@ void			free_chartab(char **tab);
 
 /* minimap */
 void			draw_minimap(t_game *game);
+void			fill_floor(t_game *game, int size, int color);
 
 /* sprite */
 void			draw_sprite(t_game *game, t_map *map, float *dist, t_img img);
