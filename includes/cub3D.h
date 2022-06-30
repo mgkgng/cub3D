@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 23:59:52 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:13:20 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ void			free_list(t_list *lst);
 void			manip_list(t_list **one, t_list *other);
 t_list			*copy_list(t_list *lst);
 void			combine_list(float dist, t_list **origin, t_list *compare);
+
+/* bonus */
+void			init_bonus(t_game *game);
 
 /* sprite */
 float			get_sprite_dist(t_point ray_p, float dist, float theta);

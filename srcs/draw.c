@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 23:51:17 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:04:45 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ static void	draw_by_ray(t_game *game)
 		draw_ray(game, &ray, ray_n, angle);
 	}
 	if (game->map.spr_nb)
-		draw_sprite(game, &game->map, (float *) dist, game->texture.spr[game->texture.spr_now]);
+		draw_sprite(game, &game->map, (float *) dist,
+			game->texture.spr[game->texture.spr_now]);
 }
 
 int	draw(t_game *game)

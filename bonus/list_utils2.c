@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 17:21:29 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 18:21:33 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:08:55 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	manip_list(t_list **one, t_list *other)
 	if ((*one)->dist < other->dist)
 	{
 		ft_lstadd_front(one, ft_lstnew(other->pos,
-			other->dist, other->map_pos));
+				other->dist, other->map_pos));
 		return ;
 	}
 	tmp = (*one)->next;
@@ -58,7 +58,7 @@ void	combine_list(float dist, t_list **origin, t_list *compare)
 			now_compare = now_compare->next;
 		}
 	}
-	while (now_compare) // i should take care here
+	while (now_compare)
 	{
 		if (now_compare->dist < dist)
 		{

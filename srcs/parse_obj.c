@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:49:51 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/29 22:24:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:43:16 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static t_point	*put_sprite(t_map *map, int i, int j, int count)
 		res = ft_calloc(count + 2, sizeof(t_point));
 		ft_memcpy(res, map->spr, count * sizeof(t_point));
 	}
-	res[count].x = j;
-	res[count].y = i;
+	res[count].x = j + 0.5;
+	res[count].y = i + 0.5;
 	res[count + 1].x = -1;
 	res[count + 1].y = -1;
 	return (res);
