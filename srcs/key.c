@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:59:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/25 21:30:56 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 19:43:49 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ int	key_pressed(int key, t_game *game)
 		terminate(game);
 	else if (key == KEY_MINI)
 		game->hook.minimap_on++;
-	else if (key == KEY_MINI_ZOOM_IN && game->hook.minimap_size > 5)
-		game->hook.minimap_size--;
-	else if (key == KEY_MINI_ZOOM_OUT && game->hook.minimap_size < 20)
-		game->hook.minimap_size++;
 	else if (key == KEY_UP && !(game->hook.flag & UP))
 		game->hook.flag += UP;
 	else if (key == KEY_DOWN && !(game->hook.flag & DOWN))
