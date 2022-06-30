@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:32:18 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 19:04:45 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 21:35:33 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	draw_wall(t_game *game, t_ray ray, int ray_n, float angle)
 	if (h < SCREEN_Y)
 		start = (SCREEN_Y - h) / 2;
 	info = get_tex_info(ray.wall, h, start);
-	info.img = which_texture(ray.wall_side, &game->texture, angle);
+	info.img = which_texture(ray, &game->map, &game->texture, angle);
 	i = -1;
 	while (++i < h && i < SCREEN_Y)
 	{

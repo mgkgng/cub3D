@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 16:18:52 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 19:40:29 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 21:01:08 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,17 @@ static void	draw_square(t_game *game, int *where, int size, int color)
 	}
 }
 
-static void put_sprite(t_game *game, int x, int y)
+static void put_obj_icon(t_game *game, int x, int y, int sprite)
 {
 	int		pos[2];
 	void	*img;
 
-	img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/icon-robot.xpm", &pos[0], &pos[1]);
+	if (sprite)
+		img = mlx_xpm_file_to_image(game->mlx,
+				"./texture/icon-robot.xpm", &pos[0], &pos[1]);
+	else
+		img = mlx_xpm_file_to_image(game->mlx,
+				"./texture/icon-door.xpm", &pos[0], &pos[1]);
 	mlx_put_image_to_window(game->mlx, game->win,
 		img, x, y);	
 }
@@ -69,11 +73,15 @@ static void	fill_floor(t_game *game, int size, int color)
 			if (x_init + i < 0 || x_init + i >= game->map.width
 				|| y_init + j < 0 || y_init + j >= game->map.height
 				|| (!game->map.map_move[y_init + j][x_init + i] 
-				&& game->map.map_wall[y_init + j][x_init + i] != 'Z'))
+				&& !ft_strchr("DZ", game->map.map_wall[y_init + j][x_init + i])))
 				draw_square(game, (int [2]){i * MINI_W / size,
 					j * MINI_H / size}, MINI_W / size, color);
 			else if (game->map.map_wall[y_init + j][x_init + i] == 'Z')
-				put_sprite(game, i * MINI_W / size + 22, j * MINI_H / size + 22);				
+				put_obj_icon(game, i * MINI_W / size + 22, j * MINI_H / size + 22, 1);				
+			else if (game->map.map_wall[y_init + j][x_init + i] == 'D'
+				&& !game->map.map_move[y_init + j][x_init + i])
+				put_obj_icon(game, i * MINI_W / size + 22, j * MINI_H / size + 22, 0);	
+				
 		}
 	}
 }

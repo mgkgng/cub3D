@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:10:06 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 19:14:05 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/06/30 21:08:36 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	init_obj_img(t_game *game)
 	int	size_info[2];
 
 	game->texture.door_o.img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/Door_o.xpm", &size_info[0], &size_info[1]);
+			"./texture/door_o.xpm", &size_info[0], &size_info[1]);
 	game->texture.door_c.img = mlx_xpm_file_to_image(game->mlx,
-			"./texture/Door_c.xpm", &size_info[0], &size_info[1]);
+			"./texture/door_c.xpm", &size_info[0], &size_info[1]);
 	game->texture.spr[0].img = mlx_xpm_file_to_image(game->mlx,
 			"./texture/robot1.xpm", &size_info[0], &size_info[1]);
 	game->texture.spr[1].img = mlx_xpm_file_to_image(game->mlx,
