@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
+/*   By: mlecherb <mlecherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:33:45 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 22:48:16 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:28:46 by mlecherb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ t_ray	digital_differential_analyzer(t_map *map, float theta)
 	res_y = get_dist_y(map,
 			(int [2]){(int) map->pos.x, (int) map->pos.y}, theta);
 	if (res_x.dist < res_y.dist)
+	{
+		res_x.wall_side = 0;
 		return (res_x);
+	}
+	res_y.wall_side = 1;
 	return (res_y);
 }
