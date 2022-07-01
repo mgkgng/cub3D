@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_bonus.c                                      :+:      :+:    :+:   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:20:43 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 22:31:04 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:00:52 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	init_game(t_game *game)
 	game->minimap.addr = mlx_get_data_addr(game->minimap.img,
 			&game->minimap.bits_per_pixel, &game->minimap.line_length,
 			&game->minimap.endian);
+	game->hook.re = true;
+	game->hook.flag = 0;
 	game->hook.mouse_x_prev = SCREEN_X / 2;
 	game->hook.minimap_on = 0;
 	game->hook.minimap_size = 7;

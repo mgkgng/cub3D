@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:36:01 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 23:06:31 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:02:44 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_dda	init_dda(float theta, int xy)
 bool	is_through(t_map *map, int x, int y)
 {
 	if (x >= 0 && x < map->width && y >= 0 && y < map->height
-		&& map->map_move[y][x])
+		&& map->map_wall[y][x] != '1')
 		return (true);
 	return (false);
 }

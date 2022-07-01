@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:31:12 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 22:48:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:01:06 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	init_game(t_game *game)
 	game->screen.addr = mlx_get_data_addr(game->screen.img,
 			&game->screen.bits_per_pixel, &game->screen.line_length,
 			&game->screen.endian);
+	game->hook.re = true;
+	game->hook.flag = 0;
 }
 
 static void	init_img(t_game *game)

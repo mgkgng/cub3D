@@ -46,7 +46,7 @@ RESET	:= "\033[0m"
 
 .c.o:
 		@printf ${GREEN}"\r\033[KCompiling objects... "${RESET}"⏳"
-		@gcc ${CFLAG} -I${INCLUDES} -c $< -o $(<:.c=.o)
+		@gcc ${CFLAG} -I${INCLUDES} -c $< -o $(<:.c=.o) 
 
 all:	${NAME}
 
@@ -60,14 +60,13 @@ ${NAME}:	${OBJS}
 			@printf ${GREEN}"\r\033[KCompiling minilibX...⏳\n"${RESET}
 			@make all -C ${MLX_PATH}
 			@gcc ${CFLAG} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} minilibx/libmlx.a ./libft/libft.a
-			@printf ${CYAN}"\r\033[KYou are ready to go 😎 🐬\n"${RESET}
 
 clean:
 			@rm -f ${SRC_PATH:.c=.o} ${BONUS_PATH:.c=.o} 
 			@make clean -C ${LIB_PATH}
 
 fclean:		clean
-			@rm -f ${SRC_PATH:.c=.o} ${BONUS_PATH:.c=.o} 
+			@rm -f ${NAME}
 			@make fclean -C ${LIB_PATH}
 
 re:			fclean all

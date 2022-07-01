@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_check1_bonus.c                               :+:      :+:    :+:   */
+/*   parse_check1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:53:33 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 22:44:07 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 14:47:27 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static void	check_door(char **map, int i, int j)
 	end_program("Door must be surrounded on their side by a wall", 0);
 }
 
-static void	check_space(char **map, int i, int j)
+static void	check_space(t_map *map, int i, int j)
 {
-	if ((i > 0 && !ft_strchr(" 1X", map[i - 1][j]))
-		|| (map[i + 1] && !ft_strchr(" 1X", map[i + 1][j])))
+	if ((i > 0 && !ft_strchr(" 1X", map->map_wall[i - 1][j]))
+		|| (i < map->height - 1 && !ft_strchr(" 1X", map->map_wall[i + 1][j])))
 		end_program("Space must be placed next to a wall or another space", 0);
-	if ((j > 0 && !ft_strchr(" 1X", map[i][j - 1]))
-		|| (map[i][j + 1] && !ft_strchr(" 1X", map[i][j + 1])))
+	if ((j > 0 && !ft_strchr(" 1X", map->map_wall[i][j - 1]))
+		|| (j < map->width - 1 && !ft_strchr(" 1X", map->map_wall[i][j + 1])))
 		end_program("Space must be placed next to a wall or another space", 0);
 }
 
@@ -75,7 +75,7 @@ void	check_map_vertical(t_map *map)
 		while (++i < map->height)
 		{
 			if (map->map_wall[i][j] == ' ')
-				check_space(map->map_wall, i, j);
+				check_space(map, i, j);
 			if (!open && !ft_strchr(" 1X", map->map_wall[i][j]))
 				open = true;
 			if (open && map->map_wall[i][j] == '1')

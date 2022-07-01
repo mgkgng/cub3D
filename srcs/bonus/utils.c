@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:13:58 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 22:54:04 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:08:42 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	terminate(t_game *game)
 	free(game->map.map_wall);
 	free(game->map.map_move);
 	free(game->draw.nswe);
+	if (game->map.spr_nb)
+		free(game->map.spr);
 	exit(0);
 }
 
