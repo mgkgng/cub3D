@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 23:04:09 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 22:55:16 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:17:05 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static char	**get_texture(char **file)
 	{
 		get_fd(file[i] + 3);
 		res[i] = ft_strdup(file[i] + 3);
+		if (open(res[i], O_RDWR) == -1)
+			end_program(res[i], 1);
 	}
 	res[i] = NULL;
 	return (res);

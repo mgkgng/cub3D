@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:45:02 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 23:06:09 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:17:53 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	check_filename(char *file)
 {
 	int	len;
 
+	if (open(file, O_RDWR) == -1)
+		end_program(file, 1);
 	len = ft_strlen(file);
 	if (len > 4 && !ft_strcmp(file + len - 4, ".cub"))
 		return (1);
