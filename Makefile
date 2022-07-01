@@ -4,7 +4,7 @@ SRCS =	mandatory/main.c mandatory/cub3d.c \
 		mandatory/parse_utils.c mandatory/parse_check1.c mandatory/parse_check2.c \
 		mandatory/dda.c mandatory/dda_utils.c \
 		mandatory/draw.c mandatory/draw_utils.c \
-		mandatory/utils.c \
+		mandatory/utils.c
 
 BONUS =	bonus/main.c bonus/cub3d.c \
 		bonus/key.c bonus/move.c \
@@ -17,9 +17,18 @@ BONUS =	bonus/main.c bonus/cub3d.c \
 		bonus/minimap.c bonus/minimap_floor.c \
 		bonus/mouse.c bonus/thread.c bonus/init.c \
 
+SRC_DIR = srcs
+
+SRC_PATH = $(addprefix $(SRC_DIR)/, $(SRCS))
+BONUS_PATH = $(addprefix $(SRC_DIR)/, $(BONUS))
+
 NAME = cub3D
 
-OBJS = ${SRCS:.c=.o}
+ifndef WITH_BONUS
+	OBJS = ${SRC_PATH:.c=.o}
+else
+	OBJS = ${BONUS_PATH:.c=.o}
+endif
 
 INCLUDES = ./includes/
 
@@ -31,23 +40,35 @@ MLX_PATH = ./minilibx/
 
 LIB_PATH = ./libft/
 
-all:		${NAME}
+GREEN	:= "\033[0m\033[1;32m"
+CYAN	:= "\033[0m\033[1;36m"
+RESET	:= "\033[0m"
+
+.c.o:
+		@printf ${GREEN}"\r\033[KCompiling objects... "${RESET}"⏳"
+		@gcc ${CFLAG} -I${INCLUDES} -c $< -o $(<:.c=.o)
+
+all:	${NAME}
+
+bonus:
+		@make WITH_BONUS=1 all
 
 ${NAME}:	${OBJS}
-			make all -C ${LIB_PATH}
-			make all -C ${MLX_PATH}
-			gcc ${CFLAGS} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} minilibx/libmlx.a ./libft/libft.a
-			
-.c.o:
-			gcc ${CFLAG} -I${INCLUDES} -c $< -o ${<:.c=.o}
-			
+			@printf "\n"
+			@printf ${GREEN}"\r\033[KCompiling libft...⏳\n"${RESET}
+			@make all -C ${LIB_PATH}
+			@printf ${GREEN}"\r\033[KCompiling minilibX...⏳\n"${RESET}
+			@make all -C ${MLX_PATH}
+			@gcc ${CFLAG} -I${INCLUDES} -o ${NAME} ${OBJS} ${MLX} minilibx/libmlx.a ./libft/libft.a
+			@printf ${CYAN}"\r\033[KYou are ready to go 😎 🐬\n"${RESET}
+
 clean:
-			rm -f ${OBJS}
-			make clean -C ${LIB_PATH}
+			@rm -f ${SRC_PATH:.c=.o} ${BONUS_PATH:.c=.o} 
+			@make clean -C ${LIB_PATH}
 
 fclean:		clean
-			rm -f ${NAME}
-			make fclean -C ${LIB_PATH}
+			@rm -f ${SRC_PATH:.c=.o} ${BONUS_PATH:.c=.o} 
+			@make fclean -C ${LIB_PATH}
 
 re:			fclean all
 

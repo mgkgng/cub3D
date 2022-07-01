@@ -11,21 +11,21 @@ OBJS = ${SRCS:.c=.o}
 
 INCLUDES = ../includes/
 
-CFLAG = -Wextra -Wall -Werror #-g -fsanitize=address
+CFLAG = -Wextra -Wall -Werror 
 
 all:		${NAME}
 
 ${NAME}:	${OBJS}
-			ar rc ${NAME} ${OBJS}
+			@ar rc ${NAME} ${OBJS}
 		
 .c.o:
-			gcc ${CFLAG} -I${INCLUDES} -c $< -o ${<:.c=.o}
+			@gcc ${CFLAG} -I${INCLUDES} -c $< -o ${<:.c=.o}
 			
 clean:
-			rm -f ${OBJS}
+			@rm -f ${OBJS}
 
 fclean:		clean
-			rm -f ${NAME}
+			@rm -f ${NAME}
 
 re:			fclean all
 

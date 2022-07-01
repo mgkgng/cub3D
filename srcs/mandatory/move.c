@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:40:35 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 22:48:35 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 10:36:56 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	translate(t_map *map, float theta)
 void	turn(t_map *map, int dir)
 {
 	float	turn;
-	float	old_plane_x;
 
 	turn = dir * PI / 100;
 	map->theta += turn;
