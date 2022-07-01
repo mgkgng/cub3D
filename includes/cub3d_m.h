@@ -6,7 +6,7 @@
 /*   By: min-kang <minguk.gaang@gmail.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:57:08 by min-kang          #+#    #+#             */
-/*   Updated: 2022/06/30 22:57:28 by min-kang         ###   ########.fr       */
+/*   Updated: 2022/07/01 10:38:58 by min-kang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,8 @@ void			check_lines(char *line);
 /* utils */
 void			end_program(char *str, int tag);
 void			put_pixel(t_img *img, int x, int y, int color);
+int				terminate(t_game *game);
+void			free_chartab(char **tab);
 
 /* key */
 int				key_pressed(int key, t_game *game);
