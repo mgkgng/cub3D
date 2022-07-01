@@ -1,8 +1,8 @@
 # 42Projects-cub3D
 
-Stat: **In progress**
+Stat: Done
 
-validated: Not yet
+validated: 125% (2022.07.01)
 
 # Authors
 
